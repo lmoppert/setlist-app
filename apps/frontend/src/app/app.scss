@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+
+.header {
+  font-weight: bold;
+
+  @include mat.toolbar-overrides((
+    container-background-color: var(--mat-sys-primary-container),
+    container-text-color: var(--mat-sys-primary),
+  ));
+  @include mat.icon-overrides((
+    color: var(--mat-sys-primary),
+  ));
+}
+
+.header-title {
+  margin-right: 20px;
+  margin-left: 20px;
+}
+.spacer {
+  flex: 1 1 auto;
+}

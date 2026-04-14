@@ -1,8 +1,8 @@
 import { httpResource } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
 import { readonly } from '@angular/forms/signals';
-import { Song } from '@shared/types';
-import { Setlist } from '@shared/types';
+import { Song } from '@setlist-app/shared-types';
+import { Setlist } from '@setlist-app/shared-types';
 
 @Injectable({ providedIn: 'root' })
 export class SetlistStore {

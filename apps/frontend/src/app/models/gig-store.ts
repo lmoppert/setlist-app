@@ -1,6 +1,6 @@
 import { httpResource } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
-import { Gig } from '@shared/types';
+import { Gig } from '@setlist-app/shared-types';
 
 @Injectable({ providedIn: 'root', })
 export class GigStore {
