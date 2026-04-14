@@ -4,10 +4,14 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
-  "dependencies": {},
   "devDependencies": {
+    "@angular-devkit/core": "~21.2.0",
+    "@nestjs/schematics": "^11.0.0",
+    "@nx/angular": "^22.6.5",
     "@nx/js": "22.6.5",
+    "@nx/nest": "^22.6.5",
     "@nx/workspace": "22.6.5",
     "nx": "22.6.5"
-  }
+  },
+  "dependencies": {}
 }
