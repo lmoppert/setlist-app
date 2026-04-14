@@ -1,1 +1,60 @@
-/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,220..1000;1,200..1000&display=swap');
+
+html {
+  height: 100%;
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$azure-palette,
+        tertiary: mat.$blue-palette,
+      ),
+      //typography: Roboto,
+      typography: Nunito,
+      density: 0,
+    )
+  );
+}
+
+body {
+  color-scheme: light;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  font: var(--mat-sys-body-medium);
+  margin: 0;
+  height: 100%;
+
+  .dark-theme {
+    color-scheme: dark;
+    background-color: var(--mat-sys-surface);
+    color: var(--mat-sys-on-surface);
+  }
+
+  .light-theme {
+    color-scheme: light;
+  }
+}
+
+// Angular Material SnackBar Styles
+mat-snack-bar-container.snackbar {
+  margin-top: 80px;
+}
+.success {
+  @include mat.snack-bar-overrides((
+    button-color: yellowgreen,
+    supporting-text-color: yellowgreen,
+  ));
+}
+.error {
+  @include mat.snack-bar-overrides((
+    container-color: mistyrose,
+    button-color: darkred,
+    supporting-text-color: darkred,
+  ));
+}
+.warning {
+  @include mat.snack-bar-overrides((
+    button-color: gold,
+    supporting-text-color: gold,
+  ));
+}

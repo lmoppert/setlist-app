@@ -1,2 +1,21 @@
-<app-nx-welcome></app-nx-welcome>
-<router-outlet></router-outlet>
+<mat-toolbar class="header">
+
+  <button matIconButton class="toggle-menu" aria-label="Seitenmenü umschalten" (click)="toggleMenu()" type="button">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="header-title">
+    Band Manager -
+    {{ titleService.title() }}
+  </span>
+
+  <span class="spacer"></span>
+
+  <button matIconButton type="button" aria-label="Switch Themes" (click)="toggleTheme()"
+          [matTooltip]="isDarkTheme() ? 'Switch to Light' : 'Switch to Dark'">
+    <mat-icon>@if (isDarkTheme()) {light_mode} @else {dark_mode}</mat-icon>
+  </button>
+
+</mat-toolbar>
+
+<router-outlet />
