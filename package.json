@@ -26,6 +26,7 @@
     "@nx/webpack": "22.6.5",
     "@nx/workspace": "22.6.5",
     "@oxc-project/runtime": "^0.115.0",
+    "@prisma/adapter-better-sqlite3": "^7.7.0",
     "@prisma/client": "^7.7.0",
     "@prisma/config": "^7.7.0",
     "@schematics/angular": "~21.2.0",

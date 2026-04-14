@@ -17,7 +17,7 @@ model Song {
   name        String
   artist      String?
   duration    Int          // in seconds
-  bpm         Int?
+  tempo       Int?
   key         String?
   
   assignments Assignment[]
