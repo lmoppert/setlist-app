@@ -1,7 +1,7 @@
 import { env } from "@prisma/config";
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaClient } from '../src/app/database/client';
-import { slugify } from "./utils";
+import { slugify } from "@setlist-app/shared-utils";
 
 const adapter = new PrismaBetterSqlite3({ url: env("DATABASE_URL") });
 const prisma = new PrismaClient({ adapter });
@@ -22,11 +22,16 @@ async function main() {
   });
 
   // Songs
-  let songName = 'Straw In The Wind';
+  const songs: string[] = [
+    'Straw In The Wind',
+    'Whitehouse Road',
+    'Hideaway',
+    'Huricane',
+  ];
   await prisma.song.create({
     data: {
-      name: songName,
-      slug: slugify(songName),
+      name: songs[0],
+      slug: slugify(songs[0]),
       artist: 'The Steel Woods',
       duration: 270,
       tempo: 57,
@@ -40,11 +45,10 @@ async function main() {
       }
     }
   });
-  songName = 'Whitehouse Road';
   await prisma.song.create({
     data: {
-      name: songName,
-      slug: slugify(songName),
+      name: songs[1],
+      slug: slugify(songs[1]),
       artist: 'Tyler Childers',
       duration: 310,
       tempo: 158,
@@ -58,11 +62,10 @@ async function main() {
       }
     }
   });
-  songName = 'Hideaway';
   await prisma.song.create({
     data: {
-      name: songName,
-      slug: slugify(songName),
+      name: songs[2],
+      slug: slugify(songs[2]),
       artist: 'The Beat Farmers',
       duration: 280,
       tempo: 138,
@@ -76,11 +79,10 @@ async function main() {
       }
     }
   });
-  songName = 'Huricane';
   await prisma.song.create({
     data: {
-      name: songName,
-      slug: slugify(songName),
+      name: songs[3],
+      slug: slugify(songs[3]),
       artist: 'The Band Of Heathens',
       duration: 310,
       tempo: 130,
@@ -105,34 +107,35 @@ async function main() {
         create: [
           {
             position: 1,
-            isObtional: false,
+            isOptional: false,
             isEncore: false,
             song: {
-              connect: { slug: 'straw-in-the-wind' },
+              connect: { slug: slugify(songs[0]) },
+  
             }
           },
           {
             position: 2,
-            isObtional: false,
+            isOptional: false,
             isEncore: false,
             song: {
-              connect: { slug: 'whitehouse-road' }
+              connect: { slug: slugify(songs[1]) },
             }
           },
           {
             position: 3,
-            isObtional: false,
+            isOptional: false,
             isEncore: false,
             song: {
-              connect: { slug: 'hideaway' }
+              connect: { slug: slugify(songs[2]) },
             }
           },
           {
             position: 4,
-            isObtional: false,
+            isOptional: false,
             isEncore: false,
             song: {
-              connect: { slug: 'hurricane' }
+              connect: { slug: slugify(songs[3]) },
             }
           }
         ]

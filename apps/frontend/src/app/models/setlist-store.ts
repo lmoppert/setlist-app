@@ -1,18 +1,30 @@
 import { httpResource } from '@angular/common/http';
 import { computed, Injectable, signal } from '@angular/core';
-import { readonly } from '@angular/forms/signals';
 import { Song } from '@setlist-app/shared-types';
 import { Setlist } from '@setlist-app/shared-types';
 
 @Injectable({ providedIn: 'root' })
 export class SetlistStore {
+  // Single Setlist
   readonly setlistId = signal<string | null>(null);
   readonly setlistResource = httpResource<Setlist>(() => {
     const id = this.setlistId();
     return id ? `/api/setlists/${id}` : undefined;
   });
+  readonly currentSetlist = computed(() => this.setlistResource.value())
+  readonly setlistIsLoading = computed(() => this.setlistResource.isLoading())
+  readonly setlistError = computed(() => this.setlistResource.error())
 
+  // List of setlists
+  readonly listResource = httpResource<Setlist[]>(() => '/api/setlists');
   readonly songResource = httpResource<Song[]>(() => '/api/songs'); 
+  readonly setlists = computed(() => this.listResource.value())
+  readonly setlistsAreLoading = computed(() => this.listResource.isLoading())
+  readonly setlistsError = computed(() => this.listResource.error())
+
+  refreshList() {
+    this.listResource.reload();
+  }
 
   // This is a derived state that combines the setlist entries with the corresponding song details.
   readonly enrichedSetlist = computed(() => {
@@ -36,7 +48,7 @@ export class SetlistStore {
     }, 0);
   })
 
-  loadSetlist(id: string) {
+  loadSetlist(id: string | null) {
     this.setlistId.set(id);
   }
 }

@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Setlists } from './setlists';
 
-import { GigList } from './gig-list';
-
-describe('GigList', () => {
-  let component: GigList;
-  let fixture: ComponentFixture<GigList>;
+describe('Setlists', () => {
+  let component: Setlists;
+  let fixture: ComponentFixture<Setlists>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GigList],
+      imports: [Setlists],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GigList);
+    fixture = TestBed.createComponent(Setlists);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

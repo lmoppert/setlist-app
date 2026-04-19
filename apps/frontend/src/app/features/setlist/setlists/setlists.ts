@@ -4,25 +4,26 @@ import { DatePipe } from '@angular/common';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
-import { GigStore } from '../../../models/gig-store';
-import { TitleService } from '../../../core/title.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
+import { TitleService } from '../../../core/title.service';
+import { SetlistStore } from '../../../models/setlist-store';
+
 @Component({
-  selector: 'app-gig-list',
+  selector: 'app-setlists',
   imports: [
     RouterLink, DatePipe, MatButtonModule, MatIconModule,
     MatProgressBarModule,
   ],
-  templateUrl: './gig-list.html',
-  styleUrl: './gig-list.scss',
+  templateUrl: './setlists.html',
+  styleUrl: './setlists.scss',
 })
-export class GigList {
-  protected store = inject(GigStore);
-  private titleService = inject(TitleService);
+export class Setlists {
+  protected store = inject(SetlistStore);
+  protected titleService = inject(TitleService);
 
   constructor() {
-    this.titleService.setTitle('Auftritte');
+    this.titleService.setTitle('Auftritte')
+    
   }
 }

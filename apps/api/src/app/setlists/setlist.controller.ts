@@ -2,7 +2,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { SetlistService } from './setlist.service';
 import { CreateSetlistDto } from './create-setlist.dto';
 
-@Controller('gigs')
+@Controller('setlists')
 export class SetlistController {
   constructor(private readonly setlistService: SetlistService) {}
 

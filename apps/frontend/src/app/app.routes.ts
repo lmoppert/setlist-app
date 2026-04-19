@@ -1,13 +1,11 @@
 import { Routes } from '@angular/router';
-import { GigList } from './features/gig/gig-list/gig-list';
-import { GigEdit } from './features/gig/gig-edit/gig-edit';
+import { SetlistEditor } from './features/setlist/setlist-editor/setlist-editor';
+import { Setlists } from './features/setlist/setlists/setlists';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/gigs', pathMatch: 'full' },
-  { path: 'gigs', component: GigList},
-  { path: 'gigs/new', component: GigEdit},
-  { path: 'gigs/:id/edit', component: GigEdit},
-  // { path: 'setlist/:id', component: SetlistEditor },
+  { path: '', redirectTo: '/setlists', pathMatch: 'full' },
+  { path: 'setlists', component: Setlists },
+  { path: 'setlists/new', component: SetlistEditor },
+  { path: 'setlists/:id/edit', component: SetlistEditor },
   // { path: 'live/:gigId', component: LiveView },
-  { path: '', redirectTo: '/gigs', pathMatch: 'full' }
 ];

@@ -1,26 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateSetlistDto } from './create-setlist.dto';
+import { slugify } from 'apps/api/prisma/utils';
 
 @Injectable()
 export class SetlistService {
   constructor(private prisma: PrismaService) {}
 
   async findAll() {
-    return this.prisma.gig.findMany({
+    return this.prisma.setlist.findMany({
       include: {
-        setlist: {
+        entries: {
           include: {
-            entries: {
-              include: {
-                song: true // Holt die Song-Details direkt mit
-              },
-              orderBy: { order: 'asc' } // Wichtig für die Reihenfolge!
-            }
-          }
+            song: true
+          },
+          orderBy: { position: 'asc' }
         }
       },
-      orderBy: { date: 'desc' } // Aktuellste Gigs zuerst
+      orderBy: { date: 'desc' }
     });
   }
 
@@ -43,10 +40,10 @@ export class SetlistService {
   async create(dto: CreateSetlistDto) {
     return this.prisma.setlist.create({
       data: {
-        //slug: dto.date + dto.location.
-        location: dto.location,
-        name: dto.name,
         date: new Date(dto.date), 
+        location: dto.location,
+        slug: slugify(dto.date + '-' + dto.location),
+        name: dto.name,
         duration: dto.duration,
       }
     })

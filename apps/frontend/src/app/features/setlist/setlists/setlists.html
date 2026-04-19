@@ -1,0 +1,18 @@
+@if (store.setlistsAreLoading()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+<div class="setlist">
+  @for (setlist of store.setlists(); track setlist.id) {
+    <div class="setlist-item" [routerLink]="['/setlists', setlist.id, 'edit']">
+      <h2 ngProjectAs="header-content">{{ setlist.location }}</h2>
+      <p>{{ setlist.date | date: 'mediumDate' }}</p>
+      <p>Dauer: {{ setlist.duration }} min</p>
+    </div>
+  }
+</div>
+
+<div class="page-actions">
+  <button matFab aria-label="Neue Setliste erstellen" type="button" routerLink="/setlists/new">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
