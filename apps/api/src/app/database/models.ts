@@ -11,7 +11,6 @@
 export type * from './models/Song.js'
 export type * from './models/Member.js'
 export type * from './models/Assignment.js'
-export type * from './models/Gig.js'
 export type * from './models/Setlist.js'
 export type * from './models/SetlistEntry.js'
 export type * from './commonInputTypes.js'

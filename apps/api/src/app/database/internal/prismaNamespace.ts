@@ -387,7 +387,6 @@ export const ModelName = {
   Song: 'Song',
   Member: 'Member',
   Assignment: 'Assignment',
-  Gig: 'Gig',
   Setlist: 'Setlist',
   SetlistEntry: 'SetlistEntry'
 } as const
@@ -405,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "song" | "member" | "assignment" | "gig" | "setlist" | "setlistEntry"
+    modelProps: "song" | "member" | "assignment" | "setlist" | "setlistEntry"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -631,80 +630,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Gig: {
-      payload: Prisma.$GigPayload<ExtArgs>
-      fields: Prisma.GigFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.GigFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.GigFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>
-        }
-        findFirst: {
-          args: Prisma.GigFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.GigFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>
-        }
-        findMany: {
-          args: Prisma.GigFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>[]
-        }
-        create: {
-          args: Prisma.GigCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>
-        }
-        createMany: {
-          args: Prisma.GigCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.GigCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>[]
-        }
-        delete: {
-          args: Prisma.GigDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>
-        }
-        update: {
-          args: Prisma.GigUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>
-        }
-        deleteMany: {
-          args: Prisma.GigDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.GigUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.GigUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>[]
-        }
-        upsert: {
-          args: Prisma.GigUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$GigPayload>
-        }
-        aggregate: {
-          args: Prisma.GigAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateGig>
-        }
-        groupBy: {
-          args: Prisma.GigGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.GigGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.GigCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.GigCountAggregateOutputType> | number
-        }
-      }
-    }
     Setlist: {
       payload: Prisma.$SetlistPayload<ExtArgs>
       fields: Prisma.SetlistFieldRefs
@@ -891,6 +816,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const SongScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   name: 'name',
   artist: 'artist',
   duration: 'duration',
@@ -922,20 +848,13 @@ export const AssignmentScalarFieldEnum = {
 export type AssignmentScalarFieldEnum = (typeof AssignmentScalarFieldEnum)[keyof typeof AssignmentScalarFieldEnum]
 
 
-export const GigScalarFieldEnum = {
-  id: 'id',
-  location: 'location',
-  date: 'date',
-  durationLimit: 'durationLimit',
-  setlistId: 'setlistId'
-} as const
-
-export type GigScalarFieldEnum = (typeof GigScalarFieldEnum)[keyof typeof GigScalarFieldEnum]
-
-
 export const SetlistScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  slug: 'slug',
+  date: 'date',
+  location: 'location',
+  name: 'name',
+  duration: 'duration'
 } as const
 
 export type SetlistScalarFieldEnum = (typeof SetlistScalarFieldEnum)[keyof typeof SetlistScalarFieldEnum]
@@ -943,11 +862,11 @@ export type SetlistScalarFieldEnum = (typeof SetlistScalarFieldEnum)[keyof typeo
 
 export const SetlistEntryScalarFieldEnum = {
   id: 'id',
-  setlistId: 'setlistId',
-  songId: 'songId',
-  order: 'order',
+  position: 'position',
   isOptional: 'isOptional',
-  isEncore: 'isEncore'
+  isEncore: 'isEncore',
+  setlistId: 'setlistId',
+  songId: 'songId'
 } as const
 
 export type SetlistEntryScalarFieldEnum = (typeof SetlistEntryScalarFieldEnum)[keyof typeof SetlistEntryScalarFieldEnum]
@@ -1107,7 +1026,6 @@ export type GlobalOmitConfig = {
   song?: Prisma.SongOmit
   member?: Prisma.MemberOmit
   assignment?: Prisma.AssignmentOmit
-  gig?: Prisma.GigOmit
   setlist?: Prisma.SetlistOmit
   setlistEntry?: Prisma.SetlistEntryOmit
 }

@@ -20,40 +20,82 @@ export type SetlistModel = runtime.Types.Result.DefaultSelection<Prisma.$Setlist
 
 export type AggregateSetlist = {
   _count: SetlistCountAggregateOutputType | null
+  _avg: SetlistAvgAggregateOutputType | null
+  _sum: SetlistSumAggregateOutputType | null
   _min: SetlistMinAggregateOutputType | null
   _max: SetlistMaxAggregateOutputType | null
 }
 
+export type SetlistAvgAggregateOutputType = {
+  duration: number | null
+}
+
+export type SetlistSumAggregateOutputType = {
+  duration: number | null
+}
+
 export type SetlistMinAggregateOutputType = {
   id: string | null
+  slug: string | null
+  date: Date | null
+  location: string | null
   name: string | null
+  duration: number | null
 }
 
 export type SetlistMaxAggregateOutputType = {
   id: string | null
+  slug: string | null
+  date: Date | null
+  location: string | null
   name: string | null
+  duration: number | null
 }
 
 export type SetlistCountAggregateOutputType = {
   id: number
+  slug: number
+  date: number
+  location: number
   name: number
+  duration: number
   _all: number
 }
 
 
+export type SetlistAvgAggregateInputType = {
+  duration?: true
+}
+
+export type SetlistSumAggregateInputType = {
+  duration?: true
+}
+
 export type SetlistMinAggregateInputType = {
   id?: true
+  slug?: true
+  date?: true
+  location?: true
   name?: true
+  duration?: true
 }
 
 export type SetlistMaxAggregateInputType = {
   id?: true
+  slug?: true
+  date?: true
+  location?: true
   name?: true
+  duration?: true
 }
 
 export type SetlistCountAggregateInputType = {
   id?: true
+  slug?: true
+  date?: true
+  location?: true
   name?: true
+  duration?: true
   _all?: true
 }
 
@@ -95,6 +137,18 @@ export type SetlistAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: SetlistAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: SetlistSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: SetlistMinAggregateInputType
@@ -125,14 +179,22 @@ export type SetlistGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: SetlistCountAggregateInputType | true
+  _avg?: SetlistAvgAggregateInputType
+  _sum?: SetlistSumAggregateInputType
   _min?: SetlistMinAggregateInputType
   _max?: SetlistMaxAggregateInputType
 }
 
 export type SetlistGroupByOutputType = {
   id: string
+  slug: string
+  date: Date
+  location: string
   name: string | null
+  duration: number | null
   _count: SetlistCountAggregateOutputType | null
+  _avg: SetlistAvgAggregateOutputType | null
+  _sum: SetlistSumAggregateOutputType | null
   _min: SetlistMinAggregateOutputType | null
   _max: SetlistMaxAggregateOutputType | null
 }
@@ -157,34 +219,49 @@ export type SetlistWhereInput = {
   OR?: Prisma.SetlistWhereInput[]
   NOT?: Prisma.SetlistWhereInput | Prisma.SetlistWhereInput[]
   id?: Prisma.StringFilter<"Setlist"> | string
+  slug?: Prisma.StringFilter<"Setlist"> | string
+  date?: Prisma.DateTimeFilter<"Setlist"> | Date | string
+  location?: Prisma.StringFilter<"Setlist"> | string
   name?: Prisma.StringNullableFilter<"Setlist"> | string | null
+  duration?: Prisma.IntNullableFilter<"Setlist"> | number | null
   entries?: Prisma.SetlistEntryListRelationFilter
-  gig?: Prisma.XOR<Prisma.GigNullableScalarRelationFilter, Prisma.GigWhereInput> | null
 }
 
 export type SetlistOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  duration?: Prisma.SortOrderInput | Prisma.SortOrder
   entries?: Prisma.SetlistEntryOrderByRelationAggregateInput
-  gig?: Prisma.GigOrderByWithRelationInput
 }
 
 export type SetlistWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  slug?: string
   AND?: Prisma.SetlistWhereInput | Prisma.SetlistWhereInput[]
   OR?: Prisma.SetlistWhereInput[]
   NOT?: Prisma.SetlistWhereInput | Prisma.SetlistWhereInput[]
+  date?: Prisma.DateTimeFilter<"Setlist"> | Date | string
+  location?: Prisma.StringFilter<"Setlist"> | string
   name?: Prisma.StringNullableFilter<"Setlist"> | string | null
+  duration?: Prisma.IntNullableFilter<"Setlist"> | number | null
   entries?: Prisma.SetlistEntryListRelationFilter
-  gig?: Prisma.XOR<Prisma.GigNullableScalarRelationFilter, Prisma.GigWhereInput> | null
-}, "id">
+}, "id" | "slug">
 
 export type SetlistOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
+  duration?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.SetlistCountOrderByAggregateInput
+  _avg?: Prisma.SetlistAvgOrderByAggregateInput
   _max?: Prisma.SetlistMaxOrderByAggregateInput
   _min?: Prisma.SetlistMinOrderByAggregateInput
+  _sum?: Prisma.SetlistSumOrderByAggregateInput
 }
 
 export type SetlistScalarWhereWithAggregatesInput = {
@@ -192,70 +269,113 @@ export type SetlistScalarWhereWithAggregatesInput = {
   OR?: Prisma.SetlistScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SetlistScalarWhereWithAggregatesInput | Prisma.SetlistScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Setlist"> | string
+  slug?: Prisma.StringWithAggregatesFilter<"Setlist"> | string
+  date?: Prisma.DateTimeWithAggregatesFilter<"Setlist"> | Date | string
+  location?: Prisma.StringWithAggregatesFilter<"Setlist"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"Setlist"> | string | null
+  duration?: Prisma.IntNullableWithAggregatesFilter<"Setlist"> | number | null
 }
 
 export type SetlistCreateInput = {
   id?: string
+  slug: string
+  date: Date | string
+  location: string
   name?: string | null
+  duration?: number | null
   entries?: Prisma.SetlistEntryCreateNestedManyWithoutSetlistInput
-  gig?: Prisma.GigCreateNestedOneWithoutSetlistInput
 }
 
 export type SetlistUncheckedCreateInput = {
   id?: string
+  slug: string
+  date: Date | string
+  location: string
   name?: string | null
+  duration?: number | null
   entries?: Prisma.SetlistEntryUncheckedCreateNestedManyWithoutSetlistInput
-  gig?: Prisma.GigUncheckedCreateNestedOneWithoutSetlistInput
 }
 
 export type SetlistUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   entries?: Prisma.SetlistEntryUpdateManyWithoutSetlistNestedInput
-  gig?: Prisma.GigUpdateOneWithoutSetlistNestedInput
 }
 
 export type SetlistUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   entries?: Prisma.SetlistEntryUncheckedUpdateManyWithoutSetlistNestedInput
-  gig?: Prisma.GigUncheckedUpdateOneWithoutSetlistNestedInput
 }
 
 export type SetlistCreateManyInput = {
   id?: string
+  slug: string
+  date: Date | string
+  location: string
   name?: string | null
+  duration?: number | null
 }
 
 export type SetlistUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type SetlistUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type SetlistNullableScalarRelationFilter = {
-  is?: Prisma.SetlistWhereInput | null
-  isNot?: Prisma.SetlistWhereInput | null
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type SetlistCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
+}
+
+export type SetlistAvgOrderByAggregateInput = {
+  duration?: Prisma.SortOrder
 }
 
 export type SetlistMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
 }
 
 export type SetlistMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  slug?: Prisma.SortOrder
+  date?: Prisma.SortOrder
+  location?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  duration?: Prisma.SortOrder
+}
+
+export type SetlistSumOrderByAggregateInput = {
+  duration?: Prisma.SortOrder
 }
 
 export type SetlistScalarRelationFilter = {
@@ -263,20 +383,8 @@ export type SetlistScalarRelationFilter = {
   isNot?: Prisma.SetlistWhereInput
 }
 
-export type SetlistCreateNestedOneWithoutGigInput = {
-  create?: Prisma.XOR<Prisma.SetlistCreateWithoutGigInput, Prisma.SetlistUncheckedCreateWithoutGigInput>
-  connectOrCreate?: Prisma.SetlistCreateOrConnectWithoutGigInput
-  connect?: Prisma.SetlistWhereUniqueInput
-}
-
-export type SetlistUpdateOneWithoutGigNestedInput = {
-  create?: Prisma.XOR<Prisma.SetlistCreateWithoutGigInput, Prisma.SetlistUncheckedCreateWithoutGigInput>
-  connectOrCreate?: Prisma.SetlistCreateOrConnectWithoutGigInput
-  upsert?: Prisma.SetlistUpsertWithoutGigInput
-  disconnect?: Prisma.SetlistWhereInput | boolean
-  delete?: Prisma.SetlistWhereInput | boolean
-  connect?: Prisma.SetlistWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.SetlistUpdateToOneWithWhereWithoutGigInput, Prisma.SetlistUpdateWithoutGigInput>, Prisma.SetlistUncheckedUpdateWithoutGigInput>
+export type DateTimeFieldUpdateOperationsInput = {
+  set?: Date | string
 }
 
 export type SetlistCreateNestedOneWithoutEntriesInput = {
@@ -293,56 +401,22 @@ export type SetlistUpdateOneRequiredWithoutEntriesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.SetlistUpdateToOneWithWhereWithoutEntriesInput, Prisma.SetlistUpdateWithoutEntriesInput>, Prisma.SetlistUncheckedUpdateWithoutEntriesInput>
 }
 
-export type SetlistCreateWithoutGigInput = {
-  id?: string
-  name?: string | null
-  entries?: Prisma.SetlistEntryCreateNestedManyWithoutSetlistInput
-}
-
-export type SetlistUncheckedCreateWithoutGigInput = {
-  id?: string
-  name?: string | null
-  entries?: Prisma.SetlistEntryUncheckedCreateNestedManyWithoutSetlistInput
-}
-
-export type SetlistCreateOrConnectWithoutGigInput = {
-  where: Prisma.SetlistWhereUniqueInput
-  create: Prisma.XOR<Prisma.SetlistCreateWithoutGigInput, Prisma.SetlistUncheckedCreateWithoutGigInput>
-}
-
-export type SetlistUpsertWithoutGigInput = {
-  update: Prisma.XOR<Prisma.SetlistUpdateWithoutGigInput, Prisma.SetlistUncheckedUpdateWithoutGigInput>
-  create: Prisma.XOR<Prisma.SetlistCreateWithoutGigInput, Prisma.SetlistUncheckedCreateWithoutGigInput>
-  where?: Prisma.SetlistWhereInput
-}
-
-export type SetlistUpdateToOneWithWhereWithoutGigInput = {
-  where?: Prisma.SetlistWhereInput
-  data: Prisma.XOR<Prisma.SetlistUpdateWithoutGigInput, Prisma.SetlistUncheckedUpdateWithoutGigInput>
-}
-
-export type SetlistUpdateWithoutGigInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entries?: Prisma.SetlistEntryUpdateManyWithoutSetlistNestedInput
-}
-
-export type SetlistUncheckedUpdateWithoutGigInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  entries?: Prisma.SetlistEntryUncheckedUpdateManyWithoutSetlistNestedInput
-}
-
 export type SetlistCreateWithoutEntriesInput = {
   id?: string
+  slug: string
+  date: Date | string
+  location: string
   name?: string | null
-  gig?: Prisma.GigCreateNestedOneWithoutSetlistInput
+  duration?: number | null
 }
 
 export type SetlistUncheckedCreateWithoutEntriesInput = {
   id?: string
+  slug: string
+  date: Date | string
+  location: string
   name?: string | null
-  gig?: Prisma.GigUncheckedCreateNestedOneWithoutSetlistInput
+  duration?: number | null
 }
 
 export type SetlistCreateOrConnectWithoutEntriesInput = {
@@ -363,14 +437,20 @@ export type SetlistUpdateToOneWithWhereWithoutEntriesInput = {
 
 export type SetlistUpdateWithoutEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gig?: Prisma.GigUpdateOneWithoutSetlistNestedInput
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 export type SetlistUncheckedUpdateWithoutEntriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  date?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  location?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gig?: Prisma.GigUncheckedUpdateOneWithoutSetlistNestedInput
+  duration?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -406,31 +486,45 @@ export type SetlistCountOutputTypeCountEntriesArgs<ExtArgs extends runtime.Types
 
 export type SetlistSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  slug?: boolean
+  date?: boolean
+  location?: boolean
   name?: boolean
+  duration?: boolean
   entries?: boolean | Prisma.Setlist$entriesArgs<ExtArgs>
-  gig?: boolean | Prisma.Setlist$gigArgs<ExtArgs>
   _count?: boolean | Prisma.SetlistCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["setlist"]>
 
 export type SetlistSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  slug?: boolean
+  date?: boolean
+  location?: boolean
   name?: boolean
+  duration?: boolean
 }, ExtArgs["result"]["setlist"]>
 
 export type SetlistSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  slug?: boolean
+  date?: boolean
+  location?: boolean
   name?: boolean
+  duration?: boolean
 }, ExtArgs["result"]["setlist"]>
 
 export type SetlistSelectScalar = {
   id?: boolean
+  slug?: boolean
+  date?: boolean
+  location?: boolean
   name?: boolean
+  duration?: boolean
 }
 
-export type SetlistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["setlist"]>
+export type SetlistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "slug" | "date" | "location" | "name" | "duration", ExtArgs["result"]["setlist"]>
 export type SetlistInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   entries?: boolean | Prisma.Setlist$entriesArgs<ExtArgs>
-  gig?: boolean | Prisma.Setlist$gigArgs<ExtArgs>
   _count?: boolean | Prisma.SetlistCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type SetlistIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -440,11 +534,14 @@ export type $SetlistPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   name: "Setlist"
   objects: {
     entries: Prisma.$SetlistEntryPayload<ExtArgs>[]
-    gig: Prisma.$GigPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
+    slug: string
+    date: Date
+    location: string
     name: string | null
+    duration: number | null
   }, ExtArgs["result"]["setlist"]>
   composites: {}
 }
@@ -840,7 +937,6 @@ readonly fields: SetlistFieldRefs;
 export interface Prisma__SetlistClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   entries<T extends Prisma.Setlist$entriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setlist$entriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SetlistEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  gig<T extends Prisma.Setlist$gigArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Setlist$gigArgs<ExtArgs>>): Prisma.Prisma__GigClient<runtime.Types.Result.GetResult<Prisma.$GigPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -871,7 +967,11 @@ export interface Prisma__SetlistClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface SetlistFieldRefs {
   readonly id: Prisma.FieldRef<"Setlist", 'String'>
+  readonly slug: Prisma.FieldRef<"Setlist", 'String'>
+  readonly date: Prisma.FieldRef<"Setlist", 'DateTime'>
+  readonly location: Prisma.FieldRef<"Setlist", 'String'>
   readonly name: Prisma.FieldRef<"Setlist", 'String'>
+  readonly duration: Prisma.FieldRef<"Setlist", 'Int'>
 }
     
 
@@ -1095,7 +1195,7 @@ export type SetlistCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   /**
    * The data needed to create a Setlist.
    */
-  data?: Prisma.XOR<Prisma.SetlistCreateInput, Prisma.SetlistUncheckedCreateInput>
+  data: Prisma.XOR<Prisma.SetlistCreateInput, Prisma.SetlistUncheckedCreateInput>
 }
 
 /**
@@ -1284,25 +1384,6 @@ export type Setlist$entriesArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.SetlistEntryScalarFieldEnum | Prisma.SetlistEntryScalarFieldEnum[]
-}
-
-/**
- * Setlist.gig
- */
-export type Setlist$gigArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Gig
-   */
-  select?: Prisma.GigSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Gig
-   */
-  omit?: Prisma.GigOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.GigInclude<ExtArgs> | null
-  where?: Prisma.GigWhereInput
 }
 
 /**

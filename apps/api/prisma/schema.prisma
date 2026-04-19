@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 // Get a free hosted Postgres database in seconds: `npx create-db`
 
 generator client {
@@ -14,6 +13,7 @@ datasource db {
 
 model Song {
   id          String       @id @default(uuid())
+  slug        String       @unique
   name        String
   artist      String?
   duration    Int          // in seconds
@@ -21,7 +21,7 @@ model Song {
   key         String?
   
   assignments Assignment[]
-  setlistEntries SetlistEntry[]
+  entries     SetlistEntry[]
 }
 
 model Member {
@@ -44,30 +44,29 @@ model Assignment {
   member     Member  @relation(fields: [memberId], references: [id])
 }
 
-model Gig {
-  id            String   @id @default(uuid())
-  location      String
-  date          DateTime
-  durationLimit Int
-  setlistId     String?  @unique
-  setlist       Setlist? @relation(fields: [setlistId], references: [id])
-}
-
 model Setlist {
-  id      String         @id @default(uuid())
-  name    String?
+  id        String   @id @default(uuid())
+  slug      String   @unique
+  date      DateTime
+  location  String
+
+  name      String?
+  duration  Int?
+  
   entries SetlistEntry[]
-  gig     Gig?
 }
 
 model SetlistEntry {
-  id        String  @id @default(uuid())
-  setlistId String
-  songId    String
-  order     Int
+  id         String  @id @default(uuid())
+  position   Int
   isOptional Boolean @default(false)
   isEncore   Boolean @default(false)
 
-  setlist   Setlist @relation(fields: [setlistId], references: [id])
-  song      Song    @relation(fields: [songId], references: [id])
+  setlistId  String
+  setlist    Setlist @relation(fields: [setlistId], references: [id], onDelete: Cascade)
+  
+  songId     String
+  song       Song    @relation(fields: [songId], references: [id])
+
+  @@unique([setlistId, position])
 }

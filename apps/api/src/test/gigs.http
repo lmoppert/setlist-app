@@ -1,0 +1,17 @@
+GET http://localhost:3000/api/gigs/ HTTP/1.1
+
+###
+
+GET http://localhost:3000/api/gigs/2a7471c7-a733-4e08-84f0-5bf0f67d89cc HTTP/1.1
+
+###
+
+POST http://localhost:3000/api/gigs/ HTTP/1.1
+content-type: application/json
+
+{
+  "location": "Kajüte Ratzdorf",
+  "date": "2025-08-02T00:00:00.000Z",
+  "duration": 90,
+  "name": "ROA"
+}

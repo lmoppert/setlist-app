@@ -57,11 +57,6 @@ export type Member = Prisma.MemberModel
  */
 export type Assignment = Prisma.AssignmentModel
 /**
- * Model Gig
- * 
- */
-export type Gig = Prisma.GigModel
-/**
  * Model Setlist
  * 
  */

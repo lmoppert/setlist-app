@@ -54,7 +54,6 @@ export const ModelName = {
   Song: 'Song',
   Member: 'Member',
   Assignment: 'Assignment',
-  Gig: 'Gig',
   Setlist: 'Setlist',
   SetlistEntry: 'SetlistEntry'
 } as const
@@ -74,6 +73,7 @@ export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof
 
 export const SongScalarFieldEnum = {
   id: 'id',
+  slug: 'slug',
   name: 'name',
   artist: 'artist',
   duration: 'duration',
@@ -105,20 +105,13 @@ export const AssignmentScalarFieldEnum = {
 export type AssignmentScalarFieldEnum = (typeof AssignmentScalarFieldEnum)[keyof typeof AssignmentScalarFieldEnum]
 
 
-export const GigScalarFieldEnum = {
-  id: 'id',
-  location: 'location',
-  date: 'date',
-  durationLimit: 'durationLimit',
-  setlistId: 'setlistId'
-} as const
-
-export type GigScalarFieldEnum = (typeof GigScalarFieldEnum)[keyof typeof GigScalarFieldEnum]
-
-
 export const SetlistScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  slug: 'slug',
+  date: 'date',
+  location: 'location',
+  name: 'name',
+  duration: 'duration'
 } as const
 
 export type SetlistScalarFieldEnum = (typeof SetlistScalarFieldEnum)[keyof typeof SetlistScalarFieldEnum]
@@ -126,11 +119,11 @@ export type SetlistScalarFieldEnum = (typeof SetlistScalarFieldEnum)[keyof typeo
 
 export const SetlistEntryScalarFieldEnum = {
   id: 'id',
-  setlistId: 'setlistId',
-  songId: 'songId',
-  order: 'order',
+  position: 'position',
   isOptional: 'isOptional',
-  isEncore: 'isEncore'
+  isEncore: 'isEncore',
+  setlistId: 'setlistId',
+  songId: 'songId'
 } as const
 
 export type SetlistEntryScalarFieldEnum = (typeof SetlistEntryScalarFieldEnum)[keyof typeof SetlistEntryScalarFieldEnum]

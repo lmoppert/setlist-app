@@ -6,7 +6,7 @@
     <div class="gig-item" [routerLink]="['/gigs', gig.id, 'edit']">
       <h2 ngProjectAs="header-content">{{ gig.location }}</h2>
       <p>{{ gig.date | date: 'mediumDate' }}</p>
-      <p>Dauer: {{ gig.maxDuration }} min</p>
+      <p>Dauer: {{ gig.duration }} min</p>
     </div>
   }
 </div>

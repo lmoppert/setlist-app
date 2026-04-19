@@ -27,75 +27,75 @@ export type AggregateSetlistEntry = {
 }
 
 export type SetlistEntryAvgAggregateOutputType = {
-  order: number | null
+  position: number | null
 }
 
 export type SetlistEntrySumAggregateOutputType = {
-  order: number | null
+  position: number | null
 }
 
 export type SetlistEntryMinAggregateOutputType = {
   id: string | null
-  setlistId: string | null
-  songId: string | null
-  order: number | null
+  position: number | null
   isOptional: boolean | null
   isEncore: boolean | null
+  setlistId: string | null
+  songId: string | null
 }
 
 export type SetlistEntryMaxAggregateOutputType = {
   id: string | null
-  setlistId: string | null
-  songId: string | null
-  order: number | null
+  position: number | null
   isOptional: boolean | null
   isEncore: boolean | null
+  setlistId: string | null
+  songId: string | null
 }
 
 export type SetlistEntryCountAggregateOutputType = {
   id: number
-  setlistId: number
-  songId: number
-  order: number
+  position: number
   isOptional: number
   isEncore: number
+  setlistId: number
+  songId: number
   _all: number
 }
 
 
 export type SetlistEntryAvgAggregateInputType = {
-  order?: true
+  position?: true
 }
 
 export type SetlistEntrySumAggregateInputType = {
-  order?: true
+  position?: true
 }
 
 export type SetlistEntryMinAggregateInputType = {
   id?: true
-  setlistId?: true
-  songId?: true
-  order?: true
+  position?: true
   isOptional?: true
   isEncore?: true
+  setlistId?: true
+  songId?: true
 }
 
 export type SetlistEntryMaxAggregateInputType = {
   id?: true
-  setlistId?: true
-  songId?: true
-  order?: true
+  position?: true
   isOptional?: true
   isEncore?: true
+  setlistId?: true
+  songId?: true
 }
 
 export type SetlistEntryCountAggregateInputType = {
   id?: true
-  setlistId?: true
-  songId?: true
-  order?: true
+  position?: true
   isOptional?: true
   isEncore?: true
+  setlistId?: true
+  songId?: true
   _all?: true
 }
 
@@ -187,11 +187,11 @@ export type SetlistEntryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type SetlistEntryGroupByOutputType = {
   id: string
-  setlistId: string
-  songId: string
-  order: number
+  position: number
   isOptional: boolean
   isEncore: boolean
+  setlistId: string
+  songId: string
   _count: SetlistEntryCountAggregateOutputType | null
   _avg: SetlistEntryAvgAggregateOutputType | null
   _sum: SetlistEntrySumAggregateOutputType | null
@@ -219,47 +219,48 @@ export type SetlistEntryWhereInput = {
   OR?: Prisma.SetlistEntryWhereInput[]
   NOT?: Prisma.SetlistEntryWhereInput | Prisma.SetlistEntryWhereInput[]
   id?: Prisma.StringFilter<"SetlistEntry"> | string
-  setlistId?: Prisma.StringFilter<"SetlistEntry"> | string
-  songId?: Prisma.StringFilter<"SetlistEntry"> | string
-  order?: Prisma.IntFilter<"SetlistEntry"> | number
+  position?: Prisma.IntFilter<"SetlistEntry"> | number
   isOptional?: Prisma.BoolFilter<"SetlistEntry"> | boolean
   isEncore?: Prisma.BoolFilter<"SetlistEntry"> | boolean
+  setlistId?: Prisma.StringFilter<"SetlistEntry"> | string
+  songId?: Prisma.StringFilter<"SetlistEntry"> | string
   setlist?: Prisma.XOR<Prisma.SetlistScalarRelationFilter, Prisma.SetlistWhereInput>
   song?: Prisma.XOR<Prisma.SongScalarRelationFilter, Prisma.SongWhereInput>
 }
 
 export type SetlistEntryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  setlistId?: Prisma.SortOrder
-  songId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   isOptional?: Prisma.SortOrder
   isEncore?: Prisma.SortOrder
+  setlistId?: Prisma.SortOrder
+  songId?: Prisma.SortOrder
   setlist?: Prisma.SetlistOrderByWithRelationInput
   song?: Prisma.SongOrderByWithRelationInput
 }
 
 export type SetlistEntryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  setlistId_position?: Prisma.SetlistEntrySetlistIdPositionCompoundUniqueInput
   AND?: Prisma.SetlistEntryWhereInput | Prisma.SetlistEntryWhereInput[]
   OR?: Prisma.SetlistEntryWhereInput[]
   NOT?: Prisma.SetlistEntryWhereInput | Prisma.SetlistEntryWhereInput[]
-  setlistId?: Prisma.StringFilter<"SetlistEntry"> | string
-  songId?: Prisma.StringFilter<"SetlistEntry"> | string
-  order?: Prisma.IntFilter<"SetlistEntry"> | number
+  position?: Prisma.IntFilter<"SetlistEntry"> | number
   isOptional?: Prisma.BoolFilter<"SetlistEntry"> | boolean
   isEncore?: Prisma.BoolFilter<"SetlistEntry"> | boolean
+  setlistId?: Prisma.StringFilter<"SetlistEntry"> | string
+  songId?: Prisma.StringFilter<"SetlistEntry"> | string
   setlist?: Prisma.XOR<Prisma.SetlistScalarRelationFilter, Prisma.SetlistWhereInput>
   song?: Prisma.XOR<Prisma.SongScalarRelationFilter, Prisma.SongWhereInput>
-}, "id">
+}, "id" | "setlistId_position">
 
 export type SetlistEntryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  setlistId?: Prisma.SortOrder
-  songId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   isOptional?: Prisma.SortOrder
   isEncore?: Prisma.SortOrder
+  setlistId?: Prisma.SortOrder
+  songId?: Prisma.SortOrder
   _count?: Prisma.SetlistEntryCountOrderByAggregateInput
   _avg?: Prisma.SetlistEntryAvgOrderByAggregateInput
   _max?: Prisma.SetlistEntryMaxOrderByAggregateInput
@@ -272,72 +273,72 @@ export type SetlistEntryScalarWhereWithAggregatesInput = {
   OR?: Prisma.SetlistEntryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SetlistEntryScalarWhereWithAggregatesInput | Prisma.SetlistEntryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"SetlistEntry"> | string
-  setlistId?: Prisma.StringWithAggregatesFilter<"SetlistEntry"> | string
-  songId?: Prisma.StringWithAggregatesFilter<"SetlistEntry"> | string
-  order?: Prisma.IntWithAggregatesFilter<"SetlistEntry"> | number
+  position?: Prisma.IntWithAggregatesFilter<"SetlistEntry"> | number
   isOptional?: Prisma.BoolWithAggregatesFilter<"SetlistEntry"> | boolean
   isEncore?: Prisma.BoolWithAggregatesFilter<"SetlistEntry"> | boolean
+  setlistId?: Prisma.StringWithAggregatesFilter<"SetlistEntry"> | string
+  songId?: Prisma.StringWithAggregatesFilter<"SetlistEntry"> | string
 }
 
 export type SetlistEntryCreateInput = {
   id?: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
   setlist: Prisma.SetlistCreateNestedOneWithoutEntriesInput
-  song: Prisma.SongCreateNestedOneWithoutSetlistEntriesInput
+  song: Prisma.SongCreateNestedOneWithoutEntriesInput
 }
 
 export type SetlistEntryUncheckedCreateInput = {
   id?: string
-  setlistId: string
-  songId: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
+  setlistId: string
+  songId: string
 }
 
 export type SetlistEntryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   setlist?: Prisma.SetlistUpdateOneRequiredWithoutEntriesNestedInput
-  song?: Prisma.SongUpdateOneRequiredWithoutSetlistEntriesNestedInput
+  song?: Prisma.SongUpdateOneRequiredWithoutEntriesNestedInput
 }
 
 export type SetlistEntryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
-  songId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
+  songId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SetlistEntryCreateManyInput = {
   id?: string
-  setlistId: string
-  songId: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
+  setlistId: string
+  songId: string
 }
 
 export type SetlistEntryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
 }
 
 export type SetlistEntryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
-  songId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
+  songId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SetlistEntryListRelationFilter = {
@@ -350,39 +351,44 @@ export type SetlistEntryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type SetlistEntrySetlistIdPositionCompoundUniqueInput = {
+  setlistId: string
+  position: number
+}
+
 export type SetlistEntryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  setlistId?: Prisma.SortOrder
-  songId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   isOptional?: Prisma.SortOrder
   isEncore?: Prisma.SortOrder
+  setlistId?: Prisma.SortOrder
+  songId?: Prisma.SortOrder
 }
 
 export type SetlistEntryAvgOrderByAggregateInput = {
-  order?: Prisma.SortOrder
+  position?: Prisma.SortOrder
 }
 
 export type SetlistEntryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  setlistId?: Prisma.SortOrder
-  songId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   isOptional?: Prisma.SortOrder
   isEncore?: Prisma.SortOrder
+  setlistId?: Prisma.SortOrder
+  songId?: Prisma.SortOrder
 }
 
 export type SetlistEntryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  setlistId?: Prisma.SortOrder
-  songId?: Prisma.SortOrder
-  order?: Prisma.SortOrder
+  position?: Prisma.SortOrder
   isOptional?: Prisma.SortOrder
   isEncore?: Prisma.SortOrder
+  setlistId?: Prisma.SortOrder
+  songId?: Prisma.SortOrder
 }
 
 export type SetlistEntrySumOrderByAggregateInput = {
-  order?: Prisma.SortOrder
+  position?: Prisma.SortOrder
 }
 
 export type SetlistEntryCreateNestedManyWithoutSongInput = {
@@ -471,7 +477,7 @@ export type SetlistEntryUncheckedUpdateManyWithoutSetlistNestedInput = {
 
 export type SetlistEntryCreateWithoutSongInput = {
   id?: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
   setlist: Prisma.SetlistCreateNestedOneWithoutEntriesInput
@@ -479,10 +485,10 @@ export type SetlistEntryCreateWithoutSongInput = {
 
 export type SetlistEntryUncheckedCreateWithoutSongInput = {
   id?: string
-  setlistId: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
+  setlistId: string
 }
 
 export type SetlistEntryCreateOrConnectWithoutSongInput = {
@@ -515,27 +521,27 @@ export type SetlistEntryScalarWhereInput = {
   OR?: Prisma.SetlistEntryScalarWhereInput[]
   NOT?: Prisma.SetlistEntryScalarWhereInput | Prisma.SetlistEntryScalarWhereInput[]
   id?: Prisma.StringFilter<"SetlistEntry"> | string
-  setlistId?: Prisma.StringFilter<"SetlistEntry"> | string
-  songId?: Prisma.StringFilter<"SetlistEntry"> | string
-  order?: Prisma.IntFilter<"SetlistEntry"> | number
+  position?: Prisma.IntFilter<"SetlistEntry"> | number
   isOptional?: Prisma.BoolFilter<"SetlistEntry"> | boolean
   isEncore?: Prisma.BoolFilter<"SetlistEntry"> | boolean
+  setlistId?: Prisma.StringFilter<"SetlistEntry"> | string
+  songId?: Prisma.StringFilter<"SetlistEntry"> | string
 }
 
 export type SetlistEntryCreateWithoutSetlistInput = {
   id?: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
-  song: Prisma.SongCreateNestedOneWithoutSetlistEntriesInput
+  song: Prisma.SongCreateNestedOneWithoutEntriesInput
 }
 
 export type SetlistEntryUncheckedCreateWithoutSetlistInput = {
   id?: string
-  songId: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
+  songId: string
 }
 
 export type SetlistEntryCreateOrConnectWithoutSetlistInput = {
@@ -565,15 +571,15 @@ export type SetlistEntryUpdateManyWithWhereWithoutSetlistInput = {
 
 export type SetlistEntryCreateManySongInput = {
   id?: string
-  setlistId: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
+  setlistId: string
 }
 
 export type SetlistEntryUpdateWithoutSongInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
   setlist?: Prisma.SetlistUpdateOneRequiredWithoutEntriesNestedInput
@@ -581,97 +587,97 @@ export type SetlistEntryUpdateWithoutSongInput = {
 
 export type SetlistEntryUncheckedUpdateWithoutSongInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SetlistEntryUncheckedUpdateManyWithoutSongInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  setlistId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SetlistEntryCreateManySetlistInput = {
   id?: string
-  songId: string
-  order: number
+  position: number
   isOptional?: boolean
   isEncore?: boolean
+  songId: string
 }
 
 export type SetlistEntryUpdateWithoutSetlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  song?: Prisma.SongUpdateOneRequiredWithoutSetlistEntriesNestedInput
+  song?: Prisma.SongUpdateOneRequiredWithoutEntriesNestedInput
 }
 
 export type SetlistEntryUncheckedUpdateWithoutSetlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  songId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  songId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SetlistEntryUncheckedUpdateManyWithoutSetlistInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  songId?: Prisma.StringFieldUpdateOperationsInput | string
-  order?: Prisma.IntFieldUpdateOperationsInput | number
+  position?: Prisma.IntFieldUpdateOperationsInput | number
   isOptional?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isEncore?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  songId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
 
 export type SetlistEntrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  setlistId?: boolean
-  songId?: boolean
-  order?: boolean
+  position?: boolean
   isOptional?: boolean
   isEncore?: boolean
+  setlistId?: boolean
+  songId?: boolean
   setlist?: boolean | Prisma.SetlistDefaultArgs<ExtArgs>
   song?: boolean | Prisma.SongDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["setlistEntry"]>
 
 export type SetlistEntrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  setlistId?: boolean
-  songId?: boolean
-  order?: boolean
+  position?: boolean
   isOptional?: boolean
   isEncore?: boolean
+  setlistId?: boolean
+  songId?: boolean
   setlist?: boolean | Prisma.SetlistDefaultArgs<ExtArgs>
   song?: boolean | Prisma.SongDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["setlistEntry"]>
 
 export type SetlistEntrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  setlistId?: boolean
-  songId?: boolean
-  order?: boolean
+  position?: boolean
   isOptional?: boolean
   isEncore?: boolean
+  setlistId?: boolean
+  songId?: boolean
   setlist?: boolean | Prisma.SetlistDefaultArgs<ExtArgs>
   song?: boolean | Prisma.SongDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["setlistEntry"]>
 
 export type SetlistEntrySelectScalar = {
   id?: boolean
-  setlistId?: boolean
-  songId?: boolean
-  order?: boolean
+  position?: boolean
   isOptional?: boolean
   isEncore?: boolean
+  setlistId?: boolean
+  songId?: boolean
 }
 
-export type SetlistEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "setlistId" | "songId" | "order" | "isOptional" | "isEncore", ExtArgs["result"]["setlistEntry"]>
+export type SetlistEntryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "position" | "isOptional" | "isEncore" | "setlistId" | "songId", ExtArgs["result"]["setlistEntry"]>
 export type SetlistEntryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   setlist?: boolean | Prisma.SetlistDefaultArgs<ExtArgs>
   song?: boolean | Prisma.SongDefaultArgs<ExtArgs>
@@ -693,11 +699,11 @@ export type $SetlistEntryPayload<ExtArgs extends runtime.Types.Extensions.Intern
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    setlistId: string
-    songId: string
-    order: number
+    position: number
     isOptional: boolean
     isEncore: boolean
+    setlistId: string
+    songId: string
   }, ExtArgs["result"]["setlistEntry"]>
   composites: {}
 }
@@ -1124,11 +1130,11 @@ export interface Prisma__SetlistEntryClient<T, Null = never, ExtArgs extends run
  */
 export interface SetlistEntryFieldRefs {
   readonly id: Prisma.FieldRef<"SetlistEntry", 'String'>
-  readonly setlistId: Prisma.FieldRef<"SetlistEntry", 'String'>
-  readonly songId: Prisma.FieldRef<"SetlistEntry", 'String'>
-  readonly order: Prisma.FieldRef<"SetlistEntry", 'Int'>
+  readonly position: Prisma.FieldRef<"SetlistEntry", 'Int'>
   readonly isOptional: Prisma.FieldRef<"SetlistEntry", 'Boolean'>
   readonly isEncore: Prisma.FieldRef<"SetlistEntry", 'Boolean'>
+  readonly setlistId: Prisma.FieldRef<"SetlistEntry", 'String'>
+  readonly songId: Prisma.FieldRef<"SetlistEntry", 'String'>
 }
     
 
