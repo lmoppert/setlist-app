@@ -6,6 +6,6 @@ export const routes: Routes = [
   { path: '', redirectTo: '/setlists', pathMatch: 'full' },
   { path: 'setlists', component: Setlists },
   { path: 'setlists/new', component: SetlistEditor },
-  { path: 'setlists/:id/edit', component: SetlistEditor },
+  { path: 'setlists/:slug', component: SetlistEditor },
   // { path: 'live/:gigId', component: LiveView },
 ];

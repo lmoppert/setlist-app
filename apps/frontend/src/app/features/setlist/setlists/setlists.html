@@ -1,15 +1,26 @@
 @if (store.setlistsAreLoading()) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 }
-<div class="setlist">
-  @for (setlist of store.setlists(); track setlist.id) {
-    <div class="setlist-item" [routerLink]="['/setlists', setlist.id, 'edit']">
-      <h2 ngProjectAs="header-content">{{ setlist.location }}</h2>
-      <p>{{ setlist.date | date: 'mediumDate' }}</p>
-      <p>Dauer: {{ setlist.duration }} min</p>
-    </div>
+@for (yearGroup of groupedSetlists() | keyvalue: sortDescending; track yearGroup.key) {
+  <h2 class="year-header">{{ yearGroup.key }}</h2>
+  <mat-divider></mat-divider>
+  @for (setlist of yearGroup.value; track setlist.id) {
+    <a class="setlist-card" [routerLink]="['/setlists', setlist.slug]">
+      <div class="date-badge">
+        <div class="month">{{ setlist.date | date:"MMM" }}</div>
+        <div class="day">{{ setlist.date | date:"dd" }}</div>
+      </div>
+      <div class="setlist-info">
+        <span class="location">{{ setlist.location }}</span>
+        <span class="details">
+          {{ setlist.name }}
+          <span class="count">({{ setlist.entries?.length }} Songs)</span>
+        </span>
+      </div>
+    </a>
   }
-</div>
+  <mat-divider></mat-divider>
+}
 
 <div class="page-actions">
   <button matFab aria-label="Neue Setliste erstellen" type="button" routerLink="/setlists/new">

@@ -1,4 +1,49 @@
-@if (store.setlistIsLoading()) {
+@if (setlistStore.setlistIsLoading() || songStore.songsAreLoading()) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 }
-<p> EDIT Setlist works</p>
+<div class="split-screen" cdkDropListGroup>
+
+  <div class="list-container">
+    <h3>Verfügbare Songs</h3>
+    <mat-form-field>
+      <mat-label>Songs durchsuchen</mat-label>
+      <input matInput
+        placeholder="Titel oder Interpret..."
+        (input)="filterSearch($event)"
+        (keyup.escape)="searchTerm.set('')" 
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="filteredAvailableSongs()"
+      class="song-list"
+      (cdkDropListDropped)="moveSong($event)"
+    >
+      @for (song of filteredAvailableSongs(); track song.id) {
+        <div class="song-card" cdkDrag [cdkDragData]="song">
+          {{ song.name }}
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="list-container">
+    <h3>Setliste: {{ setlistStore.currentSetlist()?.location }}</h3>
+
+    <div
+      cdkDropList
+      [cdkDropListData]="setlistStore.enrichedSetlist()"
+      class="song-list active-setlist"
+      (cdkDropListDropped)="moveSong($event)"
+    >
+      @for (entry of setlistStore.enrichedSetlist(); track entry.id) {
+        <div class="song-card" cdkDrag [cdkDragData]="entry">
+          <span class="pos">{{ entry.position }}</span>
+          {{ entry.song?.name }}
+        </div>
+      }
+    </div>
+  </div>
+</div>
