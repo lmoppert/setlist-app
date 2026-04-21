@@ -61,7 +61,7 @@ export class SetlistService {
       // 1. Move all songs by one position, starting with the new entries position
       await tx.setlistEntry.updateMany({
         where: {
-          slug: slug,
+          setlistId: setlist.id,
           position: { gte: position },
         },
         data: {
@@ -86,12 +86,25 @@ export class SetlistService {
     return this.prisma.$transaction(async (tx) => {
       // 1. Search entry to identify the position and setlistId
       const entry = await tx.setlistEntry.findUnique({ where: { id: entryId } });
-      if (!entry) throw new Error('Entry not found');
+      if (!entry) throw new NotFoundException('Entry not found');
 
       // 2. Delete entry
       await tx.setlistEntry.delete({ where: { id: entryId } });
 
       // 3. Move all following entries by one position
+      // const entriesToMove = await tx.setlistEntry.findMany({
+      //   where: {
+      //     setlistId: entry.setlistId,
+      //     position: { gt: entry.position },
+      //   },
+      // });
+
+      // for (const e of entriesToMove) {
+      //   await tx.setlistEntry.update({
+      //     where: { id: e.id },
+      //     data: { position: e.position - 1 },
+      //   });
+      // }
       await tx.setlistEntry.updateMany({
         where: {
           setlistId: entry.setlistId,
@@ -106,26 +119,32 @@ export class SetlistService {
 
   async reorder(slug: string, entryId: string, newPosition: number) {
     return this.prisma.$transaction(async (tx) => {
+      const setlist = await this.prisma.setlist.findUnique({
+        where: { slug },
+        select: { id: true }
+      })
+      if (!setlist) throw new NotFoundException('Setliste nicht gefunden');
+
       const entry = await tx.setlistEntry.findUnique({ where: { id: entryId } });
       if (!entry) throw new Error('Entry not found');
 
       const oldPosition = entry.position;
 
       if (newPosition < oldPosition) {
-        // Nach oben schieben: Alles dazwischen +1
+        // Move up all entries between the positions
         await tx.setlistEntry.updateMany({
-          where: { slug, position: { gte: newPosition, lt: oldPosition } },
+          where: { setlistId: setlist.id, position: { gte: newPosition, lt: oldPosition } },
           data: { position: { increment: 1 } },
         });
       } else {
-        // Nach unten schieben: Alles dazwischen -1
+        // Move down all entries between the positions
         await tx.setlistEntry.updateMany({
-          where: { slug, position: { gt: oldPosition, lte: newPosition } },
+          where: { setlistId: setlist.id, position: { gt: oldPosition, lte: newPosition } },
           data: { position: { decrement: 1 } },
         });
       }
 
-      // Den verschobenen Song auf seine finale Position setzen
+      // Move song to final position
       return tx.setlistEntry.update({
         where: { id: entryId },
         data: { position: newPosition },

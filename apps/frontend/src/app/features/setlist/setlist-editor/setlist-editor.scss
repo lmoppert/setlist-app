@@ -1,0 +1,73 @@
+@use '@angular/material' as mat;
+
+.split-screen {
+  display: flex;
+  padding: 6px 12px;
+  padding: 1.5rem;
+  background-color: var(--mat-sys-surface-container);
+  gap: 2rem;
+
+  .list-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--mat-sys-surface-container);
+    overflow: hidden;
+
+    h3 {
+      margin: 0;
+      padding-top: 1.25rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      font-weight: 800;
+      background: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  }
+
+  .song-list {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    overflow: hidden;
+    padding: 1rem;
+    cursor: move;
+    
+    .song-card {
+      display: flex;
+      align-items: center;
+      font-weight: 600;
+      border-left: 5px solid var(--mat-sys-surface-container);
+      border-bottom: 1px solid var(--mat-sys-surface-container);
+
+      .drag-handle {
+        padding-top: 5px;
+      }
+      .pos {
+        font-weight: bold;
+        color: var(--mat-sys-primary);
+        min-width: 20px;
+        padding-left: 1rem;
+      }
+    }
+    .song-card:first-child {
+      border-top: 1px solid var(--mat-sys-surface-container);
+    }
+  }
+}
+
+
+.search-box {
+  display: flex;
+  padding: 20px 30px 0;
+
+  @include mat.form-field-overrides((
+    filled-label-display: inline,
+    filled-with-label-container-padding-bottom: 0
+  ));
+}

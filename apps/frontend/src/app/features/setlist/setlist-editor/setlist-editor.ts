@@ -10,12 +10,13 @@ import { SetlistStore } from '../../../models/setlist-store';
 import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
 import { SetlistEntry, Song } from '@setlist-app/shared-types';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
   selector: 'app-setlist-editor',
-  imports: [MatProgressBarModule, MatFormFieldModule, MatInputModule, CdkDrag,
-    CdkDropList, CdkDropListGroup, 
+  imports: [MatProgressBarModule, MatFormFieldModule, MatInputModule,
+    MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, 
   ],
   templateUrl: './setlist-editor.html',
   styleUrl: './setlist-editor.scss',
@@ -42,8 +43,9 @@ export class SetlistEditor {
     effect(() => {
       const currentSlug = this.slug();
       if (currentSlug && currentSlug !== 'new') {
-        this.setlistStore.loadSetlistBySlug(currentSlug);
-      } else {
+        this.setlistStore.loadSetlist(currentSlug);
+      }
+      else {
         this.setlistStore.loadSetlist(null);
       }
     })
@@ -54,18 +56,24 @@ export class SetlistEditor {
     })
   }
 
-  moveSong(event: CdkDragDrop<any[]>) {
-    if (event.previousContainer === event.container) {
-      // Nur sortieren innerhalb der Liste
-    } else {
-      // Verschieben zwischen den Listen
-      if (event.container.id === 'setlist-list') {
-        const song = event.item.data as Song;
-        this.setlistStore.addSong(song.id!, event.currentIndex);
-      } else {
-        const entry = event.item.data as SetlistEntry;
-        this.setlistStore.removeEntry(entry.id!);
-      }
+  async moveSong(event: CdkDragDrop<any[]>) {
+    const previousContainerId = event.previousContainer.id;
+    const currentContainerId = event.container.id;
+    console.log(`Move Container: ${previousContainerId} => ${currentContainerId}`)
+
+    if (previousContainerId === currentContainerId && currentContainerId === 'setlist-songs') {
+      const entry = event.item.data as SetlistEntry;
+      const newPosition = event.currentIndex + 1;
+      await this.setlistStore.reorderEntry(entry.id!, newPosition);
+    }
+    else if (previousContainerId === 'available-songs' && currentContainerId === 'setlist-songs') {
+      const song = event.item.data as Song;
+      const position = event.currentIndex + 1;
+      this.setlistStore.addSong(song.id!, position);
+    }
+    else if (previousContainerId === 'setlist-songs' && currentContainerId === 'available-songs') {
+      const entry = event.item.data as SetlistEntry;
+      this.setlistStore.removeEntry(entry.id!);
     }
   }
 

@@ -68,5 +68,5 @@ model SetlistEntry {
   songId     String
   song       Song    @relation(fields: [songId], references: [id])
 
-  @@unique([setlistId, position])
+  @@index([setlistId, position])
 }

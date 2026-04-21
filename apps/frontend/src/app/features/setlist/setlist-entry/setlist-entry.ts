@@ -15,9 +15,7 @@ import { FormatMonospacePipe } from '../../../shared/pipes/monospace.pipe';
 
 @Component({
   selector: 'app-setlist-entry',
-  imports: [MatIcon, MatIconButton, MatChipsModule, DurationPipe,
-    FormatMonospacePipe, RouterLink
-  ],
+  imports: [MatChipsModule, ],// MatIcon, MatIconButton, DurationPipe, FormatMonospacePipe, RouterLink ],
   templateUrl: './setlist-entry.html',
   styleUrl: './setlist-entry.scss',
 })

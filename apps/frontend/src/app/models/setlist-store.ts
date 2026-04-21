@@ -69,7 +69,7 @@ export class SetlistStore {
   async addSong(songId: string, position: number) {
     if (!this.activeSlug) return;
 
-    await firstValueFrom(this.http.post(`/api/setlists/${this.activeSlug}/entries`, {
+    await firstValueFrom(this.http.post(`/api/setlists/${this.activeSlug()}/entries`, {
       songId,
       position,
       isOptional: false,
@@ -79,7 +79,7 @@ export class SetlistStore {
   }
 
   async reorderEntry(entryId: string, newPosition: number) {
-    await firstValueFrom(this.http.patch(`/api/setlists/${this.activeSlug}/entries/reorder`, {
+    await firstValueFrom(this.http.patch(`/api/setlists/${this.activeSlug()}/entries/reorder`, {
       entryId,
       newPosition
     }));
@@ -87,7 +87,7 @@ export class SetlistStore {
   }
 
   async removeEntry(entryId: string) {
-    await firstValueFrom(this.http.delete(`/api/entries/${entryId}`));
+    await firstValueFrom(this.http.delete(`/api/setlists/entries/${entryId}`));
     this.setlistResource.reload();
   }
 }

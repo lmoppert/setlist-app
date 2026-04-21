@@ -241,7 +241,6 @@ export type SetlistEntryOrderByWithRelationInput = {
 
 export type SetlistEntryWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  setlistId_position?: Prisma.SetlistEntrySetlistIdPositionCompoundUniqueInput
   AND?: Prisma.SetlistEntryWhereInput | Prisma.SetlistEntryWhereInput[]
   OR?: Prisma.SetlistEntryWhereInput[]
   NOT?: Prisma.SetlistEntryWhereInput | Prisma.SetlistEntryWhereInput[]
@@ -252,7 +251,7 @@ export type SetlistEntryWhereUniqueInput = Prisma.AtLeast<{
   songId?: Prisma.StringFilter<"SetlistEntry"> | string
   setlist?: Prisma.XOR<Prisma.SetlistScalarRelationFilter, Prisma.SetlistWhereInput>
   song?: Prisma.XOR<Prisma.SongScalarRelationFilter, Prisma.SongWhereInput>
-}, "id" | "setlistId_position">
+}, "id">
 
 export type SetlistEntryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -349,11 +348,6 @@ export type SetlistEntryListRelationFilter = {
 
 export type SetlistEntryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type SetlistEntrySetlistIdPositionCompoundUniqueInput = {
-  setlistId: string
-  position: number
 }
 
 export type SetlistEntryCountOrderByAggregateInput = {
