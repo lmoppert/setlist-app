@@ -26,6 +26,7 @@
       (cdkDropListDropped)="moveSong($event)"
     >
       @for (song of filteredAvailableSongs(); track song.id) {
+        <!-- <app-setlist-entry song="song"></app-setlist-entry> -->
         <div class="song-card" cdkDrag [cdkDragData]="song">
           <span cdkDragHandle class="drag-handle">
             <mat-icon>drag_indicator</mat-icon>
@@ -47,6 +48,7 @@
       (cdkDropListDropped)="moveSong($event)"
     >
       @for (entry of setlistStore.enrichedSetlist(); track entry.id) {
+        <!-- <app-setlist-entry entry="entry"></app-setlist-entry> -->
         <div class="song-card" cdkDrag [cdkDragData]="entry">
           <span cdkDragHandle class="drag-handle">
             <mat-icon>drag_indicator</mat-icon>

@@ -10,6 +10,8 @@ async function main() {
   console.log('Bereinige Datenbank...')
   await prisma.assignment.deleteMany({});
   await prisma.member.deleteMany({});
+  await prisma.setlistEntry.deleteMany({});
+  await prisma.setlist.deleteMany({});
   await prisma.song.deleteMany({});
 
   console.log('Datenbank ist Leer, starte Import...')
@@ -27,6 +29,7 @@ async function main() {
     'Whitehouse Road',
     'Hideaway',
     'Huricane',
+    'Copperhead Road',
   ];
   await prisma.song.create({
     data: {
@@ -87,6 +90,23 @@ async function main() {
       duration: 310,
       tempo: 130,
       key: 'Am',
+      assignments: {
+        create: {
+          memberId: lead2.id,
+          instrument: 'E-Gitarre',
+          isLead: true
+        }
+      }
+    }
+  });
+  await prisma.song.create({
+    data: {
+      name: songs[4],
+      slug: slugify(songs[4]),
+      artist: 'Steve Earle',
+      duration: 310,
+      tempo: 83,
+      key: 'Dm',
       assignments: {
         create: {
           memberId: lead2.id,

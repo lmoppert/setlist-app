@@ -1,22 +1,22 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
+import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray,
-  transferArrayItem } from '@angular/cdk/drag-drop';
+import { MatIconModule } from '@angular/material/icon';
 
+import { SetlistEntry as EntryType, Song } from '@setlist-app/shared-types';
 import { SetlistStore } from '../../../models/setlist-store';
 import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
-import { SetlistEntry, Song } from '@setlist-app/shared-types';
-import { MatIconModule } from '@angular/material/icon';
+import { SetlistEntry } from '../setlist-entry/setlist-entry'
 
 
 @Component({
   selector: 'app-setlist-editor',
   imports: [MatProgressBarModule, MatFormFieldModule, MatInputModule,
-    MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, 
+    MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, SetlistEntry
   ],
   templateUrl: './setlist-editor.html',
   styleUrl: './setlist-editor.scss',
@@ -62,7 +62,7 @@ export class SetlistEditor {
     console.log(`Move Container: ${previousContainerId} => ${currentContainerId}`)
 
     if (previousContainerId === currentContainerId && currentContainerId === 'setlist-songs') {
-      const entry = event.item.data as SetlistEntry;
+      const entry = event.item.data as EntryType;
       const newPosition = event.currentIndex + 1;
       await this.setlistStore.reorderEntry(entry.id!, newPosition);
     }
@@ -72,7 +72,7 @@ export class SetlistEditor {
       this.setlistStore.addSong(song.id!, position);
     }
     else if (previousContainerId === 'setlist-songs' && currentContainerId === 'available-songs') {
-      const entry = event.item.data as SetlistEntry;
+      const entry = event.item.data as EntryType;
       this.setlistStore.removeEntry(entry.id!);
     }
   }

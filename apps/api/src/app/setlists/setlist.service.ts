@@ -85,8 +85,13 @@ export class SetlistService {
   async removeSongFromSetlist(entryId: string) {
     return this.prisma.$transaction(async (tx) => {
       // 1. Search entry to identify the position and setlistId
-      const entry = await tx.setlistEntry.findUnique({ where: { id: entryId } });
-      if (!entry) throw new NotFoundException('Entry not found');
+      const entry = await tx.setlistEntry.findUnique({
+        where: { id: entryId }
+      });
+      if (!entry) {
+        console.error(`Eintrag ${entryId} nicht gefunden.`)
+        return;
+      }
 
       // 2. Delete entry
       await tx.setlistEntry.delete({ where: { id: entryId } });
