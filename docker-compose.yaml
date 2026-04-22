@@ -1,0 +1,16 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    container_name: setlist-api
+    restart: always
+    environment:
+      # Die Verbindung zu deiner bestehenden Postgres-Instanz
+      - DATABASE_URL="postgres://setlist:lXKcwoxw1eykhDUsgl7ITcamaQszjfQF@172.17.0.1:5434/setlist"
+      - NODE_ENV=production
+      - PORT=3000
+    ports:
+      - "127.0.0.1:3000:3000" # Nur lokal binden, Apache leitet von außen weiter
+    extra_hosts:
+      - "host.docker.internal:host-gateway" # Hilft, den Host-Postgres zu finden

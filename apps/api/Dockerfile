@@ -9,6 +9,10 @@ RUN npx nx build api --prod
 # Production Stage
 FROM node:20-slim
 WORKDIR /app
+
+# System Bibliotheken für Prisma installieren
+RUN apt-get update -y && apt-get install -y openssl libssl-dev && rm -rf /var/lib/apt/lists/*
+
 # Nur die gebauten Dateien und die nötigsten Module kopieren
 COPY --from=builder /app/dist/apps/api .
 COPY --from=builder /app/node_modules ./node_modules
