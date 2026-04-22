@@ -492,6 +492,7 @@ export type SetlistEntryCreateOrConnectWithoutSongInput = {
 
 export type SetlistEntryCreateManySongInputEnvelope = {
   data: Prisma.SetlistEntryCreateManySongInput | Prisma.SetlistEntryCreateManySongInput[]
+  skipDuplicates?: boolean
 }
 
 export type SetlistEntryUpsertWithWhereUniqueWithoutSongInput = {
@@ -545,6 +546,7 @@ export type SetlistEntryCreateOrConnectWithoutSetlistInput = {
 
 export type SetlistEntryCreateManySetlistInputEnvelope = {
   data: Prisma.SetlistEntryCreateManySetlistInput | Prisma.SetlistEntryCreateManySetlistInput[]
+  skipDuplicates?: boolean
 }
 
 export type SetlistEntryUpsertWithWhereUniqueWithoutSetlistInput = {
@@ -1363,6 +1365,7 @@ export type SetlistEntryCreateManyArgs<ExtArgs extends runtime.Types.Extensions.
    * The data used to create many SetlistEntries.
    */
   data: Prisma.SetlistEntryCreateManyInput | Prisma.SetlistEntryCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1381,6 +1384,7 @@ export type SetlistEntryCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Ex
    * The data used to create many SetlistEntries.
    */
   data: Prisma.SetlistEntryCreateManyInput | Prisma.SetlistEntryCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

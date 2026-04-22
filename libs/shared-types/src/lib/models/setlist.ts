@@ -16,7 +16,6 @@ export interface SetlistEntry {
   songId: string;
 
   position: number
-
   isOptional: boolean;
   isEncore: boolean;
 

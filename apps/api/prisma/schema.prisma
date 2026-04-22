@@ -4,17 +4,17 @@
 
 generator client {
   provider = "prisma-client"
-  output   = "../db-client" 
+  output   = "../src/app/database" 
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
 }
 
 model Song {
   id          String       @id @default(uuid())
   slug        String       @unique
-  name        String
+  title       String
   artist      String?
   duration    Int          // in seconds
   tempo       Int?

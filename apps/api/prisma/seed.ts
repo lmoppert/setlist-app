@@ -1,9 +1,11 @@
-import { env } from "@prisma/config";
-import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
+import { Pool } from "pg";
+import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from '../src/app/database/client';
 import { slugify } from "@setlist-app/shared-utils";
 
-const adapter = new PrismaBetterSqlite3({ url: env("DATABASE_URL") });
+const connectionString = `${process.env.DATABASE_URL}`;
+const pool = new Pool({ connectionString });
+const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
@@ -33,7 +35,7 @@ async function main() {
   ];
   await prisma.song.create({
     data: {
-      name: songs[0],
+      title: songs[0],
       slug: slugify(songs[0]),
       artist: 'The Steel Woods',
       duration: 270,
@@ -50,7 +52,7 @@ async function main() {
   });
   await prisma.song.create({
     data: {
-      name: songs[1],
+      title: songs[1],
       slug: slugify(songs[1]),
       artist: 'Tyler Childers',
       duration: 310,
@@ -67,7 +69,7 @@ async function main() {
   });
   await prisma.song.create({
     data: {
-      name: songs[2],
+      title: songs[2],
       slug: slugify(songs[2]),
       artist: 'The Beat Farmers',
       duration: 280,
@@ -84,7 +86,7 @@ async function main() {
   });
   await prisma.song.create({
     data: {
-      name: songs[3],
+      title: songs[3],
       slug: slugify(songs[3]),
       artist: 'The Band Of Heathens',
       duration: 310,
@@ -101,7 +103,7 @@ async function main() {
   });
   await prisma.song.create({
     data: {
-      name: songs[4],
+      title: songs[4],
       slug: slugify(songs[4]),
       artist: 'Steve Earle',
       duration: 310,

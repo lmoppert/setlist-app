@@ -5,18 +5,21 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { SetlistEntry as EntryType, Song } from '@setlist-app/shared-types';
 import { SetlistStore } from '../../../models/setlist-store';
 import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
-import { SetlistEntry } from '../setlist-entry/setlist-entry'
+import { SongCard } from '../song-card/song-card'
+import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 
 
 @Component({
   selector: 'app-setlist-editor',
   imports: [MatProgressBarModule, MatFormFieldModule, MatInputModule,
-    MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, SetlistEntry
+    MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, SongCard,
+    MatChipsModule, DurationPipe
   ],
   templateUrl: './setlist-editor.html',
   styleUrl: './setlist-editor.scss',
@@ -30,11 +33,11 @@ export class SetlistEditor {
   searchTerm = signal('');
 
   readonly filteredAvailableSongs = computed(() => {
-    const songs = this.setlistStore.availableSongs(); // Das Signal, das wir schon hatten
+    const songs = this.setlistStore.availableSongs();
     const term = this.searchTerm();
     if (!term) return songs;
     return songs.filter(song => 
-      song.name.toLowerCase().includes(term) || 
+      song.title.toLowerCase().includes(term) || 
       song.artist?.toLowerCase().includes(term)
     );
   });
@@ -52,7 +55,7 @@ export class SetlistEditor {
 
     effect(() => {
       const location = this.setlistStore.currentSetlist()?.location; 
-      this.titleService.setTitle(location ? `Gig in ${location}` : 'Setliste bearbeiten');
+      this.titleService.setTitle(location ? `Gig ${location}` : 'Setliste bearbeiten');
     })
   }
 
@@ -80,5 +83,9 @@ export class SetlistEditor {
   filterSearch(event: Event) {
     const input = event.target as HTMLInputElement;
     this.searchTerm.set(input.value.toLocaleLowerCase());
+  }
+  clearSearch(input: HTMLInputElement) {
+    this.searchTerm.set('');
+    input.value = '';
   }
 }

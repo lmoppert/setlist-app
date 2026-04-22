@@ -1,21 +1,42 @@
-<mat-toolbar class="header">
+<mat-sidenav-container class="app-container">
+  <mat-sidenav #sidenav mode="over" fixedBottomGap="true">
+    <mat-nav-list (click)="sidenav.close()">
+      <div class="menu-header">
+        <img src="pontchartrain.svg" alt="Logo" class="logo" width="100%">
+      </div>
 
-  <button matIconButton class="toggle-menu" aria-label="Seitenmenü umschalten" (click)="toggleMenu()" type="button">
-    <mat-icon>menu</mat-icon>
-  </button>
+      <mat-divider></mat-divider>
 
-  <span class="header-title">
-    Band Manager -
-    {{ titleService.title() }}
-  </span>
+      <a mat-list-item routerLink="/setlists" class="link-button">
+        <mat-icon matListItemIcon>format_list_bulleted</mat-icon>
+        <span matListItemTitle>Setlisten-Übersicht</span>
+      </a>
 
-  <span class="spacer"></span>
+      <a mat-list-item routerLink="/songs" class="link-button">
+        <mat-icon matListItemIcon>format_list_bulleted</mat-icon>
+        <span matListItemTitle>Song-Übersicht</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
 
-  <button matIconButton type="button" aria-label="Switch Themes" (click)="toggleTheme()"
-          [matTooltip]="isDarkTheme() ? 'Switch to Light' : 'Switch to Dark'">
-    <mat-icon>@if (isDarkTheme()) {light_mode} @else {dark_mode}</mat-icon>
-  </button>
+  <mat-sidenav-content>
+    <mat-toolbar class="header">
+      <button matIconButton aria-label="Seitenmenü umschalten" (click)="sidenav.toggle()" type="button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="header-title">
+        Band Manager -
+        {{ titleService.title() }}
+      </span>
+      <span class="spacer"></span>
+      <button matIconButton type="button" aria-label="Switch Themes" (click)="toggleTheme()"
+              [matTooltip]="isDarkTheme() ? 'Switch to Light' : 'Switch to Dark'">
+        <mat-icon>@if (isDarkTheme()) {light_mode} @else {dark_mode}</mat-icon>
+      </button>
+    </mat-toolbar>
 
-</mat-toolbar>
-
-<router-outlet />
+    <main class="content">
+      <router-outlet />
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

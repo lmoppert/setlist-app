@@ -1206,6 +1206,7 @@ export type SetlistCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * The data used to create many Setlists.
    */
   data: Prisma.SetlistCreateManyInput | Prisma.SetlistCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1224,6 +1225,7 @@ export type SetlistCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many Setlists.
    */
   data: Prisma.SetlistCreateManyInput | Prisma.SetlistCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**

@@ -452,6 +452,7 @@ export type AssignmentCreateOrConnectWithoutSongInput = {
 
 export type AssignmentCreateManySongInputEnvelope = {
   data: Prisma.AssignmentCreateManySongInput | Prisma.AssignmentCreateManySongInput[]
+  skipDuplicates?: boolean
 }
 
 export type AssignmentUpsertWithWhereUniqueWithoutSongInput = {
@@ -505,6 +506,7 @@ export type AssignmentCreateOrConnectWithoutMemberInput = {
 
 export type AssignmentCreateManyMemberInputEnvelope = {
   data: Prisma.AssignmentCreateManyMemberInput | Prisma.AssignmentCreateManyMemberInput[]
+  skipDuplicates?: boolean
 }
 
 export type AssignmentUpsertWithWhereUniqueWithoutMemberInput = {
@@ -1323,6 +1325,7 @@ export type AssignmentCreateManyArgs<ExtArgs extends runtime.Types.Extensions.In
    * The data used to create many Assignments.
    */
   data: Prisma.AssignmentCreateManyInput | Prisma.AssignmentCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1341,6 +1344,7 @@ export type AssignmentCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Exte
    * The data used to create many Assignments.
    */
   data: Prisma.AssignmentCreateManyInput | Prisma.AssignmentCreateManyInput[]
+  skipDuplicates?: boolean
   /**
    * Choose, which related nodes to fetch as well
    */

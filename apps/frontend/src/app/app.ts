@@ -5,12 +5,17 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
 
 import { TitleService } from './core/title.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, MatToolbarModule, MatIconModule, MatTooltipModule, MatButtonModule],
+  imports: [RouterModule, MatToolbarModule, MatIconModule,
+    MatTooltipModule, MatButtonModule, MatSidenavModule,
+    MatListModule
+  ],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

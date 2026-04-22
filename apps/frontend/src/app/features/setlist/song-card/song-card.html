@@ -1,0 +1,36 @@
+<!-- <div class="song-card" [routerLink]="['/songs',song.slug]"> -->
+<div class="song-card">
+  <div cdkDragHandle class="drag-handle">
+    <mat-icon>drag_indicator</mat-icon>
+  </div>
+
+  @if (displayData().isEntry) {
+    <div class="position">
+      {{ displayData().position }}
+    </div>
+  }
+
+  <div class="song-info">
+    <span class="title">{{ displayData().title }}</span>
+    <span class="subtitle">{{ displayData().subtitle }}</span>
+  </div>
+
+  <mat-chip-set class="song-meta" aria-label="Songs Meta Info">
+    <mat-chip class="duration">
+      <span class="mono-value">{{ displayData().duration | duration }}</span>
+    </mat-chip>
+    <mat-chip class="chip">
+      <span class="mono-value">{{ displayData().tempo | formatMonospace }}</span>
+      <span class="unit">BPM</span>
+    </mat-chip>
+    <mat-chip class="chip">
+      <span class="mono-value">{{ displayData().key | formatMonospace:2 }}</span>
+    </mat-chip>
+    <!-- <mat-chip class="chip">
+      <mat-icon matChipAvatar>mic</mat-icon>
+      @for (vocalist of displayData().mainVocalists; track $index) {
+        {{ vocalist[0] }}@if (!$last) {,}
+      }
+    </mat-chip> -->
+  </mat-chip-set>
+</div>

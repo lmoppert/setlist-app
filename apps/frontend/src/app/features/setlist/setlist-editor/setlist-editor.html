@@ -2,16 +2,28 @@
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 }
 
-<div class="search-box">
-  <mat-form-field>
-    <mat-label>Songs durchsuchen</mat-label>
-    <input matInput
-      placeholder="Titel oder Interpret..."
-      (input)="filterSearch($event)"
-      (keyup.escape)="searchTerm.set('')" 
-    />
-    <mat-icon matSuffix>search</mat-icon>
-  </mat-form-field>
+<div class="header-row">
+  <div class="search-box">
+    <mat-form-field>
+      <mat-label>Songs durchsuchen</mat-label>
+      <input matInput #search
+        placeholder="Titel oder Interpret..."
+        (input)="filterSearch($event)"
+        (keyup.escape)="clearSearch(search)" 
+      />
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+  <mat-chip-set class="info-box">
+    <mat-chip class="song-count">
+      <mat-icon matChipAvatar>functions</mat-icon>
+      <span>{{ setlistStore.enrichedSetlist().length }} Songs</span>
+    </mat-chip>
+    <mat-chip class="setlist-duration">
+      <mat-icon matChipAvatar>timelapse</mat-icon>
+      <span>{{ setlistStore.totalDuration() | duration }} h Gesamtdauer</span>
+    </mat-chip>
+  </mat-chip-set>
 </div>
 
 <div class="split-screen" cdkDropListGroup>
@@ -25,13 +37,9 @@
       class="song-list"
       (cdkDropListDropped)="moveSong($event)"
     >
-      @for (song of filteredAvailableSongs(); track song.id) {
-        <!-- <app-setlist-entry song="song"></app-setlist-entry> -->
-        <div class="song-card" cdkDrag [cdkDragData]="song">
-          <span cdkDragHandle class="drag-handle">
-            <mat-icon>drag_indicator</mat-icon>
-          </span>
-          {{ song.name }}
+      @for (song of filteredAvailableSongs(); track song.id; let isFirst = $first) {
+        <div cdkDrag [cdkDragData]="song">
+          <app-song-card [class.b-top]="isFirst" [data]="song"></app-song-card>
         </div>
       }
     </div>
@@ -47,14 +55,9 @@
       class="song-list"
       (cdkDropListDropped)="moveSong($event)"
     >
-      @for (entry of setlistStore.enrichedSetlist(); track entry.id) {
-        <!-- <app-setlist-entry entry="entry"></app-setlist-entry> -->
-        <div class="song-card" cdkDrag [cdkDragData]="entry">
-          <span cdkDragHandle class="drag-handle">
-            <mat-icon>drag_indicator</mat-icon>
-          </span>
-          <span class="pos">{{ entry.position }}</span>
-          {{ entry.song?.name }}
+      @for (entry of setlistStore.enrichedSetlist(); track entry.id; let isFirst = $first) {
+        <div cdkDrag [cdkDragData]="entry">
+          <app-song-card [class.b-top]="isFirst" [data]="entry"></app-song-card>
         </div>
       }
     </div>

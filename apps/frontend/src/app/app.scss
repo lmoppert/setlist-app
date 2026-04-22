@@ -1,21 +1,44 @@
 @use '@angular/material' as mat;
 
-.header {
-  font-weight: bold;
+.app-container {
+  height: 100vh; // Volle Bildschirmhöhe
 
-  @include mat.toolbar-overrides((
-    container-background-color: var(--mat-sys-primary-container),
-    container-text-color: var(--mat-sys-primary),
-  ));
-  @include mat.icon-overrides((
-    color: var(--mat-sys-primary),
-  ));
+  .menu-header {
+    padding: 20px;
+    text-align: center;
+    background: var(--mat-sys-surface);
+  }
+
+  .link-button {
+    margin: 10px;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  .header {
+    font-weight: bold;
+
+    @include mat.toolbar-overrides((
+      container-background-color: var(--mat-sys-primary-container),
+      container-text-color: var(--mat-sys-primary),
+    ));
+    @include mat.icon-overrides((
+      color: var(--mat-sys-primary),
+    ));
+
+    .header-title {
+      margin-right: 20px;
+      margin-left: 20px;
+    }
+  }
 }
 
-.header-title {
-  margin-right: 20px;
-  margin-left: 20px;
+mat-sidenav {
+  width: 300px;
+  background: var(--mat-sys-surface);
+  border-right: 1px solid #e2e8f0;
 }
+
 .spacer {
   flex: 1 1 auto;
 }

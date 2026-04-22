@@ -2,7 +2,7 @@ export interface Song {
   id?: string;
   slug?: string,
 
-  name: string;
+  title: string;
   artist?: string;
 
   duration: number; // in seconds

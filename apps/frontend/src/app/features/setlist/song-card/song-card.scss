@@ -1,0 +1,94 @@
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px;
+  background-color: var(--mat-sys-surface-container-lowest);
+  border-bottom: 1px solid var(--mat-sys-outline);
+  border-left: 7px solid var(--mat-sys-outline);
+  transition: background 0.2s;
+  cursor: pointer;
+}
+:host:hover {
+  background-color: var(--mat-sys-surface-container);
+}
+:host.b-top {
+  border-top: 1px solid var(--mat-sys-outline);
+}
+
+.song-card {
+  display: flex;
+  width: 100%;
+  // border-left: 5px solid var(--mat-sys-surface-container);
+  // border-bottom: 1px solid var(--mat-sys-surface-container);
+
+  .drag-handle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: .5rem;
+  }
+
+  .position {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    color: var(--mat-sys-primary);
+    font-weight: 800;
+    font-size: 1rem;
+    min-width: 1.4rem;
+    padding-right: .7rem;
+  }
+
+  .song-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+
+    .title {
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--mat-sys-secondary);
+    }
+  }
+
+  .song-meta {
+    flex: 1;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+
+    .chip {
+      background-color: var(--mat-sys-surface-container-low);
+    }
+    .duration {
+      background-color: var(--mat-sys-primary-container);
+    }
+    .chip-avatar {
+      font-size: .4em;
+    }
+    .mono-value {
+      font-family: monospace;
+      font-size: 1em;
+      white-space: pre;
+    }
+    .unit {
+      margin: 0;
+      padding-left: 2px;
+      font-size: 0.45rem;
+      line-height: 0;
+    }
+  }
+
+  /* Mobile Optimierung */
+  @media (max-width: 900px) {
+    .song-meta, .song-details  {
+      display: none;
+    }
+  }
+}

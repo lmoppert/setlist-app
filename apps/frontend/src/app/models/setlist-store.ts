@@ -57,7 +57,7 @@ export class SetlistStore {
     const entries = this.enrichedSetlist();
     return entries.reduce((total, entry) => {
       const songDuration = entry.song?.duration ?? 0;
-      return total + songDuration;
+      return total + songDuration / 60;
     }, 0);
   })
 
