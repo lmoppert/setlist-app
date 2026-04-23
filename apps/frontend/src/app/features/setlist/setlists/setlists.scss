@@ -48,12 +48,12 @@
     flex-direction: column;
     
     .location {
+      color: var(--mat-sys-on-surface);
       font-weight: 600;
       font-size: large;
-      color: black;
     }
     .details {
-      color: rgba(0,0,0,0.5);
+      color: var(--mat-sys-secondary);
       .count { font-size:smaller}
     }
   }
