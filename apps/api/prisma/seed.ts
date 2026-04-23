@@ -1,12 +1,7 @@
-import { Pool } from "pg";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from '../src/app/database/client';
+import { createPrismaClient } from "../src/app/lib/prisma";
 import { slugify } from "@setlist-app/shared-utils";
 
-const connectionString = `${process.env.DATABASE_URL}`;
-const pool = new Pool({ connectionString });
-const adapter = new PrismaPg(pool);
-const prisma = new PrismaClient({ adapter });
+const prisma = createPrismaClient();
 
 async function main() {
   console.log('Bereinige Datenbank...')

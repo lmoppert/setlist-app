@@ -6,7 +6,13 @@ import { SetlistController } from './setlists/setlist.controller';
 
 @Module({
   imports: [],
-  providers: [PrismaService, SetlistService],
-  controllers: [SongsController, SetlistController],
+  controllers: [
+    SongsController,
+    SetlistController
+  ],
+  providers: [
+    PrismaService,
+    SetlistService
+  ],
 })
 export class AppModule {}
