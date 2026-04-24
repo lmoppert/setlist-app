@@ -12,107 +12,220 @@ async function main() {
   await prisma.song.deleteMany({});
 
   console.log('Datenbank ist Leer, starte Import...')
-  // Lead Vocalists
-  const lead1 = await prisma.member.create({
-    data: { name: 'Volker', mainInstrument: 'E-Gitarre' }
+
+    // Lead Vocalists
+  const Volker = await prisma.member.create({
+    data: {
+      name: 'Volker',
+      mainInstrument: 'E-Gitarre'
+    }
   });
-  const lead2 = await prisma.member.create({
-    data: { name: 'Bernd', mainInstrument: 'Akkustik-Gitarre' }
+  const Bernd = await prisma.member.create({
+    data: {
+      name: 'Bernd',
+      mainInstrument: 'Akkustik-Gitarre'
+    }
   });
 
   // Songs
-  const songs: string[] = [
-    'Straw In The Wind',
-    'Whitehouse Road',
-    'Hideaway',
-    'Huricane',
-    'Copperhead Road',
-  ];
-  await prisma.song.create({
-    data: {
-      title: songs[0],
-      slug: slugify(songs[0]),
+  const songs = [
+    {
+      title: 'Straw In The Wind',
       artist: 'The Steel Woods',
-      duration: 270,
-      tempo: 57,
-      key: 'Dm',
-      assignments: {
-        create: {
-          memberId: lead1.id,
-          instrument: 'E-Gitarre',
-          isLead: true
-        }
-      }
-    }
-  });
-  await prisma.song.create({
-    data: {
-      title: songs[1],
-      slug: slugify(songs[1]),
+      duration: 270, tempo: 57, key: 'Dm',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Whitehouse Road',
       artist: 'Tyler Childers',
-      duration: 310,
-      tempo: 158,
-      key: 'D',
-      assignments: {
-        create: {
-          memberId: lead2.id,
-          instrument: 'Akkustik-Gitarre',
-          isLead: true
-        }
-      }
-    }
-  });
-  await prisma.song.create({
-    data: {
-      title: songs[2],
-      slug: slugify(songs[2]),
+      duration: 310, tempo: 158, key: 'D',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Hideaway',
       artist: 'The Beat Farmers',
-      duration: 280,
-      tempo: 138,
-      key: 'Am',
-      assignments: {
-        create: {
-          memberId: lead1.id,
-          instrument: 'E-Gitarre',
-          isLead: true
-        }
-      }
-    }
-  });
-  await prisma.song.create({
-    data: {
-      title: songs[3],
-      slug: slugify(songs[3]),
+      duration: 280, tempo: 138, key: 'Am',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Hurricane',
       artist: 'The Band Of Heathens',
-      duration: 310,
-      tempo: 130,
-      key: 'Am',
-      assignments: {
-        create: {
-          memberId: lead2.id,
-          instrument: 'E-Gitarre',
-          isLead: true
-        }
-      }
-    }
-  });
-  await prisma.song.create({
-    data: {
-      title: songs[4],
-      slug: slugify(songs[4]),
+      duration: 310, tempo: 130, key: 'Am',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Copperhead Road',
       artist: 'Steve Earle',
-      duration: 310,
-      tempo: 83,
-      key: 'Dm',
-      assignments: {
-        create: {
-          memberId: lead2.id,
-          instrument: 'E-Gitarre',
-          isLead: true
+      duration: 260, tempo: 83, key: 'D',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Turn The Page',
+      artist: 'Bob Seger',
+      duration: 240, tempo: 82, key: 'Dm',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Blue On Black',
+      artist: 'Kenny Wayne Shepherd',
+      duration: 260, tempo: 78, key: 'D',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Simple Man',
+      artist: 'Lynyrd Skynyrd',
+      duration: 370, tempo: 60, key: 'Am',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Sunrise In Texas',
+      artist: 'Blackberry Smoke',
+      duration: 260, tempo: 80, key: 'D',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Up In Indiana',
+      artist: 'Lyle Lovett',
+      duration: 290, tempo: 94, key: 'D',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Let The Rain Come Down',
+      artist: 'Steel Woods; Brent Cobb',
+      duration: 280, tempo: 79, key: 'D',
+      leadSinger: [Volker, Bernd]
+    },
+    {
+      title: 'Jackson Station',
+      artist: 'The Band Of Heathens',
+      duration: 230, tempo: 63, key: 'G',
+      leadSinger: [Bernd, Volker]
+    },
+    {
+      title: 'In Hell I´ll Be In Good Company',
+      artist: 'The Dead South',
+      duration: 260, tempo: 78, key: 'Am',
+      leadSinger: [Volker, Bernd]
+    },
+    {
+      title: 'Angel From Montgomery',
+      artist: 'John Prine',
+      duration: 230, tempo: 64, key: 'A',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Tennessee Whiskey',
+      artist: 'Chris Stapleton',
+      duration: 340, tempo: 56, key: 'G',
+      leadSinger: [Volker],
+    },
+    {
+      title: 'Paper In Fire',
+      artist: 'John Mellencamp',
+      duration: 250, tempo: 142, key: 'Hm',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'The World´s On Fire',
+      artist: 'American Aquarium',
+      duration: 330, tempo: 68, key: 'E',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Travelin Soldier',
+      artist: 'Cody Johnson',
+      duration: 240, tempo: 78, key: 'D',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'You`ve Got Another Thing Comin`',
+      artist: 'Alex Williams',
+      duration: 262, tempo: 129, key: 'Cm',
+      leadSinger: [Bernd, Volker]
+    },
+    {
+      title: 'Gris Gris Satchel',
+      artist: 'The Band Of Heathens',
+      duration: 240, tempo: 70, key: 'D',
+      leadSinger: [Bernd, Volker]
+    },
+    {
+      title: 'Als Ich Fortging',
+      artist: 'Karussell',
+      duration: 270, tempo: 104, key: 'Em',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Und musst du weinen',
+      artist: 'G. Gundermann und Seilschaft',
+      duration: 278, tempo: 125, key: 'D',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Broken Window Serenade',
+      artist: 'Whiskey Myers',
+      duration: 332, tempo: 77, key: 'D',
+      leadSinger: [Volker]
+    },
+    {
+      title: 'Ramblin`',
+      artist: 'The Red Clay Strays',
+      duration: 153, tempo: 109, key: 'A',
+      leadSinger: [Bernd, Volker]
+    },
+    {
+      title: 'White Wedding',
+      artist: 'Billy Idol',
+      duration: 210, tempo: 168, key: 'D',
+      leadSinger: [Bernd]
+    },
+    {
+      title: 'Let It Burn',
+      artist: 'Blackberry Smoke',
+      duration: 177, tempo: 210, key: 'G',
+      leadSinger: [Volker, Bernd]
+    },
+    {
+      title: 'Life ain`t easy',
+      artist: 'New Roses',
+      duration: 241, tempo: 128, key: 'D',
+      leadSinger: [Volker, Bernd]
+    },
+    {
+      title: 'Ballad of a Broken Hearted Man',
+      artist: 'Robert Jon & the Wreck',
+      duration: 320, tempo: 76, key: 'D',
+      leadSinger: [Volker, Bernd]
+    },
+    {
+      title: 'When I`m Dead and Gone',
+      artist: 'Fury In The Slaughterhouse',
+      duration: 241, tempo: 227, key: 'D',
+      leadSinger: [Volker, Bernd]
+    },
+  ];
+
+  for (const song of songs) {
+    await prisma.song.create({
+      data: {
+        title: song.title,
+        slug: slugify(song.title),
+        artist: song.artist,
+        duration: song.duration,
+        tempo: song.tempo,
+        key: song.key,
+        assignments: {
+          create: song.leadSinger.map((lead) => ({
+            member: { connect: { id: lead.id } },
+            isLead: true,
+            instrument: lead.mainInstrument,
+          }))
         }
       }
-    }
-  });
+    });
+  }
+  
+  // Setlist
   await prisma.setlist.create({
     data: {
       date: new Date('2025-05-17'),
@@ -123,42 +236,71 @@ async function main() {
       entries: {
         create: [
           {
-            position: 1,
-            isOptional: false,
-            isEncore: false,
-            song: {
-              connect: { slug: slugify(songs[0]) },
-  
-            }
+            position: 1, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[0].title) }, }
           },
           {
-            position: 2,
-            isOptional: false,
-            isEncore: false,
-            song: {
-              connect: { slug: slugify(songs[1]) },
-            }
+            position: 2, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[1].title) }, }
           },
           {
-            position: 3,
-            isOptional: false,
-            isEncore: false,
-            song: {
-              connect: { slug: slugify(songs[2]) },
-            }
+            position: 3, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[2].title) }, }
           },
           {
-            position: 4,
-            isOptional: false,
-            isEncore: false,
-            song: {
-              connect: { slug: slugify(songs[3]) },
-            }
-          }
+            position: 4, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[3].title) }, }
+          },
+          {
+            position: 5, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[4].title) }, }
+          },
+          {
+            position: 6, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[5].title) }, }
+          },
+          {
+            position: 7, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[6].title) }, }
+          },
+          {
+            position: 8, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[7].title) }, }
+          },
+          {
+            position: 9, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[9].title) }, }
+          },
+          {
+            position: 10, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[8].title) }, }
+          },
+          {
+            position: 11, isOptional: false, isEncore: false,
+            song: { connect: { slug: slugify(songs[10].title) }, }
+          },
         ]
       }
     }
-  })
+  });
+  await prisma.setlist.create({
+    data: {
+      date: new Date('2025-08-02'),
+      location: 'Kajüte Ratzdorf',
+      slug: '2025-09-02-kajüte-ratzdorf',
+      name: 'Ratzdorf Open Air',
+      duration: 90,
+    }
+  });
+  await prisma.setlist.create({
+    data: {
+      date: new Date('2025-11-29'),
+      location: 'Kultur-Raumkonzepte',
+      slug: '2025-11-29-kultur-raumkonzepte',
+      name: 'Musiker-Flohmarkt Rösrath',
+      duration: 60,
+    }
+  });
 
   console.log('Datenbank ist wieder gefüllt!')
 }
