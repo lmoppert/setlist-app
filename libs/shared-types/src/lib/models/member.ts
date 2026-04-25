@@ -1,4 +1,4 @@
-export interface BandMember {
+export interface IBandMember {
   id?: string;
   name: string;
 

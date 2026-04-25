@@ -1,0 +1,81 @@
+@if (store.setlistIsLoading()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+
+<form [formGroup]="setlistForm" (ngSubmit)="submit()">
+  <p>
+    <mat-form-field appearance="outline" class="long-input">
+      <mat-label>Ort des Gigs oder Name der Vorlage</mat-label>
+      <input
+        #location
+        matInput
+        formControlName="location"
+        placeholder="z.B. Kalscheurer Weiher oder Probe ohne Bernd"
+      />
+      @if (setlistForm.get('location')?.hasError('required')) {
+        <mat-error>Der Ort bzw. der Name ist ein Pflichtfeld und muss angegeben werden.</mat-error>
+      }
+    </mat-form-field>
+  </p>
+    
+  <p>
+    <mat-form-field appearance="outline" class="long-input">
+      <mat-label>Name des Gigs</mat-label>
+      <input
+        matInput
+        formControlName="name"
+        placeholder="z.B. Ratzdorf-Open-Air"
+      />
+    </mat-form-field>
+  </p>
+
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Datum (leer = Vorlage)</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        formControlName="date"
+        placeholder="YYYY-MM-DD"
+      />
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+  </p>
+    
+  <p>
+    <mat-form-field appearance="outline">
+      <mat-label>Dauer des Gigs</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="duration"
+        placeholder="Zeit in Minuten"
+      />
+      @if (setlistForm.get('duration')?.hasError('required')) {
+        <mat-error>Bitte gib die Dauer an.</mat-error>
+      }
+      @if (setlistForm.get('duration')?.hasError('min')) {
+        <mat-error>Negative Werte nicht erlaubt</mat-error>
+      }
+    </mat-form-field>
+  </p>
+
+  <button
+    matButton="filled"
+    type="submit"
+    [disabled]="setlistForm.invalid || (isEditMode && !setlistForm.dirty)"
+  >
+    <mat-icon>save</mat-icon>
+    {{ isEditMode ? 'Änderungen speichern' : 'Setliste erstellen' }}
+  </button>
+
+  <button
+    matButton="outlined"
+    type="button"
+    (click)="cancel()"
+  >
+    <mat-icon>cancel</mat-icon>
+    Abbrechen
+  </button>
+</form>

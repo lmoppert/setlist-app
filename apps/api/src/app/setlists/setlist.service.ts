@@ -39,11 +39,16 @@ export class SetlistService {
   }
 
   async create(dto: CreateSetlistDto) {
+    const setlistDate = dto.date ? new Date(dto.date) : null;
+    const slugBase = dto.date
+      ? `${dto.date}-${dto.location}`
+      : `${dto.location}-${Math.floor(Math.random() * 1000)}`;
+
     return this.prisma.setlist.create({
       data: {
-        date: new Date(dto.date), 
+        date: setlistDate, 
         location: dto.location,
-        slug: slugify(dto.date + '-' + dto.location),
+        slug: slugify(slugBase),
         name: dto.name,
         duration: dto.duration,
       }

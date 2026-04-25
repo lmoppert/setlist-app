@@ -1,11 +1,32 @@
 import { Routes } from '@angular/router';
 import { SetlistEditor } from './features/setlist/setlist-editor/setlist-editor';
 import { Setlists } from './features/setlist/setlists/setlists';
+import { SetlistForm } from './features/setlist/setlist-form/setlist-form';
+import { pendingChangesGuard } from './shared/guards/pending-changes.guard';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/setlists', pathMatch: 'full' },
-  { path: 'setlists', component: Setlists },
-  { path: 'setlists/new', component: SetlistEditor },
-  { path: 'setlists/:slug', component: SetlistEditor },
-  // { path: 'live/:gigId', component: LiveView },
+  {
+    path: '',
+    redirectTo: '/setlists',
+    pathMatch: 'full',
+  },
+  {
+    path: 'setlists',
+    component: Setlists,
+  },
+  {
+    path: 'setlists/new',
+    component: SetlistForm,
+    canDeactivate: [pendingChangesGuard],
+  },
+  {
+    path: 'setlists/:slug/edit',
+    component: SetlistForm,
+    canDeactivate: [pendingChangesGuard],
+  },
+  {
+    path: 'setlists/:slug',
+    component: SetlistEditor,
+  },
+  // { path: 'live/:gigId', component: LiveView, },
 ];

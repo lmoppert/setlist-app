@@ -1,17 +1,17 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
-import { httpResource, HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { httpResource } from '@angular/common/http';
+import { firstValueFrom, tap } from 'rxjs';
 
-import { Song } from '@setlist-app/shared-types';
-import { Setlist } from '@setlist-app/shared-types';
+import { ISong, ISetlist, ISetlistBase } from '@setlist-app/shared-types';
+import { SetlistService } from './setlist-service';
 
 @Injectable({ providedIn: 'root' })
 export class SetlistStore {
-  private readonly http = inject(HttpClient);
+  private service = inject(SetlistService)
 
   // Single Setlist
   readonly activeSlug = signal<string | null>(null);
-  readonly setlistResource = httpResource<Setlist>(() => {
+  readonly setlistResource = httpResource<ISetlist>(() => {
     const slug = this.activeSlug();
     return slug ? `/api/setlists/${slug}` : undefined;
   });
@@ -20,8 +20,8 @@ export class SetlistStore {
   readonly setlistError = computed(() => this.setlistResource.error())
 
   // List of setlists
-  readonly listResource = httpResource<Setlist[]>(() => '/api/setlists');
-  readonly songResource = httpResource<Song[]>(() => '/api/songs'); 
+  readonly listResource = httpResource<ISetlist[]>(() => '/api/setlists');
+  readonly songResource = httpResource<ISong[]>(() => '/api/songs'); 
   readonly setlists = computed(() => this.listResource.value())
   readonly setlistsAreLoading = computed(() => this.listResource.isLoading())
   readonly setlistsError = computed(() => this.listResource.error())
@@ -35,7 +35,6 @@ export class SetlistStore {
     const songs = this.songResource.value() ?? [];
     const entries = this.currentSetlist()?.entries ?? [];
     const usedSongIds = new Set(entries.map(e => e.songId));
-    
     return songs.filter(s => !usedSongIds.has(s.id!));
   });
 
@@ -43,9 +42,7 @@ export class SetlistStore {
   readonly enrichedSetlist = computed(() => {
     const setlist = this.setlistResource.value();
     const songs = this.songResource.value() ?? [];
-
     if (!setlist) { return []; }
-
     return setlist.entries!.map(entry => ({
       ...entry,
       song: songs.find(song => song.id === entry.songId) || null
@@ -65,29 +62,41 @@ export class SetlistStore {
     this.activeSlug.set(slug);
   }
 
+  // create and update methods
+  create(data: ISetlistBase) {
+    return this.service.create(data).pipe(
+      tap(() => this.listResource.reload())
+    )
+  }
+
+  update(data: ISetlistBase) {
+    const id = this.currentSetlist()?.id;
+    if (!id) throw new Error('Keine aktive Setliste gefunden');
+    return this.service.create(data).pipe(
+      tap(() => {
+        this.setlistResource.reload();
+        this.listResource.reload();
+      })
+    );
+  }
+
   // edit methods
   async addSong(songId: string, position: number) {
-    if (!this.activeSlug) return;
-
-    await firstValueFrom(this.http.post(`/api/setlists/${this.activeSlug()}/entries`, {
-      songId,
-      position,
-      isOptional: false,
-      isEncore: false
-    }));
+    const slug = this.activeSlug();
+    if (!slug) return;
+    await firstValueFrom(this.service.addSong(slug, songId, position));
     this.setlistResource.reload();
   }
 
   async reorderEntry(entryId: string, newPosition: number) {
-    await firstValueFrom(this.http.patch(`/api/setlists/${this.activeSlug()}/entries/reorder`, {
-      entryId,
-      newPosition
-    }));
+    const slug = this.activeSlug();
+    if (!slug) return;
+    await firstValueFrom(this.service.reorderEntry(slug, entryId, newPosition));
     this.setlistResource.reload();
   }
 
   async removeEntry(entryId: string) {
-    await firstValueFrom(this.http.delete(`/api/setlists/entries/${entryId}`));
+    await firstValueFrom(this.service.removeEntry(entryId));
     this.setlistResource.reload();
   }
 }

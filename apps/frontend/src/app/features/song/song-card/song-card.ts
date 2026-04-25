@@ -2,10 +2,12 @@ import { Component, computed, inject, input, output } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 
-import { Song } from '@setlist-app/shared-types';
+import { ISong } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { FormatMonospacePipe } from '../../../shared/pipes/monospace.pipe';
-import { isSetlistEntryWithSong, SetlistEntryWithSong, SongDisplayData } from '../../../shared/types/song-entry';
+import {
+  isSetlistEntryWithSong, ISetlistEntryWithSong, ISongDisplayData
+} from '../../../shared/types/song-entry';
 
 @Component({
   selector: 'app-song-card',
@@ -14,9 +16,9 @@ import { isSetlistEntryWithSong, SetlistEntryWithSong, SongDisplayData } from '.
   styleUrl: './song-card.scss',
 })
 export class SongCard {
-  data = input.required<Song | SetlistEntryWithSong>();
+  data = input.required<ISong | ISetlistEntryWithSong>();
 
-  displayData = computed<SongDisplayData>(() => {
+  displayData = computed<ISongDisplayData>(() => {
     const d = this.data();
 
     if (isSetlistEntryWithSong(d)) {

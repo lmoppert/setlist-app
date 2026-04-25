@@ -7,11 +7,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 
-import { SetlistEntry as EntryType, Song } from '@setlist-app/shared-types';
+import { ISetlistEntry , ISong } from '@setlist-app/shared-types';
 import { SetlistStore } from '../../../models/setlist-store';
 import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
-import { SongCard } from '../song-card/song-card'
+import { SongCard } from '../../song/song-card/song-card'
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 
 
@@ -65,17 +65,17 @@ export class SetlistEditor {
     console.log(`Move Container: ${previousContainerId} => ${currentContainerId}`)
 
     if (previousContainerId === currentContainerId && currentContainerId === 'setlist-songs') {
-      const entry = event.item.data as EntryType;
+      const entry = event.item.data as ISetlistEntry;
       const newPosition = event.currentIndex + 1;
       await this.setlistStore.reorderEntry(entry.id!, newPosition);
     }
     else if (previousContainerId === 'available-songs' && currentContainerId === 'setlist-songs') {
-      const song = event.item.data as Song;
+      const song = event.item.data as ISong;
       const position = event.currentIndex + 1;
       this.setlistStore.addSong(song.id!, position);
     }
     else if (previousContainerId === 'setlist-songs' && currentContainerId === 'available-songs') {
-      const entry = event.item.data as EntryType;
+      const entry = event.item.data as ISetlistEntry;
       this.setlistStore.removeEntry(entry.id!);
     }
   }

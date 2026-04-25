@@ -1,0 +1,16 @@
+:host {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.long-input{
+  min-width: 600px;
+}
+p {
+  margin-bottom: 25px;
+}
+button {
+  margin-right: 20px;
+}

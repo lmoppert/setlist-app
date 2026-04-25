@@ -1,6 +1,6 @@
-import { SetlistEntry, Song } from "@setlist-app/shared-types";
+import { ISetlistEntry, ISong } from "@setlist-app/shared-types";
 
-export interface SongDisplayData {
+export interface ISongDisplayData {
   // Common attributes
   title: string;
   subtitle?: string;
@@ -15,14 +15,16 @@ export interface SongDisplayData {
 
   // References
   isEntry: boolean;
-  originalData: Song | SetlistEntry;
+  originalData: ISong | ISetlistEntry;
 }
 
-export type SetlistEntryWithSong = SetlistEntry & {
-  song?: Song | null;
+export type ISetlistEntryWithSong = ISetlistEntry & {
+  song?: ISong | null;
 }
 
-export function isSetlistEntryWithSong(value: Song | SetlistEntryWithSong): value is SetlistEntryWithSong {
+export function isSetlistEntryWithSong(
+  value: ISong | ISetlistEntryWithSong
+): value is ISetlistEntryWithSong {
   if ('songId' in value && value.song) { return true }
   return false;
 }

@@ -1,4 +1,4 @@
-export interface Song {
+export interface ISong {
   id?: string;
   slug?: string,
 
@@ -14,12 +14,12 @@ export interface Song {
   // resources?: SongResource[];
 }
 
-export interface SongAssignment {
+export interface ISongAssignment {
   memberId: string;
 
   roles: Role[];
 
-  instruments: InstrumentAssignment[];
+  instruments: IInstrumentAssignment[];
 
   notes?: string;
 }
@@ -29,13 +29,13 @@ export type Role =
   | 'backing-vocals'
   | 'instrumental';
 
-export interface InstrumentAssignment {
+export interface IInstrumentAssignment {
   instrument: string;   // "guitar", "bass", "tambourine"
   variant?: string;     // "electric", "acoustic"
   tuning?: string;      // "Drop D"
 }
 
-export interface SongResource {
+export interface ISongResource {
   type:
     | 'chords'
     | 'lyrics'

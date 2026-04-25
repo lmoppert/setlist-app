@@ -1,6 +1,6 @@
-export interface Setlist {
+export interface ISetlist {
   id?: string;
-  date: string;
+  date?: string;
   location: string;
   slug: string;
 
@@ -8,10 +8,10 @@ export interface Setlist {
   duration?: number;  // in minutes
   notes?: string;
 
-  entries?: SetlistEntry[];
+  entries?: ISetlistEntry[];
 }
 
-export interface SetlistEntry {
+export interface ISetlistEntry {
   id?: string;
   songId: string;
 
@@ -19,5 +19,14 @@ export interface SetlistEntry {
   isOptional: boolean;
   isEncore: boolean;
 
+  notes?: string;
+}
+
+export interface ISetlistBase {
+  date?: string;
+  location: string;
+
+  name?: string;
+  duration?: number;
   notes?: string;
 }
