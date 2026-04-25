@@ -1,11 +1,13 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { RouterLink } from '@angular/router';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTooltip } from "@angular/material/tooltip";
 
 import { ISetlistEntry , ISong } from '@setlist-app/shared-types';
 import { SetlistStore } from '../../../models/setlist-store';
@@ -13,13 +15,14 @@ import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
 import { SongCard } from '../../song/song-card/song-card'
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
+import { MatButtonModule } from '@angular/material/button';
 
 
 @Component({
   selector: 'app-setlist-editor',
   imports: [MatProgressBarModule, MatFormFieldModule, MatInputModule,
     MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, SongCard,
-    MatChipsModule, DurationPipe
+    MatChipsModule, DurationPipe, MatTooltip, RouterLink, MatButtonModule
   ],
   templateUrl: './setlist-editor.html',
   styleUrl: './setlist-editor.scss',

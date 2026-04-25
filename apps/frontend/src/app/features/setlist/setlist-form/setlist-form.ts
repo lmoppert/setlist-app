@@ -83,6 +83,19 @@ export class SetlistForm implements HasUnsavedChanges {
         setTimeout(() => input.nativeElement.focus(), 0);
       }
     });
+
+    effect(() => {
+      const setlist = this.store.currentSetlist();
+      if (setlist && this.isEditMode) {
+        this.setlistForm.patchValue({
+          name: setlist.name,
+          date: setlist.date,
+          location: setlist.location,
+          duration: setlist.duration,
+          notes: setlist.notes
+        });
+      }
+    });
   }
 
   submit() {

@@ -1,6 +1,8 @@
 import { Component, computed, inject, input, output } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from "@angular/material/button";
+import { MatTooltip } from "@angular/material/tooltip";
 
 import { ISong } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
@@ -11,7 +13,10 @@ import {
 
 @Component({
   selector: 'app-song-card',
-  imports: [MatChipsModule, DurationPipe, FormatMonospacePipe, MatIconModule],
+  imports: [
+    MatChipsModule, DurationPipe, FormatMonospacePipe, MatIconModule,
+    MatButtonModule, MatTooltip,
+  ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',
 })
