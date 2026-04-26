@@ -1,13 +1,17 @@
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { httpResource } from '@angular/common/http';
+import { Router } from '@angular/router';
 import { firstValueFrom, tap } from 'rxjs';
 
 import { ISong, ISetlist, ISetlistBase } from '@setlist-app/shared-types';
 import { SetlistService } from './setlist-service';
+import { AlertService } from '../core/alert.service'
 
 @Injectable({ providedIn: 'root' })
 export class SetlistStore {
   private service = inject(SetlistService)
+  private router = inject(Router)
+  private alert = inject(AlertService)
 
   // Single Setlist
   readonly activeSlug = signal<string | null>(null);
@@ -72,7 +76,7 @@ export class SetlistStore {
   update(data: ISetlistBase) {
     const id = this.currentSetlist()?.id;
     if (!id) throw new Error('Keine aktive Setliste gefunden');
-    return this.service.create(data).pipe(
+    return this.service.update(id, data).pipe(
       tap(() => {
         this.setlistResource.reload();
         this.listResource.reload();
@@ -98,5 +102,18 @@ export class SetlistStore {
   async removeEntry(entryId: string) {
     await firstValueFrom(this.service.removeEntry(entryId));
     this.setlistResource.reload();
+  }
+
+  async deleteSetlist(id: string) {
+    const confirmed = confirm('Möchtest du diese Setliste wirklich unwiderruflich löschen?');
+    if (confirmed) {
+      try {
+        await firstValueFrom(this.service.delete(id));
+        this.alert.success('Setliste wurde erfolgreich gelöscht.')
+        this.router.navigate(['/setlists']);
+      } catch (err) {
+        this.alert.error('Fehler beim Löschen der Setliste:' + err)
+      }
+    }
   }
 }

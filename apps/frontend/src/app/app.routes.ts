@@ -28,5 +28,5 @@ export const routes: Routes = [
     path: 'setlists/:slug',
     component: SetlistEditor,
   },
-  // { path: 'live/:gigId', component: LiveView, },
+  // { path: 'live/:slug', component: LiveView, },
 ];

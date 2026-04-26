@@ -1,12 +1,16 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateSetlistDto } from './create-setlist.dto';
+import { UpdateSetlistDto } from './update-setlist.dto';
 import { slugify } from '@setlist-app/shared-utils';
 
 @Injectable()
 export class SetlistService {
   constructor(private prisma: PrismaService) {}
 
+  /***************************************************************************
+   * Query setlists
+   ***************************************************************************/
   async findAll() {
     return this.prisma.setlist.findMany({
       include: {
@@ -38,6 +42,9 @@ export class SetlistService {
     return setlist;
   }
 
+  /***************************************************************************
+   * Manage setlists
+   ***************************************************************************/
   async create(dto: CreateSetlistDto) {
     const setlistDate = dto.date ? new Date(dto.date) : null;
     const slugBase = dto.date
@@ -55,6 +62,29 @@ export class SetlistService {
     })
   }
 
+  async update(id: string, dto: UpdateSetlistDto) {
+    const setlistDate = dto.date ? new Date(dto.date) : null;
+    const slugBase = dto.date ? `${dto.date}-${dto.location}` : `${dto.location}`;
+
+    return this.prisma.setlist.update({
+      where: { id },
+      data: {
+        date: setlistDate,
+        location: dto.location,
+        slug: slugify(slugBase),
+        name: dto.name,
+        duration: dto.duration,
+      }
+    });
+  }
+
+  async delete(id: string) {
+    return this.prisma.setlist.delete({ where: { id } })
+  }
+
+  /***************************************************************************
+   * Manage setlist entries
+   ***************************************************************************/
   async addSongToSetlist(slug: string, songId: string, position: number) {
     const setlist = await this.prisma.setlist.findUnique({
       where: { slug },
@@ -102,19 +132,6 @@ export class SetlistService {
       await tx.setlistEntry.delete({ where: { id: entryId } });
 
       // 3. Move all following entries by one position
-      // const entriesToMove = await tx.setlistEntry.findMany({
-      //   where: {
-      //     setlistId: entry.setlistId,
-      //     position: { gt: entry.position },
-      //   },
-      // });
-
-      // for (const e of entriesToMove) {
-      //   await tx.setlistEntry.update({
-      //     where: { id: e.id },
-      //     data: { position: e.position - 1 },
-      //   });
-      // }
       await tx.setlistEntry.updateMany({
         where: {
           setlistId: entry.setlistId,

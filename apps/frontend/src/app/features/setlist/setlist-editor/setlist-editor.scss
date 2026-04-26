@@ -55,6 +55,15 @@
     ));
   }
 
+  .delete {
+    margin-left: 10px;
+    color: var(--mat-sys-error);
+
+    @include mat.button-overrides((
+      outlined-outline-color: var(--mat-sys-error),
+    ));
+  }
+
   .info-box {
     display: flex;
     font-size: 1.2rem;

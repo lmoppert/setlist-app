@@ -1,5 +1,6 @@
 import { Component, computed, effect, inject, input, signal } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { formatDate } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 import { MatProgressBarModule } from '@angular/material/progress-bar';
@@ -57,8 +58,12 @@ export class SetlistEditor {
     })
 
     effect(() => {
-      const location = this.setlistStore.currentSetlist()?.location; 
-      this.titleService.setTitle(location ? `Gig ${location}` : 'Setliste bearbeiten');
+      let title: string = this.setlistStore.currentSetlist()?.location ?? ''; 
+      const date = this.setlistStore.currentSetlist()?.date;
+      if (date) {
+        title += ` (${formatDate(date, 'dd.MM.yyyy', 'de-DE')})`; 
+      }
+      this.titleService.setTitle(location ? title : 'Setliste bearbeiten');
     })
   }
 
@@ -90,5 +95,12 @@ export class SetlistEditor {
   clearSearch(input: HTMLInputElement) {
     this.searchTerm.set('');
     input.value = '';
+  }
+
+  deleteSetlist() {
+    const id = this.setlistStore.currentSetlist()?.id;
+    if (id) {
+      this.setlistStore.deleteSetlist(id);
+    }
   }
 }

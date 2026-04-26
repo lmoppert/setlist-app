@@ -1,11 +1,15 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { SetlistService } from './setlist.service';
 import { CreateSetlistDto } from './create-setlist.dto';
+import { UpdateSetlistDto } from './update-setlist.dto';
 
 @Controller('setlists')
 export class SetlistController {
   constructor(private readonly setlistService: SetlistService) {}
 
+  /***************************************************************************
+   * Manage the setlists themselve
+   ***************************************************************************/
   @Get(':slug')
   async getSetlistBySlug(@Param('slug') slug: string) {
     return this.setlistService.findBySlug(slug);
@@ -19,6 +23,20 @@ export class SetlistController {
   @Post()
   async createSetlist(@Body() dto: CreateSetlistDto) {
     return this.setlistService.create(dto);
+  }
+
+  @Patch(':id')
+  async updateSetlist(
+    @Param('id') id: string, 
+    @Body() dto: UpdateSetlistDto
+  ) { 
+    console.log('Patch:', id)
+    return this.setlistService.update(id, dto); 
+  }
+
+  @Delete(':id')
+  async deleteSetlist(@Param('id') id: string) {
+    return this.setlistService.delete(id)
   }
 
   /***************************************************************************

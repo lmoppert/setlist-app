@@ -16,6 +16,11 @@
   }
 
   .header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
     font-weight: bold;
 
     @include mat.toolbar-overrides((
@@ -30,6 +35,10 @@
       margin-right: 20px;
       margin-left: 20px;
     }
+  }
+
+  .content {
+    padding-top: 64px;
   }
 }
 

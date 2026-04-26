@@ -39,22 +39,31 @@ body {
 mat-snack-bar-container.snackbar {
   margin-top: 80px;
 }
-.success {
+.success-snackbar {
   @include mat.snack-bar-overrides((
+    container-color: DimGray,
     button-color: yellowgreen,
     supporting-text-color: yellowgreen,
   ));
 }
-.error {
+.error-snackbar {
   @include mat.snack-bar-overrides((
     container-color: mistyrose,
     button-color: darkred,
     supporting-text-color: darkred,
   ));
 }
-.warning {
+.warning-snackbar {
   @include mat.snack-bar-overrides((
+    container-color: DimGray,
     button-color: gold,
     supporting-text-color: gold,
+  ));
+}
+.info-snackbar {
+  @include mat.snack-bar-overrides((
+    container-color: DimGray,
+    button-color: LightSkyBlue,
+    supporting-text-color: LightSkyBlue,
   ));
 }

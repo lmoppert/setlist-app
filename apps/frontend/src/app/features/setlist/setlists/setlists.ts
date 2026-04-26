@@ -12,6 +12,7 @@ import { ISetlist } from '@setlist-app/shared-types'
 import { TitleService } from '../../../core/title.service';
 import { SetlistStore } from '../../../models/setlist-store';
 import { ISetlistGroup } from '../../../shared/types/setlist-groups'
+import { AlertService } from '../../../core/alert.service'
 
 @Component({
   selector: 'app-setlists',
@@ -25,6 +26,7 @@ import { ISetlistGroup } from '../../../shared/types/setlist-groups'
 export class Setlists {
   protected store = inject(SetlistStore);
   protected titleService = inject(TitleService);
+  protected alert = inject(AlertService)
 
   readonly groupedSetlists = computed(() => {
     const data = this.store.setlists();

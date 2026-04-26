@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { ISong, ISetlist, ISetlistBase } from '@setlist-app/shared-types';
+import { ISetlist, ISetlistBase } from '@setlist-app/shared-types';
 
 @Injectable({ providedIn: 'root' })
 export class SetlistService {
@@ -12,7 +12,11 @@ export class SetlistService {
   }
 
   update(id: string, data: ISetlistBase) {
-    return this.http.post<ISetlist>(`/api/setlists/${id}`, data);
+    return this.http.patch<ISetlist>(`/api/setlists/${id}`, data);
+  }
+
+  delete(id: string) {
+    return this.http.delete(`/api/setlists/${id}`);
   }
 
   addSong(slug: string, songId: string, position: number) {

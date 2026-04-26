@@ -14,11 +14,18 @@
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
-    <button matButton="elevated" type="button" [routerLink]="['edit']"
+  <div class="actions">
+    <button matButton="filled" type="button" [routerLink]="['edit']"
             matTooltip="Metadaten bearbeiten">
       <mat-icon>edit</mat-icon>
-      Metadaten
+      Bearbeiten
     </button>
+    <button matButton="outlined" type="button" (click)="deleteSetlist()"
+            matTooltip="Setliste löschen" class="delete">
+      <mat-icon>delete</mat-icon>
+      Löschen
+    </button>
+  </div>
   <mat-chip-set class="info-box">
     <mat-chip class="song-count">
       <mat-icon matChipAvatar>functions</mat-icon>

@@ -1,9 +1,9 @@
-import { AfterViewInit, Component, effect, ElementRef, inject, input, viewChild, ViewChild } from '@angular/core';
+import { Component, effect, ElementRef, inject, input, viewChild, ViewChild } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInput, MatInputModule } from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,7 +30,7 @@ export class SetlistForm implements HasUnsavedChanges {
   protected router = inject(Router);
   protected route = inject(ActivatedRoute);
   protected titleService = inject(TitleService);
-  protected store = inject(SetlistStore);
+  protected setlistStore = inject(SetlistStore);
 
   slug = input.required<string>();
   isEditMode = false;
@@ -64,16 +64,16 @@ export class SetlistForm implements HasUnsavedChanges {
     effect(() => {
       const currentSlug = this.slug();
       if (currentSlug && currentSlug !== 'new') {
-        this.store.loadSetlist(currentSlug);
+        this.setlistStore.loadSetlist(currentSlug);
         this.isEditMode = true;
       }
       else {
-        this.store.loadSetlist(null);
+        this.setlistStore.loadSetlist(null);
       }
     })
 
     effect(() => {
-      const location = this.store.currentSetlist()?.location; 
+      const location = this.setlistStore.currentSetlist()?.location; 
       this.titleService.setTitle(location ? `Gig ${location}` : 'Setliste bearbeiten');
     })
 
@@ -85,7 +85,7 @@ export class SetlistForm implements HasUnsavedChanges {
     });
 
     effect(() => {
-      const setlist = this.store.currentSetlist();
+      const setlist = this.setlistStore.currentSetlist();
       if (setlist && this.isEditMode) {
         this.setlistForm.patchValue({
           name: setlist.name,
@@ -94,6 +94,7 @@ export class SetlistForm implements HasUnsavedChanges {
           duration: setlist.duration,
           notes: setlist.notes
         });
+        console.log('Current Setlist:', setlist.id)
       }
     });
   }
@@ -103,13 +104,12 @@ export class SetlistForm implements HasUnsavedChanges {
 
     const data = this.setlistForm.getRawValue() as ISetlistBase;
     if (this.isEditMode) {
-      this.store.update(data).subscribe(() =>{
+      this.setlistStore.update(data).subscribe(() =>{
         this.setlistForm.markAsPristine();
         this.router.navigate(['/setlists', this.slug()]);
       });
     } else {
-      console.log('CREATE', data)
-      this.store.create(data).subscribe((newSetlist) => {
+      this.setlistStore.create(data).subscribe((newSetlist) => {
         this.setlistForm.markAsPristine();
         this.router.navigate(['/setlists', newSetlist.slug]);
       });
