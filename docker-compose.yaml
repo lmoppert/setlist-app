@@ -10,6 +10,7 @@ services:
       - DATABASE_URL=postgres://setlist:lXKcwoxw1eykhDUsgl7ITcamaQszjfQF@172.17.0.1:5432/setlist
       - NODE_ENV=production
       - PORT=3000
+      - APP_PASSWORD=bandidos
     ports:
       - "127.0.0.1:3000:3000" # Nur lokal binden, Apache leitet von außen weiter
     extra_hosts:
