@@ -7,7 +7,7 @@ export function authInterceptor(
 ): Observable<HttpEvent<unknown>> {
   const password = localStorage.getItem('band_password') || '';
   const authReq = req.clone({
-    headers: req.headers.set('X-Band-Password', password),
+    headers: req.headers.set('x-band-password', password),
   });
   return next(authReq);
 };

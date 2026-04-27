@@ -7,7 +7,7 @@ import {
 export class SimpleAuthGuard implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
-    const clientPwd = request.headers['X-Band-Password'];
+    const clientPwd = request.headers['x-band-password'];
     const serverPwd = process.env.APP_PASSWORD;
 
     if (!serverPwd || clientPwd !== serverPwd) {
