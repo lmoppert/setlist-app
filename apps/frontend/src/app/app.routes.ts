@@ -1,7 +1,4 @@
 import { Routes } from '@angular/router';
-import { SetlistEditor } from './features/setlist/setlist-editor/setlist-editor';
-import { Setlists } from './features/setlist/setlists/setlists';
-import { SetlistForm } from './features/setlist/setlist-form/setlist-form';
 import { pendingChangesGuard } from './shared/guards/pending-changes.guard';
 
 export const routes: Routes = [
@@ -12,21 +9,21 @@ export const routes: Routes = [
   },
   {
     path: 'setlists',
-    component: Setlists,
+    loadComponent: () => import('./features/setlist/setlists/setlists').then(m => m.Setlists),
   },
   {
     path: 'setlists/new',
-    component: SetlistForm,
+    loadComponent: () => import('./features/setlist/setlist-form/setlist-form').then(m => m.SetlistForm),
     canDeactivate: [pendingChangesGuard],
   },
   {
     path: 'setlists/:slug/edit',
-    component: SetlistForm,
+    loadComponent: () => import('./features/setlist/setlist-form/setlist-form').then(m => m.SetlistForm),
     canDeactivate: [pendingChangesGuard],
   },
   {
     path: 'setlists/:slug',
-    component: SetlistEditor,
+    loadComponent: () => import('./features/setlist/setlist-editor/setlist-editor').then(m => m.SetlistEditor)
   },
   // { path: 'live/:slug', component: LiveView, },
 ];
