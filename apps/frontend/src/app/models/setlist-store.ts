@@ -30,7 +30,8 @@ export class SetlistStore {
   readonly setlistsAreLoading = computed(() => this.listResource.isLoading())
   readonly setlistsError = computed(() => this.listResource.error())
 
-  refreshList() {
+  private reloadAllResources() {
+    this.setlistResource.reload();
     this.listResource.reload();
   }
 
@@ -78,8 +79,7 @@ export class SetlistStore {
     if (!id) throw new Error('Keine aktive Setliste gefunden');
     return this.service.update(id, data).pipe(
       tap(() => {
-        this.setlistResource.reload();
-        this.listResource.reload();
+        this.reloadAllResources(); 
       })
     );
   }
@@ -89,19 +89,19 @@ export class SetlistStore {
     const slug = this.activeSlug();
     if (!slug) return;
     await firstValueFrom(this.service.addSong(slug, songId, position));
-    this.setlistResource.reload();
+    this.reloadAllResources(); 
   }
 
   async reorderEntry(entryId: string, newPosition: number) {
     const slug = this.activeSlug();
     if (!slug) return;
     await firstValueFrom(this.service.reorderEntry(slug, entryId, newPosition));
-    this.setlistResource.reload();
+    this.reloadAllResources(); 
   }
 
   async removeEntry(entryId: string) {
     await firstValueFrom(this.service.removeEntry(entryId));
-    this.setlistResource.reload();
+    this.reloadAllResources(); 
   }
 
   async deleteSetlist(id: string) {
@@ -109,6 +109,7 @@ export class SetlistStore {
     if (confirmed) {
       try {
         await firstValueFrom(this.service.delete(id));
+        this.listResource.reload();
         this.alert.success('Setliste wurde erfolgreich gelöscht.')
         this.router.navigate(['/setlists']);
       } catch (err) {

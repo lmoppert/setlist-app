@@ -27,13 +27,17 @@
     </button>
   </div>
   <mat-chip-set class="info-box">
-    <mat-chip class="song-count">
-      <mat-icon matChipAvatar>functions</mat-icon>
-      <span>{{ setlistStore.enrichedSetlist().length }} Songs</span>
-    </mat-chip>
-    <mat-chip class="setlist-duration">
+    @let time = timeLeft();
+    <mat-chip class="setlist-duration" [class.overdue]="time < 0">
       <mat-icon matChipAvatar>timelapse</mat-icon>
-      <span>{{ setlistStore.totalDuration() | duration }} h Gesamtdauer</span>
+      <span>
+        {{ setlistStore.totalDuration() | duration }} Songs –
+        @if (time < 0) {
+          {{ -time | duration }} Überzogen
+        } @else {
+          {{ time | duration }} Restzeit
+        }
+      </span>
     </mat-chip>
   </mat-chip-set>
 </div>

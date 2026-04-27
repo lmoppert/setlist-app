@@ -9,9 +9,9 @@ export class DurationPipe implements PipeTransform {
     const smallValue: number = Math.floor(value % 60);
 
     if (bigValue > 0) {
-      return `${bigValue}:${this.pad(smallValue)}`;
+      return `${this.pad(bigValue)}:${this.pad(smallValue)}`;
     }
-    return `00:${smallValue}`;
+    return `00:${this.pad(smallValue)}`;
   }
 
   private pad(num: number): string {

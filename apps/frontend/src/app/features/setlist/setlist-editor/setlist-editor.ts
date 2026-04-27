@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatTooltip } from "@angular/material/tooltip";
+import { MatButtonModule } from '@angular/material/button';
 
 import { ISetlistEntry , ISong } from '@setlist-app/shared-types';
 import { SetlistStore } from '../../../models/setlist-store';
@@ -16,7 +17,7 @@ import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
 import { SongCard } from '../../song/song-card/song-card'
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
-import { MatButtonModule } from '@angular/material/button';
+import { AlertService } from '../../../core/alert.service'
 
 
 @Component({
@@ -32,6 +33,7 @@ export class SetlistEditor {
   protected setlistStore = inject(SetlistStore);
   protected songStore = inject(SongStore);
   private titleService = inject(TitleService);
+  private alert = inject(AlertService)
 
   slug = input.required<string>();
   searchTerm = signal('');
@@ -45,6 +47,15 @@ export class SetlistEditor {
       song.artist?.toLowerCase().includes(term)
     );
   });
+
+  readonly timeLeft = computed(() =>{
+    const songTime = this.setlistStore.totalDuration();
+    const totalTime = this.setlistStore.currentSetlist()?.duration;
+    if (totalTime) { 
+      return (totalTime - songTime);
+    }
+    return 0;
+  })
 
   constructor() {
     effect(() => {
@@ -85,6 +96,9 @@ export class SetlistEditor {
     else if (previousContainerId === 'setlist-songs' && currentContainerId === 'available-songs') {
       const entry = event.item.data as ISetlistEntry;
       this.setlistStore.removeEntry(entry.id!);
+    }
+    if (this.timeLeft() < 0) {
+      this.alert.warning('Die maximale Dauer des Gigs wurde überschritten.')
     }
   }
 

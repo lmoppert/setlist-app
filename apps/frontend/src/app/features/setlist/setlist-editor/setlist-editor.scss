@@ -1,5 +1,45 @@
 @use '@angular/material' as mat;
 
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .search-box {
+    display: flex;
+    padding: 20px 30px 0;
+
+    @include mat.form-field-overrides((
+      filled-label-display: inline,
+      filled-with-label-container-padding-bottom: 0
+    ));
+  }
+
+  .delete {
+    margin-left: 10px;
+    color: var(--mat-sys-error);
+
+    @include mat.button-overrides((
+      outlined-outline-color: var(--mat-sys-error),
+    ));
+  }
+
+  .info-box {
+    display: flex;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 0 30px;
+
+    .overdue {
+      @include mat.chips-overrides((
+        with-icon-icon-color: var(--mat-sys-error),
+        label-text-color: var(--mat-sys-error),
+        outline-color: var(--mat-sys-error),
+      ));
+    }
+  }
+}
+
 .split-screen {
   display: flex;
   padding: 6px 12px;
@@ -37,37 +77,5 @@
     overflow: hidden;
     padding: 1rem;
     cursor: move;
-  }
-}
-
-.header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .search-box {
-    display: flex;
-    padding: 20px 30px 0;
-
-    @include mat.form-field-overrides((
-      filled-label-display: inline,
-      filled-with-label-container-padding-bottom: 0
-    ));
-  }
-
-  .delete {
-    margin-left: 10px;
-    color: var(--mat-sys-error);
-
-    @include mat.button-overrides((
-      outlined-outline-color: var(--mat-sys-error),
-    ));
-  }
-
-  .info-box {
-    display: flex;
-    font-size: 1.2rem;
-    font-weight: 600;
-    padding: 0 30px;
   }
 }
