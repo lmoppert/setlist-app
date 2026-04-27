@@ -36,7 +36,7 @@ export class App implements OnInit {
     if (!localStorage.getItem('band_password')) {
       const dialogRef = this.dialog.open(LoginDialog, {
         disableClose: true,
-        width: '400px'
+        width: '400px',
       });
 
       dialogRef.afterClosed().subscribe(result => {
