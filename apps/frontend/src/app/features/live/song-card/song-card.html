@@ -1,0 +1,36 @@
+@let data = displayData();
+
+<div class="song-card" (click)="setActive()">
+  @if (data.isEntry) {
+    <div class="position">
+      {{ data.position }}
+    </div>
+  }
+
+  <div class="song-info">
+    <span class="title">{{ data.title }}</span>
+    <span class="subtitle">{{ data.subtitle }}</span>
+  </div>
+
+  <mat-chip-set class="song-meta" aria-label="Songs Meta Info">
+    <mat-chip class="duration">
+      <span class="mono-value">{{ data.duration | duration }}</span>
+    </mat-chip>
+    <mat-chip class="chip">
+      <span class="mono-value">{{ data.tempo | formatMonospace }}</span>
+      <span class="unit">BPM</span>
+    </mat-chip>
+    <mat-chip class="chip">
+      <span class="mono-value">{{ data.key | formatMonospace:2 }}</span>
+    </mat-chip>
+    <!-- <mat-chip class="chip">
+      <mat-icon matChipAvatar>mic</mat-icon>
+      @for (vocalist of data.mainVocalists; track $index) {
+        {{ vocalist[0] }}@if (!$last) {,}
+      }
+    </mat-chip> -->
+  </mat-chip-set>
+
+  <div class="song-actions">
+  </div>
+</div>

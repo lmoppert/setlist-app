@@ -1,0 +1,24 @@
+.live-container {
+  display: flex;
+  flex-direction: column;
+  // reduce by height of toolbar
+  height: calc(100vh - 64px); 
+  overflow: hidden;
+
+  .live-header {
+    flex: 0 0 auto;
+    padding: .5rem 1rem;
+    font-size: 1.6rem;
+    background-color: var(--mat-sys-surface-container-low);
+    border-bottom: 2px solid var(--mat-sys-outline);
+    z-index: 10;
+  }
+
+  .song-list {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: 1rem;
+    scroll-behavior: smooth; 
+  }
+
+}

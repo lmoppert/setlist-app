@@ -13,9 +13,8 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ISetlistEntry , ISong } from '@setlist-app/shared-types';
 import { SetlistStore } from '../../../models/setlist-store';
-import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
-import { SongCard } from '../../song/song-card/song-card'
+import { EntryCard } from '../setlist-entry/setlist-entry'
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { AlertService } from '../../../core/alert.service'
 
@@ -23,23 +22,22 @@ import { AlertService } from '../../../core/alert.service'
 @Component({
   selector: 'app-setlist-editor',
   imports: [MatProgressBarModule, MatFormFieldModule, MatInputModule,
-    MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, SongCard,
+    MatIconModule, CdkDrag, CdkDropList, CdkDropListGroup, EntryCard,
     MatChipsModule, DurationPipe, MatTooltip, RouterLink, MatButtonModule
   ],
   templateUrl: './setlist-editor.html',
   styleUrl: './setlist-editor.scss',
 })
 export class SetlistEditor {
-  protected setlistStore = inject(SetlistStore);
-  protected songStore = inject(SongStore);
+  protected store = inject(SetlistStore);
   private titleService = inject(TitleService);
-  private alert = inject(AlertService)
+  private alert = inject(AlertService);
 
   slug = input.required<string>();
   searchTerm = signal('');
 
   readonly filteredAvailableSongs = computed(() => {
-    const songs = this.setlistStore.availableSongs();
+    const songs = this.store.availableSongs();
     const term = this.searchTerm();
     if (!term) return songs;
     return songs.filter(song => 
@@ -49,8 +47,8 @@ export class SetlistEditor {
   });
 
   readonly timeLeft = computed(() =>{
-    const songTime = this.setlistStore.totalDuration();
-    const totalTime = this.setlistStore.currentSetlist()?.duration;
+    const songTime = this.store.totalDuration();
+    const totalTime = this.store.currentSetlist()?.duration;
     if (totalTime) { 
       return (totalTime - songTime);
     }
@@ -61,21 +59,20 @@ export class SetlistEditor {
     effect(() => {
       const currentSlug = this.slug();
       if (currentSlug && currentSlug !== 'new') {
-        this.setlistStore.loadSetlist(currentSlug);
+        this.store.loadSetlist(currentSlug);
       }
       else {
-        this.setlistStore.loadSetlist(null);
+        this.store.loadSetlist(null);
       }
-    })
-
+    });
     effect(() => {
-      let title: string = this.setlistStore.currentSetlist()?.location ?? ''; 
-      const date = this.setlistStore.currentSetlist()?.date;
+      let title: string = this.store.currentSetlist()?.location ?? ''; 
+      const date = this.store.currentSetlist()?.date;
       if (date) {
         title += ` (${formatDate(date, 'dd.MM.yyyy', 'de-DE')})`; 
       }
       this.titleService.setTitle(location ? title : 'Setliste bearbeiten');
-    })
+    });
   }
 
   async moveSong(event: CdkDragDrop<any[]>) {
@@ -86,16 +83,16 @@ export class SetlistEditor {
     if (previousContainerId === currentContainerId && currentContainerId === 'setlist-songs') {
       const entry = event.item.data as ISetlistEntry;
       const newPosition = event.currentIndex + 1;
-      await this.setlistStore.reorderEntry(entry.id!, newPosition);
+      await this.store.reorderEntry(entry.id!, newPosition);
     }
     else if (previousContainerId === 'available-songs' && currentContainerId === 'setlist-songs') {
       const song = event.item.data as ISong;
       const position = event.currentIndex + 1;
-      this.setlistStore.addSong(song.id!, position);
+      this.store.addSong(song.id!, position);
     }
     else if (previousContainerId === 'setlist-songs' && currentContainerId === 'available-songs') {
       const entry = event.item.data as ISetlistEntry;
-      this.setlistStore.removeEntry(entry.id!);
+      this.store.removeEntry(entry.id!);
     }
     if (this.timeLeft() < 0) {
       this.alert.warning('Die maximale Dauer des Gigs wurde überschritten.')
@@ -112,9 +109,9 @@ export class SetlistEditor {
   }
 
   deleteSetlist() {
-    const id = this.setlistStore.currentSetlist()?.id;
+    const id = this.store.currentSetlist()?.id;
     if (id) {
-      this.setlistStore.deleteSetlist(id);
+      this.store.deleteSetlist(id);
     }
   }
 }

@@ -19,12 +19,18 @@ export class SetlistStore {
     const slug = this.activeSlug();
     return slug ? `/api/setlists/${slug}` : undefined;
   });
+  readonly liveLink = computed(() => {
+    const slug = this.activeSlug();
+    return slug ? ['/live', slug] : null;
+  });
   readonly currentSetlist = computed(() => this.setlistResource.value())
   readonly setlistIsLoading = computed(() => this.setlistResource.isLoading())
   readonly setlistError = computed(() => this.setlistResource.error())
 
   // List of setlists
-  readonly listResource = httpResource<ISetlist[]>(() => '/api/setlists');
+  readonly listResource = httpResource<ISetlist[]>(() =>
+    this.activeSlug() ? undefined : '/api/setlists'
+  );
   readonly songResource = httpResource<ISong[]>(() => '/api/songs'); 
   readonly setlists = computed(() => this.listResource.value())
   readonly setlistsAreLoading = computed(() => this.listResource.isLoading())
@@ -33,6 +39,9 @@ export class SetlistStore {
   private reloadAllResources() {
     this.setlistResource.reload();
     this.listResource.reload();
+  }
+  loadSetlist(slug: string | null) {
+    this.activeSlug.set(slug);
   }
 
   // List of available Songs, not yet on the setlist
@@ -47,7 +56,7 @@ export class SetlistStore {
   readonly enrichedSetlist = computed(() => {
     const setlist = this.setlistResource.value();
     const songs = this.songResource.value() ?? [];
-    if (!setlist) { return []; }
+    if (!setlist || !songs || songs.length === 0 ) { return []; }
     return setlist.entries!.map(entry => ({
       ...entry,
       song: songs.find(song => song.id === entry.songId) || null
@@ -63,17 +72,12 @@ export class SetlistStore {
     }, 0);
   })
 
-  loadSetlist(slug: string | null) {
-    this.activeSlug.set(slug);
-  }
-
   // create and update methods
   create(data: ISetlistBase) {
     return this.service.create(data).pipe(
       tap(() => this.listResource.reload())
     )
   }
-
   update(data: ISetlistBase) {
     const id = this.currentSetlist()?.id;
     if (!id) throw new Error('Keine aktive Setliste gefunden');
@@ -91,19 +95,16 @@ export class SetlistStore {
     await firstValueFrom(this.service.addSong(slug, songId, position));
     this.reloadAllResources(); 
   }
-
   async reorderEntry(entryId: string, newPosition: number) {
     const slug = this.activeSlug();
     if (!slug) return;
     await firstValueFrom(this.service.reorderEntry(slug, entryId, newPosition));
     this.reloadAllResources(); 
   }
-
   async removeEntry(entryId: string) {
     await firstValueFrom(this.service.removeEntry(entryId));
     this.reloadAllResources(); 
   }
-
   async deleteSetlist(id: string) {
     const confirmed = confirm('Möchtest du diese Setliste wirklich unwiderruflich löschen?');
     if (confirmed) {

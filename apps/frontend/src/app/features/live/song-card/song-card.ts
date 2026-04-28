@@ -1,7 +1,8 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 import { ISong } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
@@ -14,13 +15,18 @@ import {
   selector: 'app-song-card',
   imports: [
     MatChipsModule, DurationPipe, FormatMonospacePipe, MatIconModule,
-    MatButtonModule,
+    MatButtonModule, MatSlideToggleModule
   ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',
 })
 export class SongCard {
   data = input.required<ISong | ISetlistEntryWithSong>();
+  activate = output();
+
+  setActive() {
+    this.activate.emit();
+  }
 
   displayData = computed<ISongDisplayData>(() => {
     const d = this.data();

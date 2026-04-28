@@ -1,1 +1,47 @@
-<p>live-view works!</p>
+@if (store.setlistIsLoading()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+
+<div class="live-container">
+  <header class="live-header">
+    <mat-chip-set class="info-box">
+      <mat-chip class="clock">
+        <mat-icon matChipAvatar>schedule</mat-icon>
+        <span>
+          {{ currentTime() | date:'HH:mm' }}
+          Uhr
+        </span>
+      </mat-chip>
+      @let time = timeLeft();
+      <mat-chip class="timer" [class.warning]="time < 5" [class.danger]="time < 0">
+        <mat-icon matChipAvatar>timelapse</mat-icon>
+        <span>
+          @if (time < 0) {
+            {{ -time | duration }} überzogen
+          } @else {
+            {{ time | duration }} verbleibend
+          }
+        </span>
+      </mat-chip>
+    </mat-chip-set>
+  </header>
+
+  <main 
+    #songList
+    class="song-list"
+    cdkDropList
+    [cdkDropListData]="store.enrichedSetlist()"
+    (cdkDropListDropped)="moveSong($event)"
+  >
+    @for (entry of store.enrichedSetlist(); track $index; let isFirst = $first) {
+      <div cdkDrag [cdkDragData]="entry" #songItem>
+        <app-song-card
+          [class.b-top]="isFirst"
+          [class.active]="activeSongIndex() === entry.position"
+          (activate)="activateEntry(entry.position)"
+          [data]="entry">
+        </app-song-card>
+      </div>
+    }
+  </main>
+</div>

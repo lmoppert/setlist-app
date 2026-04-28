@@ -1,4 +1,4 @@
-@if (setlistStore.setlistIsLoading() || songStore.songsAreLoading()) {
+@if (store.setlistIsLoading()) {
   <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 }
 
@@ -20,6 +20,12 @@
       <mat-icon>edit</mat-icon>
       Bearbeiten
     </button>
+    <button matButton="outlined" type="button" class="play"
+            [routerLink]="store.liveLink()"
+            matTooltip="Metadaten bearbeiten">
+      <mat-icon>play_circle</mat-icon>
+      Live
+    </button>
     <button matButton="outlined" type="button" (click)="deleteSetlist()"
             matTooltip="Setliste löschen" class="delete">
       <mat-icon>delete</mat-icon>
@@ -31,7 +37,7 @@
     <mat-chip class="setlist-duration" [class.overdue]="time < 0">
       <mat-icon matChipAvatar>timelapse</mat-icon>
       <span>
-        {{ setlistStore.totalDuration() | duration }} Songs –
+        {{ store.totalDuration() | duration }} Songs –
         @if (time < 0) {
           {{ -time | duration }} Überzogen
         } @else {
@@ -55,25 +61,25 @@
     >
       @for (song of filteredAvailableSongs(); track song.id; let isFirst = $first) {
         <div cdkDrag [cdkDragData]="song">
-          <app-song-card [class.b-top]="isFirst" [data]="song"></app-song-card>
+          <app-setlist-entry [class.b-top]="isFirst" [data]="song"></app-setlist-entry>
         </div>
       }
     </div>
   </div>
 
   <div class="list-container active-setlist">
-    <h3>Setliste: {{ setlistStore.currentSetlist()?.location }}</h3>
+    <h3>Setliste: {{ store.currentSetlist()?.location }}</h3>
     <div
       cdkDropList
       id="setlist-songs"
       [cdkDropListConnectedTo]="['available-songs']"
-      [cdkDropListData]="setlistStore.enrichedSetlist()"
+      [cdkDropListData]="store.enrichedSetlist()"
       class="song-list"
       (cdkDropListDropped)="moveSong($event)"
     >
-      @for (entry of setlistStore.enrichedSetlist(); track entry.id; let isFirst = $first) {
+      @for (entry of store.enrichedSetlist(); track entry.id; let isFirst = $first) {
         <div cdkDrag [cdkDragData]="entry">
-          <app-song-card [class.b-top]="isFirst" [data]="entry"></app-song-card>
+          <app-setlist-entry [class.b-top]="isFirst" [data]="entry"></app-setlist-entry>
         </div>
       }
     </div>

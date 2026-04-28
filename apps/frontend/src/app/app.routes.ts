@@ -25,5 +25,8 @@ export const routes: Routes = [
     path: 'setlists/:slug',
     loadComponent: () => import('./features/setlist/setlist-editor/setlist-editor').then(m => m.SetlistEditor)
   },
-  // { path: 'live/:slug', component: LiveView, },
+  {
+    path: 'live/:slug',
+    loadComponent: () => import('./features/live/live-view/live-view').then(m => m.LiveView),
+  },
 ];
