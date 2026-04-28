@@ -16,18 +16,22 @@
   border-top: 1px solid var(--mat-sys-outline);
 }
 :host.active {
-  background-color: var(--mat-sys-surface-container-low);
-  border-left: 10px solid var(--mat-sys-primary);
+  //background-color: var(--mat-sys-surface-container-low);
+  background-color: var(--live-active-bg);
+  border-left: 10px solid var(--live-active-accent);
 
   .song-card {
     .position {
-      font-size: 2rem;
+      font-size: 1.8rem;
+      color: var(--live-active-accent);
     }
 
     .song-info {
       .title {
+        color: var(--live-active-accent);
+        font-weight: 800;
         padding-top: .2rem;
-        font-size: 2rem;
+        font-size: 1.8rem;
         min-height: 2rem;
       }
     }

@@ -5,7 +5,7 @@
 <div class="live-container">
   <header class="live-header">
     <mat-chip-set class="info-box">
-      <mat-chip class="clock">
+      <mat-chip class="chip clock">
         <mat-icon matChipAvatar>schedule</mat-icon>
         <span>
           {{ currentTime() | date:'HH:mm' }}
@@ -13,7 +13,7 @@
         </span>
       </mat-chip>
       @let time = timeLeft();
-      <mat-chip class="timer" [class.warning]="time < 5" [class.danger]="time < 0">
+      <mat-chip class="chip timer" [class.warning]="time < 5" [class.danger]="time < 0">
         <mat-icon matChipAvatar>timelapse</mat-icon>
         <span>
           @if (time < 0) {

@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 .live-container {
   display: flex;
   flex-direction: column;
@@ -8,10 +9,21 @@
   .live-header {
     flex: 0 0 auto;
     padding: .5rem 1rem;
-    font-size: 1.6rem;
     background-color: var(--mat-sys-surface-container-low);
     border-bottom: 2px solid var(--mat-sys-outline);
     z-index: 10;
+
+    .chip {
+      padding: .4rem;
+      margin-right: 1rem;
+      background-color: var(--mat-sys-surface-container-lowest);
+      @include mat.chips-overrides((
+        label-text-size: 1.3rem,
+        with-avatar-avatar-size: 1.8rem,
+        with-icon-icon-size: 1.6rem,
+        with-icon-icon-color: var(--mat-sys-primary),
+      ));
+    }
   }
 
   .song-list {
