@@ -42,7 +42,8 @@ export class SetlistEditor {
     if (!term) return songs;
     return songs.filter(song => 
       song.title.toLowerCase().includes(term) || 
-      song.artist?.toLowerCase().includes(term)
+      song.artist?.toLowerCase().includes(term) ||
+      song.leadVocals?.toLowerCase().includes(term)
     );
   });
 

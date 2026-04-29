@@ -24,6 +24,12 @@
         with-icon-icon-color: var(--mat-sys-primary),
       ));
     }
+    .reset-btn {
+      margin-top: .4rem;
+      @include mat.icon-button-overrides((
+        icon-color: var(--mat-sys-primary),
+      ));
+    }
   }
 
   .song-list {

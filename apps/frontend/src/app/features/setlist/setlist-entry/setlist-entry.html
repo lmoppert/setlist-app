@@ -22,26 +22,9 @@
     <mat-chip class="chip key">
       <span class="mono-value">{{ displayData().key | formatMonospace:2 }}</span>
     </mat-chip>
-    <mat-chip class="chip vox">
+    <mat-chip class="chip vox" [title]="displayData().leadVocals">
       <mat-icon matChipAvatar>mic</mat-icon>
       <span class="mono-value">{{ displayData().leadVocals | initials | formatMonospace:2 }}</span>
     </mat-chip>
   </mat-chip-set>
-
-  <!-- @if (displayData().isEntry) {
-    <div class="song-actions">
-      <button matIconButton type="button" [class.isOptional]="displayData().isOptional"
-              matTooltip="Als Optional markieren">
-        <mat-icon>help_outline</mat-icon>
-      </button>
-      <button matIconButton type="button" [class.isEncore]="displayData().isEncore"
-              matTooltip="Als Zugabe markieren">
-        @if (displayData().isEncore) {
-          <mat-icon>star_outline</mat-icon>
-        } @else {
-          <mat-icon>star</mat-icon>
-        }
-      </button>
-    </div>
-  } -->
 </div>
