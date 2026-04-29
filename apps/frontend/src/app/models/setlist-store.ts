@@ -52,18 +52,38 @@ export class SetlistStore {
     return songs.filter(s => !usedSongIds.has(s.id!));
   });
 
-  // This is a derived state that combines the setlist entries with the corresponding song details.
+  // This is a derived state that combines the setlist entries with the
+  // corresponding song details.
   readonly enrichedSetlist = computed(() => {
     const setlist = this.setlistResource.value();
     const songs = this.songResource.value() ?? [];
     if (!setlist || !songs || songs.length === 0 ) { return []; }
+
     return setlist.entries!.map(entry => ({
       ...entry,
       song: songs.find(song => song.id === entry.songId) || null
     }));
+    // return setlist.entries!.map(entry => {
+    //   const songData = songs.find(s => s.id === entry.songId);
+    //   if (!songData) return { ...entry, song: null};
+    //   const leads = songData.assignments
+    //     ?.filetr(a => a.isLead)
+    //     .map(a => a.member.name) || [];
+    //   const myAssignments = songData.assignments || [];
+
+    //   return {
+    //     ...entry,
+    //     song: {
+    //       ...songData,
+    //       leads,
+    //       myAssignments,
+    //     }
+    //   };
+    // });
   });
 
-  // Calculate the total duration of the setlist by summing up the durations of the individual songs.
+  // Calculate the total duration of the setlist by summing up the durations of
+  // the individual songs.
   readonly totalDuration = computed(() => {
     const entries = this.enrichedSetlist();
     return entries.reduce((total, entry) => {

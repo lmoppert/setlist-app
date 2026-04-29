@@ -16,19 +16,17 @@
     <mat-chip class="duration">
       <span class="mono-value">{{ data.duration | duration }}</span>
     </mat-chip>
-    <mat-chip class="chip">
+    <mat-chip class="chip tempo">
       <span class="mono-value">{{ data.tempo | formatMonospace }}</span>
       <span class="unit">BPM</span>
     </mat-chip>
-    <mat-chip class="chip">
+    <mat-chip class="chip key">
       <span class="mono-value">{{ data.key | formatMonospace:2 }}</span>
     </mat-chip>
-    <!-- <mat-chip class="chip">
+    <mat-chip class="chip vox">
       <mat-icon matChipAvatar>mic</mat-icon>
-      @for (vocalist of data.mainVocalists; track $index) {
-        {{ vocalist[0] }}@if (!$last) {,}
-      }
-    </mat-chip> -->
+      <span class="mono-value">{{ data.leadVocals | initials | formatMonospace:2 }}</span>
+    </mat-chip>
   </mat-chip-set>
 
   <div class="song-actions">

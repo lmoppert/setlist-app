@@ -1,3 +1,5 @@
+import { ISetlistEntry } from './setlist';
+
 export interface ISong {
   id?: string;
   slug?: string,
@@ -8,8 +10,9 @@ export interface ISong {
   duration: number; // in seconds
   tempo?: number;   // in BPM
   key?: string;
+  leadVocals?: string;
 
-  // assignments?: SongAssignment[];
+  // instruments?: IInstrumentAssignment[];
 
   // resources?: SongResource[];
 }
@@ -43,4 +46,23 @@ export interface ISongResource {
     | 'recording'
     | 'other';
   url: string;
+}
+
+export interface ISongDisplayData {
+  // Common attributes
+  title: string;
+  subtitle?: string;
+  duration?: number;
+  tempo?: number;
+  key?: string;
+  leadVocals?: string;
+
+  // Only for setlist-entries
+  position?: number;
+  isOptional?: boolean;
+  isEncore?: boolean;
+
+  // References
+  isEntry: boolean;
+  originalData: ISong | ISetlistEntry;
 }

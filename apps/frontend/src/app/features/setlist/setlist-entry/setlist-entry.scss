@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 :host {
   display: flex;
   align-items: center;
@@ -19,15 +20,6 @@
 .song-card {
   display: flex;
   width: 100%;
-  // border-left: 5px solid var(--mat-sys-surface-container);
-  // border-bottom: 1px solid var(--mat-sys-surface-container);
-
-  // .drag-handle {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   padding-right: .5rem;
-  // }
 
   .position {
     display: flex;
@@ -40,7 +32,7 @@
   }
 
   .song-info {
-    flex: 1.1;
+    flex: .9;
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -57,7 +49,7 @@
   }
 
   .song-meta {
-    flex: .9;
+    flex: 1.1;
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -65,6 +57,12 @@
 
     .chip {
       background-color: var(--mat-sys-surface-container-low);
+    }
+    .vox {
+      @include mat.chips-overrides((
+        with-icon-icon-color: var(--mat-sys-primary),
+        with-avatar-avatar-size: 15px,
+      ));
     }
     .duration {
       background-color: var(--mat-sys-primary-container);
@@ -78,10 +76,22 @@
       white-space: pre;
     }
     .unit {
-      margin: 0;
-      padding-left: 2px;
-      font-size: 0.45rem;
-      line-height: 0;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      /* Die Magie: Feste Höhe passend zur restlichen Zeile */
+      height: 1.4em; 
+      width: 1.2em;
+      vertical-align: middle;
+      border-radius: 4px;
+      line-height: .9;
+
+      span {
+        font-size: 0.5rem; /* Sehr kleine Schrift, damit 3 untereinander passen */
+        font-weight: bold;
+        text-transform: uppercase;
+      }
     }
   }
 

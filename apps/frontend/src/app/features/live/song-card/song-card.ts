@@ -4,15 +4,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
+import { ISetlistEntryWithSong, ISongDisplayData } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { FormatMonospacePipe } from '../../../shared/pipes/monospace.pipe';
-import { ISetlistEntryWithSong, ISongDisplayData } from '../../../shared/types/song-entry';
+import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
 
 @Component({
   selector: 'app-song-card',
   imports: [
-    MatChipsModule, DurationPipe, FormatMonospacePipe, MatIconModule,
-    MatButtonModule, MatSlideToggleModule
+    MatChipsModule, DurationPipe, FormatMonospacePipe, InitialsPipe,
+    MatIconModule, MatButtonModule, MatSlideToggleModule
   ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',
@@ -33,6 +34,7 @@ export class SongCard {
       duration: d.song?.duration ?? 0,
       tempo: d.song?.tempo ?? 0,
       key: d.song?.key ?? '',
+      leadVocals: d.song?.leadVocals ?? '',
       position: d.position,
       isEncore: d.isEncore,
       isOptional: d.isOptional,

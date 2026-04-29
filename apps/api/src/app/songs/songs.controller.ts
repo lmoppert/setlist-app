@@ -9,7 +9,7 @@ export class SongsController {
   async getAllSongs() {
     return this.prisma.song.findMany({
       include: {
-        assignments: {
+        instruments: {
           include: {
             member: true
           }
@@ -23,7 +23,7 @@ export class SongsController {
     const song = await this.prisma.song.findUnique({
       where: { id },
       include: {
-        assignments: {
+        instruments: {
           include: {
             member: true
           }

@@ -15,26 +15,27 @@ model Song {
   duration    Int          // in seconds
   tempo       Int?
   key         String?
+  leadVocals  String?
   
-  assignments Assignment[]
+  instruments Instrument[]
   entries     SetlistEntry[]
 }
 
 model Member {
   id             String       @id @default(uuid())
   name           String
-  mainInstrument String
+  isLeadVocalist Boolean      @default(false)
   
-  assignments    Assignment[]
+  instruments    Instrument[]
 }
 
-model Assignment {
+model Instrument {
   id         String  @id @default(uuid())
   songId     String
   memberId   String
+  
   instrument String
-  tuning     String? // Falls ein Musiker für diesen Song umstimmen muss
-  isLead     Boolean @default(false)
+  tuning     String?
 
   song       Song    @relation(fields: [songId], references: [id])
   member     Member  @relation(fields: [memberId], references: [id])

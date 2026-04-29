@@ -1,3 +1,4 @@
+@use '@angular/material' as mat;
 :host {
   display: flex;
   align-items: center;
@@ -73,7 +74,7 @@
       font-size: 1.25rem;
     }
     .subtitle {
-      font-size: 1.1rem;
+      font-size: 1rem;
       color: var(--mat-sys-secondary);
     }
   }
@@ -87,6 +88,10 @@
 
     .chip {
       background-color: var(--mat-sys-surface-container-low);
+      @include mat.chips-overrides((
+        with-icon-icon-color: var(--mat-sys-primary),
+        with-avatar-avatar-size: 15px,
+      ));
     }
     .duration {
       background-color: var(--mat-sys-primary-container);
@@ -108,7 +113,7 @@
   }
 
   /* Mobile Optimierung */
-  @media (max-width: 900px) {
+  @media (max-width: 600px) {
     .song-meta, .song-details  {
       display: none;
     }

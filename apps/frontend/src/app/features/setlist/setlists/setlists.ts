@@ -8,10 +8,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 
-import { ISetlist } from '@setlist-app/shared-types'
+import { ISetlist, ISetlistGroup } from '@setlist-app/shared-types'
 import { TitleService } from '../../../core/title.service';
 import { SetlistStore } from '../../../models/setlist-store';
-import { ISetlistGroup } from '../../../shared/types/setlist-groups'
 import { AlertService } from '../../../core/alert.service'
 
 @Component({

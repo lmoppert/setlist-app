@@ -5,7 +5,7 @@ const prisma = createPrismaClient();
 
 async function main() {
   console.log('Bereinige Datenbank...')
-  await prisma.assignment.deleteMany({});
+  await prisma.instrument.deleteMany({});
   await prisma.member.deleteMany({});
   await prisma.setlistEntry.deleteMany({});
   await prisma.setlist.deleteMany({});
@@ -17,13 +17,13 @@ async function main() {
   const Volker = await prisma.member.create({
     data: {
       name: 'Volker',
-      mainInstrument: 'E-Gitarre'
+      isLeadVocalist: true,
     }
   });
   const Bernd = await prisma.member.create({
     data: {
       name: 'Bernd',
-      mainInstrument: 'Akkustik-Gitarre'
+      isLeadVocalist: true,
     }
   });
 
@@ -33,194 +33,188 @@ async function main() {
       title: 'Straw In The Wind',
       artist: 'The Steel Woods',
       duration: 270, tempo: 57, key: 'Dm',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Whitehouse Road',
       artist: 'Tyler Childers',
       duration: 310, tempo: 158, key: 'D',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Hideaway',
       artist: 'The Beat Farmers',
       duration: 280, tempo: 138, key: 'Am',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Hurricane',
       artist: 'The Band Of Heathens',
       duration: 310, tempo: 130, key: 'Am',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Copperhead Road',
       artist: 'Steve Earle',
       duration: 260, tempo: 83, key: 'D',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Turn The Page',
       artist: 'Bob Seger',
       duration: 240, tempo: 82, key: 'Dm',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Blue On Black',
       artist: 'Kenny Wayne Shepherd',
       duration: 260, tempo: 78, key: 'D',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Simple Man',
       artist: 'Lynyrd Skynyrd',
       duration: 370, tempo: 60, key: 'Am',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Sunrise In Texas',
       artist: 'Blackberry Smoke',
       duration: 260, tempo: 80, key: 'D',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Up In Indiana',
       artist: 'Lyle Lovett',
       duration: 290, tempo: 94, key: 'D',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Let The Rain Come Down',
       artist: 'Steel Woods; Brent Cobb',
       duration: 280, tempo: 79, key: 'D',
-      leadSinger: [Volker, Bernd]
+      leadVocals: [Volker, Bernd]
     },
     {
       title: 'Jackson Station',
       artist: 'The Band Of Heathens',
       duration: 230, tempo: 63, key: 'G',
-      leadSinger: [Bernd, Volker]
+      leadVocals: [Bernd, Volker]
     },
     {
       title: 'In Hell I´ll Be In Good Company',
       artist: 'The Dead South',
       duration: 260, tempo: 78, key: 'Am',
-      leadSinger: [Volker, Bernd]
+      leadVocals: [Volker, Bernd]
     },
     {
       title: 'Angel From Montgomery',
       artist: 'John Prine',
       duration: 230, tempo: 64, key: 'A',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Tennessee Whiskey',
       artist: 'Chris Stapleton',
       duration: 340, tempo: 56, key: 'G',
-      leadSinger: [Volker],
+      leadVocals: [Volker],
     },
     {
       title: 'Paper In Fire',
       artist: 'John Mellencamp',
       duration: 250, tempo: 142, key: 'Hm',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'The World´s On Fire',
       artist: 'American Aquarium',
       duration: 330, tempo: 68, key: 'E',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Travelin Soldier',
       artist: 'Cody Johnson',
       duration: 240, tempo: 78, key: 'D',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'You`ve Got Another Thing Comin`',
       artist: 'Alex Williams',
       duration: 262, tempo: 129, key: 'Cm',
-      leadSinger: [Bernd, Volker]
+      leadVocals: [Bernd, Volker]
     },
     {
       title: 'Gris Gris Satchel',
       artist: 'The Band Of Heathens',
       duration: 240, tempo: 70, key: 'D',
-      leadSinger: [Bernd, Volker]
+      leadVocals: [Bernd, Volker]
     },
     {
       title: 'Als Ich Fortging',
       artist: 'Karussell',
       duration: 270, tempo: 104, key: 'Em',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Und musst du weinen',
       artist: 'G. Gundermann und Seilschaft',
       duration: 278, tempo: 125, key: 'D',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Broken Window Serenade',
       artist: 'Whiskey Myers',
       duration: 332, tempo: 77, key: 'D',
-      leadSinger: [Volker]
+      leadVocals: [Volker]
     },
     {
       title: 'Ramblin`',
       artist: 'The Red Clay Strays',
       duration: 153, tempo: 109, key: 'A',
-      leadSinger: [Bernd, Volker]
+      leadVocals: [Bernd, Volker]
     },
     {
       title: 'White Wedding',
       artist: 'Billy Idol',
       duration: 210, tempo: 168, key: 'D',
-      leadSinger: [Bernd]
+      leadVocals: [Bernd]
     },
     {
       title: 'Let It Burn',
       artist: 'Blackberry Smoke',
       duration: 177, tempo: 210, key: 'G',
-      leadSinger: [Volker, Bernd]
+      leadVocals: [Volker, Bernd]
     },
     {
       title: 'Life ain`t easy',
       artist: 'New Roses',
       duration: 241, tempo: 128, key: 'D',
-      leadSinger: [Volker, Bernd]
+      leadVocals: [Volker, Bernd]
     },
     {
       title: 'Ballad of a Broken Hearted Man',
       artist: 'Robert Jon & the Wreck',
       duration: 320, tempo: 76, key: 'D',
-      leadSinger: [Volker, Bernd]
+      leadVocals: [Volker, Bernd]
     },
     {
       title: 'When I`m Dead and Gone',
       artist: 'Fury In The Slaughterhouse',
       duration: 241, tempo: 227, key: 'D',
-      leadSinger: [Volker, Bernd]
+      leadVocals: [Volker, Bernd]
     },
   ];
 
   for (const song of songs) {
     await prisma.song.create({
       data: {
-        title: song.title,
         slug: slugify(song.title),
+        title: song.title,
         artist: song.artist,
         duration: song.duration,
         tempo: song.tempo,
         key: song.key,
-        assignments: {
-          create: song.leadSinger.map((lead) => ({
-            member: { connect: { id: lead.id } },
-            isLead: true,
-            instrument: lead.mainInstrument,
-          }))
-        }
+        leadVocals: song.leadVocals.map((lead) => lead.name).join(', '),
       }
     });
   }

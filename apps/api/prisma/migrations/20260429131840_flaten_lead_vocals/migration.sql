@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Song" ALTER COLUMN "leadVocals" DROP NOT NULL,
+ALTER COLUMN "leadVocals" SET DATA TYPE TEXT;

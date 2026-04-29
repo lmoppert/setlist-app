@@ -3,18 +3,18 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
 
-import { ISong } from '@setlist-app/shared-types';
+import {
+  ISong, isSetlistEntryWithSong, ISetlistEntryWithSong, ISongDisplayData
+} from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { FormatMonospacePipe } from '../../../shared/pipes/monospace.pipe';
-import {
-  isSetlistEntryWithSong, ISetlistEntryWithSong, ISongDisplayData
-} from '../../../shared/types/song-entry';
+import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
 
 @Component({
   selector: 'app-setlist-entry',
   imports: [
-    MatChipsModule, DurationPipe, FormatMonospacePipe, MatIconModule,
-    MatButtonModule,
+    DurationPipe, FormatMonospacePipe, InitialsPipe, MatChipsModule,
+    MatIconModule, MatButtonModule,
   ],
   templateUrl: './setlist-entry.html',
   styleUrl: './setlist-entry.scss',
@@ -32,6 +32,7 @@ export class EntryCard {
         duration: d.song?.duration ?? 0,
         tempo: d.song?.tempo ?? 0,
         key: d.song?.key ?? '',
+        leadVocals: d.song?.leadVocals ?? '',
         position: d.position,
         isEncore: d.isEncore,
         isOptional: d.isOptional,
@@ -45,6 +46,7 @@ export class EntryCard {
         duration: d.duration ?? 0,
         tempo: d.tempo ?? 0,
         key: d.key ?? '',
+        leadVocals: d.leadVocals ?? '',
         isEntry: false,
         originalData: d
       }

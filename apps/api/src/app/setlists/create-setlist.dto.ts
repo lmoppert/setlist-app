@@ -23,4 +23,8 @@ export class CreateSetlistDto implements ISetlistBase {
   @IsOptional()
   @IsString()
   notes?: string;
+
+  @IsOptional()
+  @IsString()
+  leadVocals?: string;
 }
