@@ -2,6 +2,8 @@ import { Component, computed, inject, input, output } from '@angular/core';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 import {
   ISong, isSetlistEntryWithSong, ISetlistEntryWithSong, ISongDisplayData
@@ -14,7 +16,7 @@ import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
   selector: 'app-setlist-entry',
   imports: [
     DurationPipe, FormatMonospacePipe, InitialsPipe, MatChipsModule,
-    MatIconModule, MatButtonModule,
+    MatIconModule, MatButtonModule, MatMenuModule, MatDividerModule
   ],
   templateUrl: './setlist-entry.html',
   styleUrl: './setlist-entry.scss',

@@ -1,5 +1,10 @@
-<!-- <div class="song-card" [routerLink]="['/songs',song.slug]"> -->
-<div class="song-card">
+<!-- [routerLink]="['/songs',song.slug]" -->
+<div class="song-card"
+     [class.encore]="displayData().isEncore"
+     [class.optional]="displayData().isOptional"
+     [matContextMenuTriggerFor]="contextMenu"
+     title="Rechtsklick für weitere Optionen"
+>
   @if (displayData().isEntry) {
     <div class="position">
       {{ displayData().position }}
@@ -28,3 +33,19 @@
     </mat-chip>
   </mat-chip-set>
 </div>
+
+<mat-menu #contextMenu>
+  <button mat-menu-item type="button">
+    <mat-icon>help_center</mat-icon>
+    Dieser Song ist Optional
+  </button>
+  <button mat-menu-item type="button">
+    <mat-icon>add_box</mat-icon>
+    Dieser Song ist eine Zugabe
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item type="button">
+    <mat-icon>edit_note</mat-icon>
+    Song-Details bearbeiten
+  </button>
+</mat-menu>

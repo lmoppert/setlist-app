@@ -3,6 +3,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
 
 import { ISetlistEntryWithSong, ISongDisplayData } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
@@ -13,7 +15,8 @@ import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
   selector: 'app-song-card',
   imports: [
     MatChipsModule, DurationPipe, FormatMonospacePipe, InitialsPipe,
-    MatIconModule, MatButtonModule, MatSlideToggleModule
+    MatIconModule, MatButtonModule, MatSlideToggleModule, MatMenuModule,
+    MatDividerModule
   ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',

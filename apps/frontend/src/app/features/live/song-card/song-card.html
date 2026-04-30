@@ -1,6 +1,12 @@
 @let data = displayData();
 
-<div class="song-card" (click)="setActive()">
+<div class="song-card"
+     (click)="setActive()"
+     [class.encore]="data.isEncore"
+     [class.optional]="data.isOptional"
+     [matContextMenuTriggerFor]="contextMenu"
+     title="Rechtsklick für weitere Optionen"
+>
   @if (data.isEntry) {
     <div class="position">
       {{ data.position }}
@@ -32,3 +38,19 @@
   <div class="song-actions">
   </div>
 </div>
+
+<mat-menu #contextMenu>
+  <button mat-menu-item type="button">
+    <mat-icon>help_center</mat-icon>
+    Dieser Song ist Optional
+  </button>
+  <button mat-menu-item type="button">
+    <mat-icon>add_box</mat-icon>
+    Dieser Song ist eine Zugabe
+  </button>
+  <mat-divider></mat-divider>
+  <button mat-menu-item type="button">
+    <mat-icon>edit_note</mat-icon>
+    Song-Details bearbeiten
+  </button>
+</mat-menu>

@@ -38,6 +38,14 @@
     }
   }
 }
+:host:has(.encore) {
+  border-left-color: var(--mat-sys-secondary-container);
+}
+.song-card.encore{
+  .position {
+    color: var(--mat-sys-secondary);
+  }
+}
 
 .song-card {
   display: flex;
