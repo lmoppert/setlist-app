@@ -62,4 +62,12 @@ export class SetlistController {
   ) {
     return this.setlistService.reorder(slug, dto.entryId, dto.newPosition);
   }
+
+  @Patch('entries/:entryId')
+  async toggleEntry(
+    @Param('entryId') entryId: string,
+    @Body() dto: { field: 'isEncore' | 'isOptional'; value: boolean }
+  ) {
+    return this.setlistService.toggleEntry(entryId, dto.value, dto.field);
+  }
 }

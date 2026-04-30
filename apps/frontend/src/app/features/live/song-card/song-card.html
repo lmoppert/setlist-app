@@ -4,7 +4,7 @@
      (click)="setActive()"
      [class.encore]="data.isEncore"
      [class.optional]="data.isOptional"
-     [matContextMenuTriggerFor]="contextMenu"
+     [matContextMenuTriggerFor]="contextMenu.menu()!"
      title="Rechtsklick für weitere Optionen"
 >
   @if (data.isEntry) {
@@ -33,24 +33,17 @@
       <mat-icon matChipAvatar>mic</mat-icon>
       <span class="mono-value">{{ data.leadVocals | initials | formatMonospace:2 }}</span>
     </mat-chip>
+    <span class="spacer"></span>
+    <button mat-icon-button
+            [matMenuTriggerFor]="contextMenu.menu()!"
+            (click)="$event.stopPropagation()"
+            type="button">
+      <mat-icon>more_vert</mat-icon>
+    </button>
   </mat-chip-set>
 
   <div class="song-actions">
   </div>
 </div>
 
-<mat-menu #contextMenu>
-  <button mat-menu-item type="button">
-    <mat-icon>help_center</mat-icon>
-    Dieser Song ist Optional
-  </button>
-  <button mat-menu-item type="button">
-    <mat-icon>add_box</mat-icon>
-    Dieser Song ist eine Zugabe
-  </button>
-  <mat-divider></mat-divider>
-  <button mat-menu-item type="button">
-    <mat-icon>edit_note</mat-icon>
-    Song-Details bearbeiten
-  </button>
-</mat-menu>
+<app-setlist-context-menu #contextMenu [data]="data"></app-setlist-context-menu>

@@ -1,4 +1,5 @@
-import { Component, computed, inject, input, output, signal } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
+
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
@@ -10,13 +11,14 @@ import { ISetlistEntryWithSong, ISongDisplayData } from '@setlist-app/shared-typ
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { FormatMonospacePipe } from '../../../shared/pipes/monospace.pipe';
 import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
+import { SetlistContextMenu } from '../../../shared/menu/setlist-context-menu';
 
 @Component({
   selector: 'app-song-card',
   imports: [
     MatChipsModule, DurationPipe, FormatMonospacePipe, InitialsPipe,
     MatIconModule, MatButtonModule, MatSlideToggleModule, MatMenuModule,
-    MatDividerModule
+    MatDividerModule, SetlistContextMenu
   ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',
@@ -32,6 +34,8 @@ export class SongCard {
   displayData = computed<ISongDisplayData>(() => {
     const d = this.data();
     return {
+      id: d.id!,
+      slug: d.song?.slug ?? '',
       title: d.song?.title ?? 'Unbekannter Song',
       subtitle: d.song?.artist ?? '',
       duration: d.song?.duration ?? 0,

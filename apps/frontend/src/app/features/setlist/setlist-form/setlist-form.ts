@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 
+import { slugify } from "@setlist-app/shared-utils";
 import { ISetlistBase } from '@setlist-app/shared-types';
 import { TitleService } from '../../../core/title.service';
 import { SetlistStore } from '../../../models/setlist-store';
@@ -106,7 +107,14 @@ export class SetlistForm implements HasUnsavedChanges {
     if (this.isEditMode) {
       this.setlistStore.update(data).subscribe(() =>{
         this.setlistForm.markAsPristine();
-        this.router.navigate(['/setlists', this.slug()]);
+        //this.router.navigate(['/setlists', this.slug()]);
+        if (data.location || data.date) {
+          const newDate = data.date ? data.date : this.setlistStore.currentSetlist()?.date;
+          const newLocation = data.location ? data.location : this.setlistStore.currentSetlist()?.location
+          const newSlug = slugify(`${newDate?.substring(0, 10)}-${newLocation}`);
+          console.log('new slug:', newSlug) 
+          this.router.navigate(['/setlists', newSlug]);
+        }
       });
     } else {
       this.setlistStore.create(data).subscribe((newSetlist) => {

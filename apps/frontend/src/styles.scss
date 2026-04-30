@@ -25,21 +25,29 @@ body {
   height: 100%;
 }
 
-  .dark-theme {
-    color-scheme: dark;
-    background-color: var(--mat-sys-surface);
-    color: var(--mat-sys-on-surface);
-    --live-active-bg: rgba(100, 92, 63, 0.7);
-    --live-active-accent: rgb(255, 217, 0);
-    --live-done-opacity: 0.3;
-  }
+.spacer {
+  flex: 1 1 auto;
+}
 
-  .light-theme {
-    color-scheme: light;
-    --live-active-bg: rgba(238, 232, 170, 0.3);
-    --live-active-accent: rgb(90, 127, 17);
-    --live-done-opacity: 0.5;
-  }
+.dark-theme {
+  color-scheme: dark;
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+  --live-active-bg: rgba(100, 92, 63, 0.7);
+  --live-active-accent: rgb(255, 217, 0);
+  --live-done-opacity: 0.3;
+  --icon-active-color: rgba(93, 216, 35, 0.9);
+  --live-optional-color: rgba(134, 79, 51, 0.801);
+}
+
+.light-theme {
+  color-scheme: light;
+  --live-active-bg: rgba(238, 232, 170, 0.3);
+  --live-active-accent: rgb(90, 127, 17);
+  --live-done-opacity: 0.5;
+  --icon-active-color: rgba(56, 130, 27, 0.9);
+  --live-optional-color: rgba(125, 42, 1, 0.801);
+}
 
 // Angular Material SnackBar Styles
 mat-snack-bar-container.snackbar {

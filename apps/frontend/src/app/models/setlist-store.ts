@@ -40,6 +40,9 @@ export class SetlistStore {
     this.setlistResource.reload();
     this.listResource.reload();
   }
+  loadListOfSetlists() {
+    this.activeSlug.set(null);
+  }
   loadSetlist(slug: string | null) {
     this.activeSlug.set(slug);
   }
@@ -137,5 +140,17 @@ export class SetlistStore {
         this.alert.error('Fehler beim Löschen der Setliste:' + err)
       }
     }
+  }
+  async toggleEncore(entryId: string) {
+    const entry = this.currentSetlist()?.entries?.find(e => e.id === entryId);
+    if (!entry) return;
+    await firstValueFrom(this.service.toggleEntry(entryId, !entry.isEncore, 'isEncore'));
+    this.reloadAllResources();
+  }
+  async toggleOptional(entryId: string) {
+    const entry = this.currentSetlist()?.entries?.find(e => e.id === entryId);
+    if (!entry) return;
+    await firstValueFrom(this.service.toggleEntry(entryId, !entry.isOptional, 'isOptional'));
+    this.reloadAllResources();
   }
 }

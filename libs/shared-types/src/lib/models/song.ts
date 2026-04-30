@@ -50,6 +50,8 @@ export interface ISongResource {
 
 export interface ISongDisplayData {
   // Common attributes
+  id: string;
+  slug: string;
   title: string;
   subtitle?: string;
   duration?: number;

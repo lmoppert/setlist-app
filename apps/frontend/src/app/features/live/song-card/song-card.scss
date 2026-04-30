@@ -10,8 +10,8 @@
   transition: background 0.2s;
   cursor: pointer;
 }
-:host:hover {
-  background-color: var(--mat-sys-surface-container);
+:host:hover, :host:has(.encore):hover, :host:has(.optional):hover {
+  background-color: var(--mat-sys-surface-variant);
 }
 :host.b-top {
   border-top: 1px solid var(--mat-sys-outline);
@@ -40,8 +40,13 @@
 }
 :host:has(.encore) {
   border-left-color: var(--mat-sys-secondary-container);
+  background-color: var(--mat-sys-surface-container-low)
 }
-.song-card.encore{
+:host:has(.optional) {
+  border-left-color: var(--live-optional-color);
+  background-color: var(--mat-sys-surface-container-low)
+}
+.song-card.encore, .song-card.optional {
   .position {
     color: var(--mat-sys-secondary);
   }

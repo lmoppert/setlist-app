@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { DatePipe } from '@angular/common';
 
@@ -44,7 +44,10 @@ export class Setlists {
   });
 
   constructor() {
-    this.titleService.setTitle('Auftritte')
+    this.titleService.setTitle('Auftritte und Setlisten');
+    effect(() => {
+      this.store.loadListOfSetlists();
+    })
   }
 
   private groupData(setlists: ISetlist[] | undefined) {

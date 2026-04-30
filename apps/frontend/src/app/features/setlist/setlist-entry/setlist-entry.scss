@@ -85,11 +85,12 @@
     .unit {
       display: inline-flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding-left: 3px;
+      justify-content: left;
+      align-items: left;
       /* Die Magie: Feste Höhe passend zur restlichen Zeile */
       height: 1.4em; 
-      width: 1.2em;
+      width: 1em;
       vertical-align: middle;
       border-radius: 4px;
       line-height: .9;

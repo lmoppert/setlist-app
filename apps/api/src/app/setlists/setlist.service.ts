@@ -64,7 +64,7 @@ export class SetlistService {
 
   async update(id: string, dto: UpdateSetlistDto) {
     const setlistDate = dto.date ? new Date(dto.date) : null;
-    const slugBase = dto.date ? `${dto.date}-${dto.location}` : `${dto.location}`;
+    const slugBase = dto.date ? `${dto.date.substring(0,10)}-${dto.location}` : `${dto.location}`;
 
     return this.prisma.setlist.update({
       where: { id },
@@ -142,6 +142,25 @@ export class SetlistService {
         },
       });
     });
+  }
+
+  async toggleEntry(entryId: string, value: boolean, field: 'isEncore' | 'isOptional') {
+    return this.prisma.$transaction(async (tx) => {
+      // 1. Search entry to identify the field to toggle
+      const entry = await tx.setlistEntry.findUnique({
+        where: { id: entryId }
+      });
+      if (!entry) {
+        console.error(`Eintrag ${entryId} nicht gefunden.`)
+        return;
+      }
+
+      // 2. Toggle field
+      await tx.setlistEntry.update({
+        where: { id: entryId },
+        data: { [field]: value }
+      });
+    })
   }
 
   async reorder(slug: string, entryId: string, newPosition: number) {

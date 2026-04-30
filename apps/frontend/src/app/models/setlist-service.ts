@@ -28,6 +28,13 @@ export class SetlistService {
     });
   }
 
+  toggleEntry(entryId: string, value: boolean, field: 'isEncore' | 'isOptional') {
+    return this.http.patch(`/api/setlists/entries/${entryId}`, {
+      field: field,
+      value: value
+    });
+  }
+
   reorderEntry(slug: string, entryId: string, newPosition: number) {
     return this.http.patch(`/api/setlists/${slug}/entries/reorder`, {
       entryId,

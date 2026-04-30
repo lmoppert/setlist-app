@@ -1,51 +1,40 @@
-<!-- [routerLink]="['/songs',song.slug]" -->
+@let data = displayData();
+
 <div class="song-card"
-     [class.encore]="displayData().isEncore"
-     [class.optional]="displayData().isOptional"
-     [matContextMenuTriggerFor]="contextMenu"
+     [class.encore]="data.isEncore"
+     [class.optional]="data.isOptional"
+     [matContextMenuTriggerFor]="contextMenu.menu()!"
      title="Rechtsklick für weitere Optionen"
 >
-  @if (displayData().isEntry) {
+  @if (data.isEntry) {
     <div class="position">
-      {{ displayData().position }}
+      {{ data.position }}
     </div>
   }
 
   <div class="song-info">
-    <span class="title">{{ displayData().title }}</span>
-    <span class="subtitle">{{ displayData().subtitle }}</span>
+    <span class="title">{{ data.title }}</span>
+    <span class="subtitle">{{ data.subtitle }}</span>
   </div>
 
   <mat-chip-set class="song-meta" aria-label="Songs Meta Info">
     <mat-chip class="duration">
-      <span class="mono-value">{{ displayData().duration | duration }}</span>
+      <span class="mono-value">{{ data.duration | duration }}</span>
     </mat-chip>
-    <mat-chip class="chip tempo">
-      <span class="mono-value">{{ displayData().tempo | formatMonospace }}</span>
+    <mat-chip class="chip">
+      <span class="mono-value">{{ data.tempo | formatMonospace }}</span>
       <span class="unit"><span>B</span><span>P</span><span>M</span></span>
+      <span class="mono-value">{{ data.key | formatMonospace:2 }}</span>
     </mat-chip>
-    <mat-chip class="chip key">
-      <span class="mono-value">{{ displayData().key | formatMonospace:2 }}</span>
-    </mat-chip>
-    <mat-chip class="chip vox" [title]="displayData().leadVocals">
+    <mat-chip class="chip vox" [title]="data.leadVocals">
       <mat-icon matChipAvatar>mic</mat-icon>
-      <span class="mono-value">{{ displayData().leadVocals | initials | formatMonospace:2 }}</span>
+      <span class="mono-value">{{ data.leadVocals | initials | formatMonospace:2 }}</span>
     </mat-chip>
+    <span class="spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="contextMenu.menu()!" type="button">
+      <mat-icon>more_vert</mat-icon>
+    </button>
   </mat-chip-set>
 </div>
 
-<mat-menu #contextMenu>
-  <button mat-menu-item type="button">
-    <mat-icon>help_center</mat-icon>
-    Dieser Song ist Optional
-  </button>
-  <button mat-menu-item type="button">
-    <mat-icon>add_box</mat-icon>
-    Dieser Song ist eine Zugabe
-  </button>
-  <mat-divider></mat-divider>
-  <button mat-menu-item type="button">
-    <mat-icon>edit_note</mat-icon>
-    Song-Details bearbeiten
-  </button>
-</mat-menu>
+<app-setlist-context-menu #contextMenu [data]="data"></app-setlist-context-menu>
