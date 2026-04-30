@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Volker",
+    "isLeadVocalist": true
+  },
+  {
+    "name": "Bernd",
+    "isLeadVocalist": true
+  },
+  {
+    "name": "Dirk",
+    "isLeadVocalist": false
+  },
+  {
+    "name": "Christiane",
+    "isLeadVocalist": false
+  },
+  {
+    "name": "Jürgen",
+    "isLeadVocalist": false
+  },
+  {
+    "name": "Lutz",
+    "isLeadVocalist": false
+  }
+]

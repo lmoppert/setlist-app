@@ -1,0 +1,29 @@
+[
+  {
+    "date":     "2025-05-17",
+    "location": "Kahlscheurer Weihe",
+    "slug":     "2025-05-17-kahlscheurer-weiher",
+    "name":     "ALL am Kal",
+    "duration": 60,
+    "encStart": 8,
+    "entries":  [0, 1, 2, 4, 15, 5, 8, 10, 16, 3, 11, 14]
+  },
+  {
+    "date":     "2025-08-02",
+    "location": "Kajüte Ratzdorf",
+    "slug":     "2025-08-02-kajüte-ratzdorf",
+    "name":     "Ratzdorf Open Air",
+    "duration":  90,
+    "encStart":  14,
+    "entries":   [12, 0, 1, 2, 3, 11, 4, 15, 5, 6, 7, 8, 10, 14, 21, 20]
+  },
+  {
+    "date":     "2025-11-29",
+    "location": "Kultur-Raumkonzepte",
+    "slug":     "2025-11-29-kultur-raumkonzepte",
+    "name":     "Musiker-Flohmarkt Rösrath",
+    "duration": 60,
+    "encStart": 99,
+    "entries":  [0, 1, 2, 3, 4, 5, 6, 7, 9, 8, 10]
+  }
+]
