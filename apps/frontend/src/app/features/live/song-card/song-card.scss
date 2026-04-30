@@ -13,11 +13,18 @@
 :host:hover, :host:has(.encore):hover, :host:has(.optional):hover {
   background-color: var(--mat-sys-surface-variant);
 }
+:host:has(.encore) {
+  border-left-color: var(--mat-sys-secondary-container);
+  background-color: var(--mat-sys-surface-container-low);
+}
+:host:has(.optional) {
+  border-left-color: var(--live-optional-color);
+  background-color: var(--mat-sys-surface-container-low);
+}
 :host.b-top {
   border-top: 1px solid var(--mat-sys-outline);
 }
-:host.active {
-  //background-color: var(--mat-sys-surface-container-low);
+:host.active, :host.active:has(.optional), :host.active:has(.encore) {
   background-color: var(--live-active-bg);
   border-left: 10px solid var(--live-active-accent);
 
@@ -38,14 +45,6 @@
     }
   }
 }
-:host:has(.encore) {
-  border-left-color: var(--mat-sys-secondary-container);
-  background-color: var(--mat-sys-surface-container-low)
-}
-:host:has(.optional) {
-  border-left-color: var(--live-optional-color);
-  background-color: var(--mat-sys-surface-container-low)
-}
 .song-card.encore, .song-card.optional {
   .position {
     color: var(--mat-sys-secondary);
@@ -55,15 +54,6 @@
 .song-card {
   display: flex;
   width: 100%;
-  // border-left: 5px solid var(--mat-sys-surface-container);
-  // border-bottom: 1px solid var(--mat-sys-surface-container);
-
-  // .drag-handle {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   padding-right: .5rem;
-  // }
 
   .position {
     display: flex;

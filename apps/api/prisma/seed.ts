@@ -4,6 +4,7 @@ import { slugify } from "@setlist-app/shared-utils";
 import members from "./data/members.json";
 import songs from "./data/songs.json";
 import setlists from "./data/setlists.json";
+import instruments from "./data/instruments.json";
 
 const prisma = createPrismaClient();
 

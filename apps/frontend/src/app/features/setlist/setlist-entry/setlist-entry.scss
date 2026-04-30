@@ -18,6 +18,11 @@
 }
 :host:has(.encore) {
   border-left-color: var(--mat-sys-secondary-container);
+  background-color: var(--mat-sys-surface-container-low);
+}
+:host:has(.optional) {
+  border-left-color: var(--live-optional-color);
+  background-color: var(--mat-sys-surface-container-low);
 }
 .song-card.encore{
   .position {
