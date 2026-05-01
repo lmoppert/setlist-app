@@ -48,7 +48,7 @@ CREATE TABLE "Setlist" (
 CREATE TABLE "SetlistEntry" (
     "id" TEXT NOT NULL,
     "position" INTEGER NOT NULL,
-    "isOptional" BOOLEAN NOT NULL DEFAULT false,
+    "isAccustic" BOOLEAN NOT NULL DEFAULT false,
     "isEncore" BOOLEAN NOT NULL DEFAULT false,
     "setlistId" TEXT NOT NULL,
     "songId" TEXT NOT NULL,

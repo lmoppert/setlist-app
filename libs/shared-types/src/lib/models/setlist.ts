@@ -18,7 +18,7 @@ export interface ISetlistEntry {
   songId: string;
 
   position: number
-  isOptional: boolean;
+  isAccustic: boolean;
   isEncore: boolean;
 
   notes?: string;

@@ -56,7 +56,7 @@ model Setlist {
 model SetlistEntry {
   id         String  @id @default(uuid())
   position   Int
-  isOptional Boolean @default(false)
+  isAccustic Boolean @default(false)
   isEncore   Boolean @default(false)
 
   setlistId  String

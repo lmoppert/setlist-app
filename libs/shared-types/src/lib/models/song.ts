@@ -61,7 +61,7 @@ export interface ISongDisplayData {
 
   // Only for setlist-entries
   position?: number;
-  isOptional?: boolean;
+  isAccustic?: boolean;
   isEncore?: boolean;
 
   // References

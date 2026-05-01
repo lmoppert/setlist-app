@@ -53,7 +53,7 @@ async function main() {
         entries: {
           create: setlist.entries.map((entry, index) => ({
             position: index + 1,
-            isOptional: false,
+            isAccustic: false,
             isEncore: setlist.encStart ? index >= setlist.encStart : false,
             song: { connect: { slug: slugify(songs[entry].title), } }
           }))
