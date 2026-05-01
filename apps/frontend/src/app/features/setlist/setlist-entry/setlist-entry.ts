@@ -1,10 +1,11 @@
-import { Component, computed, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from "@angular/material/button";
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import {
   ISong, isSetlistEntryWithSong, ISetlistEntryWithSong, ISongDisplayData
@@ -19,13 +20,23 @@ import { SetlistContextMenu } from '../../../shared/menu/setlist-context-menu';
   imports: [
     DurationPipe, FormatMonospacePipe, InitialsPipe, MatChipsModule,
     MatIconModule, MatButtonModule, MatMenuModule, MatDividerModule,
-    SetlistContextMenu
+    MatTooltipModule, SetlistContextMenu
   ],
   templateUrl: './setlist-entry.html',
   styleUrl: './setlist-entry.scss',
 })
 export class EntryCard {
   data = input.required<ISong | ISetlistEntryWithSong>();
+
+  showTooltip = computed<string>(() => {
+    const d = this.data();
+    let msg = 'Verwende das ⁝ Menü oder Rechtsklick für weitere Optionen.';
+    if (isSetlistEntryWithSong(d)) {
+      if (d.isEncore) msg = '... ist eine Zugabe!\n' + msg;
+      if (d.isAccustic) msg = '... ist akustisch!\n' + msg;
+    }
+    return msg;
+  });
 
   displayData = computed<ISongDisplayData>(() => {
     const d = this.data();
@@ -42,7 +53,7 @@ export class EntryCard {
         leadVocals: d.song?.leadVocals ?? '',
         position: d.position,
         isEncore: d.isEncore,
-        isOptional: d.isOptional,
+        isAccustic: d.isAccustic,
         isEntry: true,
         originalData: d
       };

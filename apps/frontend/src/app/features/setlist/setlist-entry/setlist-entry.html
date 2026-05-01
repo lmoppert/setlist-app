@@ -2,9 +2,10 @@
 
 <div class="song-card"
      [class.encore]="data.isEncore"
-     [class.optional]="data.isOptional"
+     [class.accustic]="data.isAccustic"
      [matContextMenuTriggerFor]="contextMenu.menu()!"
-     title="Rechtsklick für weitere Optionen"
+     [matTooltip]="showTooltip()"
+     matTooltipClass="multiline-tooltip"
 >
   @if (data.isEntry) {
     <div class="position">

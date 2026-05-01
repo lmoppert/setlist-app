@@ -37,7 +37,7 @@
     [cdkDropListData]="store.enrichedSetlist()"
     (cdkDropListDropped)="moveSong($event)"
   >
-    @for (entry of store.enrichedSetlist(); track $index; let isFirst = $first) {
+    @for (entry of store.enrichedSetlist(); track entry.id; let isFirst = $first) {
       <div cdkDrag [cdkDragData]="entry" [cdkDragStartDelay]="1000" #songItem>
         <app-song-card
           [class.b-top]="isFirst"

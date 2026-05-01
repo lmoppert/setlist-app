@@ -147,10 +147,10 @@ export class SetlistStore {
     await firstValueFrom(this.service.toggleEntry(entryId, !entry.isEncore, 'isEncore'));
     this.reloadAllResources();
   }
-  async toggleOptional(entryId: string) {
+  async toggleAccustic(entryId: string) {
     const entry = this.currentSetlist()?.entries?.find(e => e.id === entryId);
     if (!entry) return;
-    await firstValueFrom(this.service.toggleEntry(entryId, !entry.isOptional, 'isOptional'));
+    await firstValueFrom(this.service.toggleEntry(entryId, !entry.isAccustic, 'isAccustic'));
     this.reloadAllResources();
   }
 }

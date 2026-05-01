@@ -23,12 +23,12 @@ export class SetlistService {
     return this.http.post(`/api/setlists/${slug}/entries`, {
       songId,
       position,
-      isOptional: false,
+      isAccustic: false,
       isEncore: false
     });
   }
 
-  toggleEntry(entryId: string, value: boolean, field: 'isEncore' | 'isOptional') {
+  toggleEntry(entryId: string, value: boolean, field: 'isEncore' | 'isAccustic') {
     return this.http.patch(`/api/setlists/entries/${entryId}`, {
       field: field,
       value: value

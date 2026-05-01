@@ -3,9 +3,15 @@
 <div class="song-card"
      (click)="setActive()"
      [class.encore]="data.isEncore"
-     [class.optional]="data.isOptional"
+     [class.accustic]="data.isAccustic"
      [matContextMenuTriggerFor]="contextMenu.menu()!"
-     title="Rechtsklick für weitere Optionen"
+     [matTooltip]="showTooltip()"
+     matTooltipClass="multiline-tooltip"
+    (pointerdown)="trackPointerDown()"
+    (pointerup)="trackPointerUp()"
+    (pointerleave)="trackPointerUp()"
+    (pointercancel)="trackPointerUp()"
+    [class.drag-ready]="dragReady()"
 >
   @if (data.isEntry) {
     <div class="position">

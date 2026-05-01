@@ -25,10 +25,15 @@ body {
   height: 100%;
 }
 
+// Global classes
 .spacer {
   flex: 1 1 auto;
 }
+.multiline-tooltip {
+  white-space: pre-line;
+}
 
+// Custom theming variables
 .dark-theme {
   color-scheme: dark;
   background-color: var(--mat-sys-surface);
@@ -37,7 +42,7 @@ body {
   --live-active-accent: rgb(255, 217, 0);
   --live-done-opacity: 0.3;
   --icon-active-color: rgba(93, 216, 35, 0.9);
-  --live-optional-color: rgba(134, 79, 51, 0.801);
+  --live-accustic-color: rgba(160, 95, 63, 0.9);
 }
 
 .light-theme {
@@ -46,7 +51,7 @@ body {
   --live-active-accent: rgb(90, 127, 17);
   --live-done-opacity: 0.5;
   --icon-active-color: rgba(56, 130, 27, 0.9);
-  --live-optional-color: rgba(125, 42, 1, 0.801);
+  --live-accustic-color: rgba(125, 42, 0, 0.9);
 }
 
 // Angular Material SnackBar Styles

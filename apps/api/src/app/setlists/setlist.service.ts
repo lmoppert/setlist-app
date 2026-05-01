@@ -110,7 +110,7 @@ export class SetlistService {
           setlistId: setlist.id,
           songId: songId,
           position: position,
-          isOptional: false,
+          isAccustic: false,
           isEncore: false,
         },
       });
@@ -144,7 +144,7 @@ export class SetlistService {
     });
   }
 
-  async toggleEntry(entryId: string, value: boolean, field: 'isEncore' | 'isOptional') {
+  async toggleEntry(entryId: string, value: boolean, field: 'isEncore' | 'isAccustic') {
     return this.prisma.$transaction(async (tx) => {
       // 1. Search entry to identify the field to toggle
       const entry = await tx.setlistEntry.findUnique({

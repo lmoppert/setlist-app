@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, output } from '@angular/core';
+import { Component, computed, input, output, signal } from '@angular/core';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -6,6 +6,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ISetlistEntryWithSong, ISongDisplayData } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
@@ -18,7 +19,7 @@ import { SetlistContextMenu } from '../../../shared/menu/setlist-context-menu';
   imports: [
     MatChipsModule, DurationPipe, FormatMonospacePipe, InitialsPipe,
     MatIconModule, MatButtonModule, MatSlideToggleModule, MatMenuModule,
-    MatDividerModule, SetlistContextMenu
+    MatDividerModule, MatTooltipModule, SetlistContextMenu
   ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',
@@ -27,9 +28,35 @@ export class SongCard {
   data = input.required<ISetlistEntryWithSong>();
   activate = output();
 
+  dragReady = signal(false);
+  private pressTimer: any;
+  private wasLongPress = false;
+
   setActive() {
+    if (this.wasLongPress) return;
     this.activate.emit();
   }
+
+  trackPointerDown(){
+    this.dragReady.set(false);
+    this.wasLongPress = false;
+    this.pressTimer = setTimeout(() => {
+      this.dragReady.set(true);
+      this.wasLongPress = true;
+    }, 1000);
+  }
+  trackPointerUp () {
+    clearTimeout(this.pressTimer);
+    this.dragReady.set(false);
+  }
+
+  showTooltip = computed<string>(() => {
+    const d = this.data();
+    let msg = 'Verwende das ⁝ Menü oder Rechtsklick für weitere Optionen.';
+    if (d.isEncore) msg = '... ist eine Zugabe!\n' + msg;
+    if (d.isAccustic) msg = '... ist akustisch!\n' + msg;
+    return msg;
+  });
 
   displayData = computed<ISongDisplayData>(() => {
     const d = this.data();
@@ -44,7 +71,7 @@ export class SongCard {
       leadVocals: d.song?.leadVocals ?? '',
       position: d.position,
       isEncore: d.isEncore,
-      isOptional: d.isOptional,
+      isAccustic: d.isAccustic,
       isEntry: true,
       originalData: d
     }

@@ -66,7 +66,7 @@ export class SetlistController {
   @Patch('entries/:entryId')
   async toggleEntry(
     @Param('entryId') entryId: string,
-    @Body() dto: { field: 'isEncore' | 'isOptional'; value: boolean }
+    @Body() dto: { field: 'isEncore' | 'isAccustic'; value: boolean }
   ) {
     return this.setlistService.toggleEntry(entryId, dto.value, dto.field);
   }

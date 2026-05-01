@@ -20,11 +20,15 @@
   border-left-color: var(--mat-sys-secondary-container);
   background-color: var(--mat-sys-surface-container-low);
 }
-:host:has(.optional) {
-  border-left-color: var(--live-optional-color);
-  background-color: var(--mat-sys-surface-container-low);
+:host:has(.accustic) {
+  border-left-color: var(--live-accustic-color);
 }
-.song-card.encore{
+.song-card.accustic {
+  .position {
+    color: var(--live-accustic-color);
+  }
+}
+.song-card.encore {
   .position {
     color: var(--mat-sys-secondary);
   }

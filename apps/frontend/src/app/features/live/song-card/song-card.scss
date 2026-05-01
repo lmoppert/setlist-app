@@ -10,21 +10,20 @@
   transition: background 0.2s;
   cursor: pointer;
 }
-:host:hover, :host:has(.encore):hover, :host:has(.optional):hover {
+:host:hover, :host:has(.encore):hover, :host:has(.accustic):hover {
   background-color: var(--mat-sys-surface-variant);
 }
 :host:has(.encore) {
   border-left-color: var(--mat-sys-secondary-container);
   background-color: var(--mat-sys-surface-container-low);
 }
-:host:has(.optional) {
-  border-left-color: var(--live-optional-color);
-  background-color: var(--mat-sys-surface-container-low);
+:host:has(.accustic) {
+  border-left-color: var(--live-accustic-color);
 }
 :host.b-top {
   border-top: 1px solid var(--mat-sys-outline);
 }
-:host.active, :host.active:has(.optional), :host.active:has(.encore) {
+:host.active, :host.active:has(.accustic), :host.active:has(.encore) {
   background-color: var(--live-active-bg);
   border-left: 10px solid var(--live-active-accent);
 
@@ -45,15 +44,29 @@
     }
   }
 }
-.song-card.encore, .song-card.optional {
+.song-card.accustic {
+  .position {
+    color: var(--live-accustic-color);
+  }
+}
+.song-card.encore {
   .position {
     color: var(--mat-sys-secondary);
   }
 }
-
+.song-card:active {
+  cursor: progress;
+}
+.song-card.drag-ready {
+  cursor: grab;
+}
+.song-card.drag-ready:active {
+  cursor: grabbing;
+}
 .song-card {
   display: flex;
   width: 100%;
+  cursor: pointer;
 
   .position {
     display: flex;

@@ -15,11 +15,11 @@ import { SetlistStore } from "../../models/setlist-store";
     <mat-menu #menu="matMenu">
       @if (data().isEntry) {
         <button mat-menu-item
-                (click)="store.toggleOptional(data().id)"
-                [class.active]="data().isOptional"
+                (click)="store.toggleAccustic(data().id)"
+                [class.active]="data().isAccustic"
                 type="button">
-          <mat-icon>{{ data().isOptional ? 'toggle_on' : 'toggle_off' }}</mat-icon>
-          Optionaler Song
+          <mat-icon>{{ data().isAccustic ? 'toggle_on' : 'toggle_off' }}</mat-icon>
+          Akustik Stück
         </button>
         
         <button mat-menu-item

@@ -29,6 +29,7 @@ export class LiveView {
   private alert = inject(AlertService);
 
   slug = input.required<string>();
+
   hasStarted = signal(false)
   activeSongIndex = signal(0);  
   currentTime = signal(new Date());
