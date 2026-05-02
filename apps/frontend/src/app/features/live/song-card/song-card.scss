@@ -109,7 +109,7 @@
         with-avatar-avatar-size: 18px,
       ));
     }
-    .chip.alert {
+    .chip.alert, .chip.swap, .chip.tuning {
       background-color: var(--live-important-color);
     }
     .duration {

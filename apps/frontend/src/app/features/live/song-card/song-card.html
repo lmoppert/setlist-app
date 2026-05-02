@@ -37,24 +37,33 @@
       <mat-icon matChipAvatar>mic</mat-icon>
       <span class="mono-value">{{ data.leadVocals | initials | formatMonospace:2 }}</span>
     </mat-chip>
-    @for (alert of alerts(); track alert.member) {
-      <mat-chip class="chip alert"
-                [class.tuning]="alert.isTuning"
-                [class.swap]="alert.isSwap">
-        <mat-icon matChipAvatar>
-          {{ alert.isTuning ? 'tune' : 'change_circle' }}
-        </mat-icon>
-        <strong>
-          {{ getMemberName(alert.member)?.charAt(0)?.toUpperCase() }}:
-        </strong>
-        @if (alert.isTuning) {
-          @if (activeMember()) { {{ alert.tuning }} }
-          @else { {{ alert.tuning | tuning }} }
-        } @else {
-          @if (activeMember()) { {{ alert.instrument }} }
-          @else { {{ alert.instrument | instrument }} }
-        }
-      </mat-chip>
+    @if (activeMember()) {
+      @for (status of alerts(); track status.member) {
+        <mat-chip [class.swap]="status.isSwap" class="chip">
+          <mat-icon matChipAvatar>{{ status.isSwap ? 'swap_horiz' : 'check' }}</mat-icon>
+          {{ status.instrument }}
+        </mat-chip>
+        <mat-chip [class.tuning]="status.isTuning" class="chip">
+          <mat-icon matChipAvatar>tune</mat-icon>
+          {{ status.tuning }}
+        </mat-chip>
+      }
+    } @else {
+      @let swappers = getSwappers(alerts());
+      @let tuners = getTuners(alerts());
+
+      @if (swappers.length > 0) {
+        <mat-chip class="chip swap">
+          <mat-icon matChipAvatar>swap_horiz</mat-icon>
+          <strong>{{ swappers.join(', ') }}</strong>
+        </mat-chip>
+      }
+      @if (tuners.length > 0) {
+        <mat-chip class="chip tuning">
+          <mat-icon matChipAvatar>tune</mat-icon>
+          <strong>{{ tuners.join(', ') }}</strong>
+        </mat-chip>
+      }
     }
     <span class="spacer"></span>
     <button mat-icon-button

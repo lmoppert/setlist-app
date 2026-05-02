@@ -14,16 +14,13 @@ import { SongStore } from '../../../models/song-store';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { FormatMonospacePipe } from '../../../shared/pipes/monospace.pipe';
 import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
-import { TuningPipe } from '../../../shared/pipes/tuning.pipe';
-import { InstrumentPipe } from '../../../shared/pipes/instrument.pipe';
 
 @Component({
   selector: 'app-song-card',
   imports: [
     MatChipsModule, DurationPipe, FormatMonospacePipe, InitialsPipe,
     MatIconModule, MatButtonModule, MatSlideToggleModule, MatMenuModule,
-    MatDividerModule, MatTooltipModule, SetlistContextMenu, InstrumentPipe,
-    TuningPipe
+    MatDividerModule, MatTooltipModule, SetlistContextMenu
   ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',
@@ -47,6 +44,16 @@ export class SongCard {
   getMemberName(id: string | null): string | undefined {
     return this.store.members()?.find(m => m.id === id)?.name;
   }
+  getSwappers(alerts: any[]): string[] {
+    return alerts.filter(a => a.isSwap).map(
+      a => a.member.substring(0, 1) ?? '?'
+    )
+  }
+  getTuners(alerts: any[]): string[] {
+    return alerts.filter(a => a.isTuning).map(
+      a => a.member.substring(0, 1) ?? '?'
+    )
+  }
 
   trackPointerDown(){
     this.dragReady.set(false);
@@ -66,21 +73,22 @@ export class SongCard {
     const prev = this.prevData();
     const memberId = this.activeMember();
 
-    return current.song?.instruments?.filter(
-        inst => !memberId || inst.memberId === memberId
-      ).map(inst => {
-        const prevInst = prev?.song?.instruments?.find(
-          p => p.memberId === inst.memberId
-        );
-        return {
-          member: inst.memberId,
-          instrument: inst.name,
-          tuning: inst.tuning,
-          isSwap: prevInst && prevInst.name !== inst.name,
-          isTuning: prevInst && prevInst.tuning !== inst.tuning
-        };
-      })
-      .filter(a => a.isSwap || a.isTuning);
+    if (!current.song?.instruments) return [];
+
+    return current.song?.instruments
+    .filter( inst => !memberId || inst.memberId === memberId)
+    .map(inst => {
+      const prevInst = prev?.song?.instruments?.find(
+        p => p.memberId === inst.memberId
+      );
+      return {
+        member: this.getMemberName(inst.memberId) ?? 'Unbekanntes Mitglied',
+        instrument: inst.name,
+        tuning: inst.tuning,
+        isSwap: prev && (!prevInst || prevInst!.name !== inst.name),
+        isTuning: prev && (!!prevInst && prevInst.tuning !== inst.tuning),
+      };
+    });
   });
 
   showTooltip = computed<string>(() => {
