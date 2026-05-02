@@ -43,6 +43,7 @@ body {
   --live-done-opacity: 0.3;
   --icon-active-color: rgba(93, 216, 35, 0.9);
   --live-accustic-color: rgba(160, 95, 63, 0.9);
+  --live-important-color: rgba(167, 142, 96, 0.4);
 }
 
 .light-theme {
@@ -52,6 +53,7 @@ body {
   --live-done-opacity: 0.5;
   --icon-active-color: rgba(56, 130, 27, 0.9);
   --live-accustic-color: rgba(125, 42, 0, 0.9);
+  --live-important-color: rgba(255, 200, 0, 0.2);
 }
 
 // Angular Material SnackBar Styles

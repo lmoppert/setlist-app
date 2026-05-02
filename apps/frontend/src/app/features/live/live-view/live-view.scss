@@ -8,27 +8,34 @@
 
   .live-header {
     flex: 0 0 auto;
+    display: flex;
+    flex-direction: row;
     padding: .5rem 1rem;
     background-color: var(--mat-sys-surface-container-low);
     border-bottom: 2px solid var(--mat-sys-outline);
     z-index: 10;
 
-    .chip {
-      padding: .4rem;
-      margin-right: 1rem;
-      background-color: var(--mat-sys-surface-container-lowest);
-      @include mat.chips-overrides((
-        label-text-size: 1.3rem,
-        with-avatar-avatar-size: 1.8rem,
-        with-icon-icon-size: 1.6rem,
-        with-icon-icon-color: var(--mat-sys-primary),
-      ));
+    .info-box {
+      .chip {
+        padding: .4rem;
+        margin-right: 1rem;
+        background-color: var(--mat-sys-surface-container-lowest);
+        @include mat.chips-overrides((
+          label-text-size: 1.3rem,
+          with-avatar-avatar-size: 1.8rem,
+          with-icon-icon-size: 1.6rem,
+          with-icon-icon-color: var(--mat-sys-primary),
+        ));
+      }
+      .reset-btn {
+        margin-top: .4rem;
+        @include mat.icon-button-overrides((
+          icon-color: var(--mat-sys-primary),
+        ));
+      }
     }
-    .reset-btn {
+    .member-selector {
       margin-top: .4rem;
-      @include mat.icon-button-overrides((
-        icon-color: var(--mat-sys-primary),
-      ));
     }
   }
 

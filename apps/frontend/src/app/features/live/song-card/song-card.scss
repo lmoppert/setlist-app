@@ -79,7 +79,7 @@
   }
 
   .song-info {
-    flex: 1.1;
+    flex: .7;
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -96,7 +96,7 @@
   }
 
   .song-meta {
-    flex: .9;
+    flex: 1.3;
     display: flex;
     gap: 15px;
     justify-content: center;
@@ -106,8 +106,11 @@
       background-color: var(--mat-sys-surface-container-low);
       @include mat.chips-overrides((
         with-icon-icon-color: var(--mat-sys-primary),
-        with-avatar-avatar-size: 15px,
+        with-avatar-avatar-size: 18px,
       ));
+    }
+    .chip.alert {
+      background-color: var(--live-important-color);
     }
     .duration {
       background-color: var(--mat-sys-primary-container);

@@ -7,17 +7,15 @@
      [matContextMenuTriggerFor]="contextMenu.menu()!"
      [matTooltip]="showTooltip()"
      matTooltipClass="multiline-tooltip"
-    (pointerdown)="trackPointerDown()"
-    (pointerup)="trackPointerUp()"
-    (pointerleave)="trackPointerUp()"
-    (pointercancel)="trackPointerUp()"
-    [class.drag-ready]="dragReady()"
->
-  @if (data.isEntry) {
-    <div class="position">
-      {{ data.position }}
-    </div>
-  }
+     (pointerdown)="trackPointerDown()"
+     (pointerup)="trackPointerUp()"
+     (pointerleave)="trackPointerUp()"
+     (pointercancel)="trackPointerUp()"
+     [class.drag-ready]="dragReady()">
+
+  <div class="position">
+    {{ data.position }}
+  </div>
 
   <div class="song-info">
     <span class="title">{{ data.title }}</span>
@@ -39,6 +37,25 @@
       <mat-icon matChipAvatar>mic</mat-icon>
       <span class="mono-value">{{ data.leadVocals | initials | formatMonospace:2 }}</span>
     </mat-chip>
+    @for (alert of alerts(); track alert.member) {
+      <mat-chip class="chip alert"
+                [class.tuning]="alert.isTuning"
+                [class.swap]="alert.isSwap">
+        <mat-icon matChipAvatar>
+          {{ alert.isTuning ? 'tune' : 'change_circle' }}
+        </mat-icon>
+        <strong>
+          {{ getMemberName(alert.member)?.charAt(0)?.toUpperCase() }}:
+        </strong>
+        @if (alert.isTuning) {
+          @if (activeMember()) { {{ alert.tuning }} }
+          @else { {{ alert.tuning | tuning }} }
+        } @else {
+          @if (activeMember()) { {{ alert.instrument }} }
+          @else { {{ alert.instrument | instrument }} }
+        }
+      </mat-chip>
+    }
     <span class="spacer"></span>
     <button mat-icon-button
             [matMenuTriggerFor]="contextMenu.menu()!"

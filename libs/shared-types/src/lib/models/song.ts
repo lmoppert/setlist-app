@@ -12,7 +12,7 @@ export interface ISong {
   key?: string;
   leadVocals?: string;
 
-  // instruments?: IInstrumentAssignment[];
+  instruments?: IInstrumentAssignment[];
 
   // resources?: SongResource[];
 }
@@ -33,9 +33,9 @@ export type Role =
   | 'instrumental';
 
 export interface IInstrumentAssignment {
-  instrument: string;   // "guitar", "bass", "tambourine"
-  variant?: string;     // "electric", "acoustic"
-  tuning?: string;      // "Drop D"
+  name: string;
+  tuning?: string;
+  memberId: string;
 }
 
 export interface ISongResource {

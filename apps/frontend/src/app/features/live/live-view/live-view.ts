@@ -6,6 +6,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { SetlistStore } from '../../../models/setlist-store';
@@ -13,18 +15,21 @@ import { SongCard } from '../song-card/song-card'
 import { ISetlistEntry } from '@setlist-app/shared-types';
 import { TitleService } from '../../../core/title.service';
 import { AlertService } from '../../../core/alert.service';
+import { SongStore } from '../../../models/song-store';
 
 @Component({
   selector: 'app-live-view',
   imports: [
     MatChipsModule, DurationPipe, MatIconModule, MatButtonModule,
-    MatProgressBarModule, CdkDrag, CdkDropList, SongCard, DatePipe
-  ],
+    MatProgressBarModule, CdkDrag, CdkDropList, SongCard, DatePipe,
+    MatFormFieldModule, MatMenuModule
+],
   templateUrl: './live-view.html',
   styleUrl: './live-view.scss',
 })
 export class LiveView {
   protected store = inject(SetlistStore);
+  protected songStore = inject(SongStore);
   private titleService = inject(TitleService);
   private alert = inject(AlertService);
 
@@ -33,6 +38,7 @@ export class LiveView {
   hasStarted = signal(false)
   activeSongIndex = signal(0);  
   currentTime = signal(new Date());
+  activeMember = signal<string | null>(null);
   songElements = viewChildren<ElementRef>('songItem');
 
   constructor() {
@@ -65,6 +71,14 @@ export class LiveView {
       }
       this.titleService.setTitle(location ? title : 'Setliste bearbeiten');
     });
+  }
+
+  getActiveMemberName(): string | undefined {
+    const id = this.activeMember();
+    return this.songStore.members()?.find(m => m.id === id)?.name;
+  }
+  setActiveMember(id: string | null) {
+    this.activeMember.set(id);
   }
 
   activateEntry(id: number) {

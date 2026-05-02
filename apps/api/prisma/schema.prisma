@@ -23,7 +23,7 @@ model Song {
 
 model Member {
   id             String       @id @default(uuid())
-  name           String
+  name           String       @unique
   isLeadVocalist Boolean      @default(false)
   
   instruments    Instrument[]
@@ -31,13 +31,13 @@ model Member {
 
 model Instrument {
   id         String  @id @default(uuid())
-  songId     String
-  memberId   String
-  
-  instrument String
+  name       String
   tuning     String?
 
-  song       Song    @relation(fields: [songId], references: [id])
+  songId     String
+  song       Song    @relation(fields: [songId], references: [id], onDelete: Cascade)
+  
+  memberId   String
   member     Member  @relation(fields: [memberId], references: [id])
 }
 
@@ -50,7 +50,7 @@ model Setlist {
   name      String?
   duration  Int?
   
-  entries SetlistEntry[]
+  entries   SetlistEntry[]
 }
 
 model SetlistEntry {

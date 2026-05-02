@@ -4,7 +4,6 @@ import { slugify } from "@setlist-app/shared-utils";
 import members from "./data/members.json";
 import songs from "./data/songs.json";
 import setlists from "./data/setlists.json";
-import instruments from "./data/instruments.json";
 
 const prisma = createPrismaClient();
 
@@ -28,18 +27,26 @@ async function main() {
   });
 
   // Songs
-  await prisma.song.createMany({
-    data: songs.map(song => ({
-      slug: slugify(song.title),
-      title: song.title,
-      artist: song.artist,
-      duration: song.duration,
-      tempo: song.tempo,
-      key: song.key,
-      leadVocals: song.leadVocals,
-    })),
-    skipDuplicates: true,
-  });
+  for (const song of songs) {
+    await prisma.song.create({
+      data: {
+        slug: slugify(song.title),
+        title: song.title,
+        artist: song.artist,
+        duration: song.duration,
+        tempo: song.tempo,
+        key: song.key,
+        leadVocals: song.leadVocals,
+        instruments: {
+          create: song.instruments.map(inst => ({
+            name: inst.gear,
+            tuning: inst.tuning,
+            member: { connect: { name: inst.name } },
+          }))
+        }
+      },
+    });
+  };
   
   // Setlists
   for (const setlist of setlists) {

@@ -28,6 +28,28 @@
         <mat-icon>refresh</mat-icon>
       </button>
     </mat-chip-set>
+    <span class="spacer"></span>
+    <div class="member-selector">
+      <button matButton [matMenuTriggerFor]="memberMenu" type="button">
+        <mat-icon>arrow_drop_down</mat-icon>
+        <span class="member-label">
+          {{ getActiveMemberName() || 'Gesamte Band' }}
+        </span>
+      </button>
+
+      <mat-menu #memberMenu="matMenu">
+        <button mat-menu-item (click)="setActiveMember(null)" type="button">
+          <mat-icon>groups</mat-icon>
+          <span>Gesamte Band</span>
+        </button>
+        @for (member of songStore.members(); track member.id) {
+          <button mat-menu-item (click)="setActiveMember(member.id)" type="button">
+            <mat-icon>{{ activeMember() === member.id ? 'person' : 'person_outline' }}</mat-icon>
+            {{ member.name }}
+          </button>
+        }
+      </mat-menu>
+    </div>
   </header>
 
   <main 
@@ -37,13 +59,16 @@
     [cdkDropListData]="store.enrichedSetlist()"
     (cdkDropListDropped)="moveSong($event)"
   >
-    @for (entry of store.enrichedSetlist(); track entry.id; let isFirst = $first) {
+    @let entries = store.enrichedSetlist();
+    @for (entry of entries; track entry.id; let isFirst = $first; let i = $index) {
       <div cdkDrag [cdkDragData]="entry" [cdkDragStartDelay]="1000" #songItem>
         <app-song-card
           [class.b-top]="isFirst"
           [class.active]="activeSongIndex() === entry.position"
           (activate)="activateEntry(entry.position)"
-          [data]="entry">
+          [data]="entry"
+          [prevData]="entries[i - 1]"
+          [activeMember]="activeMember() ?? null">
         </app-song-card>
       </div>
     }

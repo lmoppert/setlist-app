@@ -62,27 +62,19 @@ export class SetlistStore {
     const songs = this.songResource.value() ?? [];
     if (!setlist || !songs || songs.length === 0 ) { return []; }
 
-    return setlist.entries!.map(entry => ({
-      ...entry,
-      song: songs.find(song => song.id === entry.songId) || null
-    }));
-    // return setlist.entries!.map(entry => {
-    //   const songData = songs.find(s => s.id === entry.songId);
-    //   if (!songData) return { ...entry, song: null};
-    //   const leads = songData.assignments
-    //     ?.filetr(a => a.isLead)
-    //     .map(a => a.member.name) || [];
-    //   const myAssignments = songData.assignments || [];
+    return setlist.entries!.map(entry => {
+      const songData = songs.find(s => s.id === entry.songId);
+      if (!songData) return { ...entry, song: null };
+      const instruments = songData.instruments || [];
 
-    //   return {
-    //     ...entry,
-    //     song: {
-    //       ...songData,
-    //       leads,
-    //       myAssignments,
-    //     }
-    //   };
-    // });
+      return {
+        ...entry,
+        song: {
+          ...songData,
+          instruments: instruments,
+        }
+      };
+    });
   });
 
   // Calculate the total duration of the setlist by summing up the durations of

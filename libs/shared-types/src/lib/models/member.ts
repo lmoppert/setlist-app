@@ -1,7 +1,7 @@
 export interface IBandMember {
-  id?: string;
+  id: string;
   name: string;
+  isLeadVocalist?: boolean;
 
-  defaultInstruments?: string[];
-  isVocalist?: boolean;
+  Instruments?: string[];
 }
