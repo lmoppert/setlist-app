@@ -1,8 +1,22 @@
 import { ISetlistEntry } from './setlist';
 
+export interface ISongBase {
+  isActive: boolean;
+  title: string;
+  artist?: string;
+
+  duration: number; // in seconds
+  tempo?: number;   // in BPM
+  key?: string;
+  leadVocals?: string;
+
+  //instruments?: IInstrumentAssignment[];
+}
+
 export interface ISong {
   id?: string;
-  slug?: string,
+  slug?: string;
+  isActive: boolean;
 
   title: string;
   artist?: string;
@@ -13,8 +27,6 @@ export interface ISong {
   leadVocals?: string;
 
   instruments?: IInstrumentAssignment[];
-
-  // resources?: SongResource[];
 }
 
 export interface ISongAssignment {

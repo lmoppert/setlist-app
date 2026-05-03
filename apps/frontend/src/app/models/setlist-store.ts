@@ -6,9 +6,11 @@ import { firstValueFrom, tap } from 'rxjs';
 import { ISong, ISetlist, ISetlistBase } from '@setlist-app/shared-types';
 import { SetlistService } from './setlist-service';
 import { AlertService } from '../core/alert.service'
+import { SongStore } from './song-store';
 
 @Injectable({ providedIn: 'root' })
 export class SetlistStore {
+  private store = inject(SongStore);
   private service = inject(SetlistService)
   private router = inject(Router)
   private alert = inject(AlertService)
@@ -31,7 +33,6 @@ export class SetlistStore {
   readonly listResource = httpResource<ISetlist[]>(() =>
     this.activeSlug() ? undefined : '/api/setlists'
   );
-  readonly songResource = httpResource<ISong[]>(() => '/api/songs'); 
   readonly setlists = computed(() => this.listResource.value())
   readonly setlistsAreLoading = computed(() => this.listResource.isLoading())
   readonly setlistsError = computed(() => this.listResource.error())
@@ -49,7 +50,7 @@ export class SetlistStore {
 
   // List of available Songs, not yet on the setlist
   readonly availableSongs = computed(() => {
-    const songs = this.songResource.value() ?? [];
+    const songs = this.store.activeSongs() ?? [];
     const entries = this.currentSetlist()?.entries ?? [];
     const usedSongIds = new Set(entries.map(e => e.songId));
     return songs.filter(s => !usedSongIds.has(s.id!));
@@ -59,7 +60,7 @@ export class SetlistStore {
   // corresponding song details.
   readonly enrichedSetlist = computed(() => {
     const setlist = this.setlistResource.value();
-    const songs = this.songResource.value() ?? [];
+    const songs = this.store.songs() ?? [];
     if (!setlist || !songs || songs.length === 0 ) { return []; }
 
     return setlist.entries!.map(entry => {

@@ -1,0 +1,121 @@
+@if (store.songIsLoading()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+
+<form [formGroup]="songForm" (ngSubmit)="submit()">
+  <div class="row">
+    <mat-form-field appearance="outline" class="long-input">
+      <mat-label>Titel des Songs</mat-label>
+      <input
+        #title
+        matInput
+        formControlName="title"
+        placeholder="z.B. Blue On Black"
+      />
+      @if (songForm.get('title')?.hasError('required')) {
+        <mat-error>Der Titel ist ein Pflichtfeld und muss angegeben werden.</mat-error>
+      }
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="long-input">
+      <mat-label>Interpret</mat-label>
+      <input
+        matInput
+        formControlName="artist"
+        placeholder="z.B. Band Of Heathens" 
+      />
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <mat-form-field appearance="outline" class="short-input">
+      <mat-label>Tonart</mat-label>
+      <input
+        matInput
+        formControlName="key"
+        placeholder="z.B. Dm"
+      />
+      <mat-icon matPrefix>music_note</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="medium-input">
+      <mat-label>Tempo</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="tempo"
+        placeholder="BPM"
+      />
+      <mat-icon matPrefix>monitor_heart</mat-icon>
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="medium-input">
+      <mat-label>Dauer (s)</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="duration"
+        placeholder="Zeit in Sekunden"
+      />
+      <mat-icon matPrefix>timelapse</mat-icon>
+      @if (songForm.get('duration')?.hasError('required')) {
+        <mat-error>Bitte gib die Dauer an.</mat-error>
+      }
+      @if (songForm.get('duration')?.hasError('min')) {
+        <mat-error>Negative Werte nicht erlaubt</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="normal-input">
+      <mat-label>Sänger</mat-label>
+      <input
+        matInput
+        formControlName="leadVocals"
+        placeholder="z.B. Bernd" 
+      />
+      <mat-icon matPrefix>mic</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <mat-divider></mat-divider>
+  <h3>Besetung & Instrumente</h3>
+
+  <div formArrayName="instruments">
+    @for (ctrl of instruments.controls; track ctrl; let i = $index) {
+      <div [formGroupName]="i" class="member-row">
+        <span class="member-label">{{ ctrl.get('memberName')?.value }}</span>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Instrument</mat-label>
+          <mat-select formControlName="instrumentName">
+            <mat-option value="">-- keins / Stimme --</mat-option>
+            <mat-option value="E-Gitarre">E-Gitarre</mat-option>
+            <mat-option value="Akkustik">Akustik</mat-option>
+            <mat-option value="Schlagzeug">Schlagzeug</mat-option>
+            <mat-option value="Akkordeon">Akkordeon</mat-option>
+            <mat-option value="Bass">Bass</mat-option>
+            <mat-option value="Mundharmonika">Mundharmonika</mat-option>
+            <mat-option value="Tamborin">Tamborin</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Tuning</mat-label>
+          <input matInput formControlName="tuning" title="Instrumentenstimmung">
+        </mat-form-field>
+      </div>
+    }
+  </div>
+
+  <div class="actions">
+    <button
+      matButton="filled"
+      type="submit"
+      [disabled]="songForm.invalid || (isEditMode && !songForm.dirty)"
+    >
+      <mat-icon>save</mat-icon>
+      {{ isEditMode ? 'Änderungen speichern' : 'Song erstellen' }}
+    </button>
+
+    <button matButton="outlined" type="button" routerLink="/songs">
+      <mat-icon>cancel</mat-icon> Abbrechen
+    </button>
+  </div>
+</form>

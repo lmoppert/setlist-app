@@ -26,10 +26,9 @@ export class SongService {
       ]
     });
   }
-
-  async findById(id: string) {
+  async findBySlug(slug: string) {
     const song = await this.prisma.song.findUnique({
-      where: { id },
+      where: { slug },
       include: {
         instruments: {
           include: {
@@ -56,17 +55,16 @@ export class SongService {
       }
     })
   }
-
-  async update(id: string, dto: UpdateSongDto) {
+  async update(slug: string, dto: UpdateSongDto) {
     const song = await this.prisma.song.findUnique({
-      where: { id },
+      where: { slug },
       select: { title: true }
     });
     if (!song) throw new NotFoundException('Song nicht gefunden');
     const title = dto.title ? dto.title : song.title;
     
     return this.prisma.song.update({
-      where: { id },
+      where: { slug },
       data: {
         title: title,
         slug: slugify(title),
@@ -78,7 +76,7 @@ export class SongService {
   }
 
   /***************************************************************************
-   * Update songs
+   * Update song status
    ***************************************************************************/
   async toggleSong(id: string) { 
     const song = await this.prisma.song.findUnique({

@@ -15,9 +15,9 @@ export class SongController {
     return this.songsService.findAll();
   }
 
-  @Get(':id')
-  async getSong(@Param('id') id: string) {
-    return this.songsService.findById(id);
+  @Get(':slug')
+  async getSong(@Param('slug') slug: string) {
+    return this.songsService.findBySlug(slug);
   }
 
   @Post()
@@ -25,12 +25,12 @@ export class SongController {
     return this.songsService.create(dto);
   }
 
-  @Patch(':id')
+  @Patch(':slug')
   async updateSong(
-    @Param('id') id: string,
+    @Param('slug') slug: string,
     @Body() dto: UpdateSongDto
   ) {
-    return this.songsService.update(id, dto);
+    return this.songsService.update(slug, dto);
   }
 
   @Patch(':id/toggle-active')

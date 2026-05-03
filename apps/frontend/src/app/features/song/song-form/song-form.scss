@@ -1,0 +1,92 @@
+form {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.long-input{
+  min-width: 600px;
+}
+.normal-input{
+  margin-right: 1rem;
+  max-width: 210px;
+}
+.medium-input{
+  margin-right: 1rem;
+  max-width: 130px;
+}
+.short-input{
+  margin-right: 1rem;
+  max-width: 80px;
+}
+h3 {
+  margin-top: 32px;
+  margin-bottom: 16px;
+  font-weight: 500;
+  color: var(--mat-sys-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  &::before {
+    content: 'group';
+    font-family: 'Material Icons';
+    font-size: 24px;
+  }
+}
+
+.member-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 12px;
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: var(--mat-sys-surface-container-low);
+  }
+
+  .member-label {
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  // Material Form Fields in der Reihe etwas kompakter machen
+  mat-form-field {
+    width: 100%;
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none; // Versteckt den Platz für Fehlertexte, um Platz zu sparen
+    }
+  }
+}
+.actions {
+  margin-top: 40px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+
+  button {
+    padding: 0 24px;
+  }
+}
+
+// Mobile Anpassung
+@media (max-width: 600px) {
+  .member-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 20px 0;
+
+    .member-label {
+      margin-bottom: 8px;
+      color: var(--mat-sys-secondary);
+    }
+  }
+  
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

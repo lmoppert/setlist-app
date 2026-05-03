@@ -12,9 +12,9 @@ import { MatTooltip } from "@angular/material/tooltip";
 import { MatButtonModule } from '@angular/material/button';
 
 import { ISetlistEntry , ISong } from '@setlist-app/shared-types';
+import { EntryCard } from '../setlist-entry/setlist-entry'
 import { SetlistStore } from '../../../models/setlist-store';
 import { TitleService } from '../../../core/title.service';
-import { EntryCard } from '../setlist-entry/setlist-entry'
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { AlertService } from '../../../core/alert.service'
 

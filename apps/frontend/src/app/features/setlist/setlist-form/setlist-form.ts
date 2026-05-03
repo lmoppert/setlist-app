@@ -31,7 +31,7 @@ export class SetlistForm implements HasUnsavedChanges {
   protected router = inject(Router);
   protected route = inject(ActivatedRoute);
   protected titleService = inject(TitleService);
-  protected setlistStore = inject(SetlistStore);
+  protected store = inject(SetlistStore);
 
   slug = input.required<string>();
   isEditMode = false;
@@ -65,16 +65,16 @@ export class SetlistForm implements HasUnsavedChanges {
     effect(() => {
       const currentSlug = this.slug();
       if (currentSlug && currentSlug !== 'new') {
-        this.setlistStore.loadSetlist(currentSlug);
+        this.store.loadSetlist(currentSlug);
         this.isEditMode = true;
       }
       else {
-        this.setlistStore.loadSetlist(null);
+        this.store.loadSetlist(null);
       }
     })
 
     effect(() => {
-      const location = this.setlistStore.currentSetlist()?.location; 
+      const location = this.store.currentSetlist()?.location; 
       this.titleService.setTitle(location ? `Gig ${location}` : 'Setliste bearbeiten');
     })
 
@@ -86,7 +86,7 @@ export class SetlistForm implements HasUnsavedChanges {
     });
 
     effect(() => {
-      const setlist = this.setlistStore.currentSetlist();
+      const setlist = this.store.currentSetlist();
       if (setlist && this.isEditMode) {
         this.setlistForm.patchValue({
           name: setlist.name,
@@ -95,7 +95,6 @@ export class SetlistForm implements HasUnsavedChanges {
           duration: setlist.duration,
           notes: setlist.notes
         });
-        console.log('Current Setlist:', setlist.id)
       }
     });
   }
@@ -105,19 +104,19 @@ export class SetlistForm implements HasUnsavedChanges {
 
     const data = this.setlistForm.getRawValue() as ISetlistBase;
     if (this.isEditMode) {
-      this.setlistStore.update(data).subscribe(() =>{
+      this.store.update(data).subscribe(() =>{
         this.setlistForm.markAsPristine();
         //this.router.navigate(['/setlists', this.slug()]);
         if (data.location || data.date) {
-          const newDate = data.date ? data.date : this.setlistStore.currentSetlist()?.date;
-          const newLocation = data.location ? data.location : this.setlistStore.currentSetlist()?.location
+          const newDate = data.date ? data.date : this.store.currentSetlist()?.date;
+          const newLocation = data.location ? data.location : this.store.currentSetlist()?.location
           const newSlug = slugify(`${newDate?.substring(0, 10)}-${newLocation}`);
           console.log('new slug:', newSlug) 
           this.router.navigate(['/setlists', newSlug]);
         }
       });
     } else {
-      this.setlistStore.create(data).subscribe((newSetlist) => {
+      this.store.create(data).subscribe((newSetlist) => {
         this.setlistForm.markAsPristine();
         this.router.navigate(['/setlists', newSetlist.slug]);
       });
