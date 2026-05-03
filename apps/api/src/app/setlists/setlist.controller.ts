@@ -30,7 +30,6 @@ export class SetlistController {
     @Param('id') id: string, 
     @Body() dto: UpdateSetlistDto
   ) { 
-    console.log('Patch:', id)
     return this.setlistService.update(id, dto); 
   }
 

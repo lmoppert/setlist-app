@@ -9,7 +9,7 @@ export class CreateSetlistDto implements ISetlistBase {
   date?: string;
 
   @IsString()
-  location: string;
+  location!: string;
 
   @IsOptional()
   @IsString()
