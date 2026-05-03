@@ -12,7 +12,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/setlist/setlists/setlists').then(m => m.Setlists),
   },
   {
-    path: 'setlists/:slug',
+    path: 'setlists/:slug/edit',
     loadComponent: () => import('./features/setlist/setlist-form/setlist-form').then(m => m.SetlistForm),
     canDeactivate: [pendingChangesGuard],
   },
