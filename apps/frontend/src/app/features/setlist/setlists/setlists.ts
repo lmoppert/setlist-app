@@ -34,6 +34,7 @@ export class Setlists {
     const grouped = this.groupData(data);
     if (!grouped) return [];
 
+
     return Object.entries(grouped)
       .map(([year, items]): ISetlistGroup => ({
         yearLabel: year === '9999' ? 'Vorlagen / Proben' : year,

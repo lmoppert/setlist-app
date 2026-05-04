@@ -5,7 +5,7 @@
   <h2 class="year-header"> {{ group.yearLabel }}</h2>
   <mat-divider></mat-divider>
   @for (setlist of group.items; track setlist.id) {
-    <a class="setlist-card" [routerLink]="['/setlists', setlist.slug]">
+    <div class="setlist-card">
       <div class="date-badge">
         @if (setlist.date) {
           <div class="month">{{ setlist.date | date:"MMM" }}</div>
@@ -22,7 +22,17 @@
           <span class="count">({{ setlist.entries?.length }} Songs)</span>
         </span>
       </div>
-    </a>
+      <div class="setlist-action">
+        <button matButton="outlined" [routerLink]="['/live', setlist.slug]" type="button">
+          <mat-icon>play_circle</mat-icon>
+          <span class="action-hint">Live</span>
+        </button>
+        <button matButton="outlined" [routerLink]="`${setlist.slug}`" type="button">
+          <mat-icon>edit</mat-icon>
+          <span class="action-hint">Bearbeiten</span>
+        </button>
+      </div>
+    </div>
   }
   <mat-divider></mat-divider>
 }

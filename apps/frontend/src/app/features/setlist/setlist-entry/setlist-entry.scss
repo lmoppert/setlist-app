@@ -48,7 +48,7 @@
     min-width: 1.4rem;
   }
   .song-info {
-    flex: .9;
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: left;
@@ -65,7 +65,7 @@
   }
 
   .song-meta {
-    flex: 1.1;
+    flex: 1;
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -113,7 +113,20 @@
   }
 
   /* Mobile Optimierung */
-  @media (max-width: 900px) {
+  @media (max-width: 1300px) {
+    .song-info {
+      flex: .85;
+    }
+  }
+  @media (max-width: 1200px) {
+    .song-info {
+      flex: 1;
+    }
+    .key-bpm  {
+      display: none;
+    }
+  }
+  @media (max-width: 930px) {
     .song-meta, .song-details  {
       display: none;
     }

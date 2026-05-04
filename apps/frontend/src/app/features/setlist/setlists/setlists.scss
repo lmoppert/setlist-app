@@ -45,6 +45,7 @@
 
   .setlist-info {
     display: flex;
+    flex: 1;
     flex-direction: column;
     
     .location {
@@ -56,6 +57,11 @@
       color: var(--mat-sys-secondary);
       .count { font-size:smaller}
     }
+  }
+  .setlist-action {
+    display: flex;
+    flex: 1;
+    gap: 5px;
   }
 }
 
