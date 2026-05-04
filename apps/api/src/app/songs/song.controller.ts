@@ -25,12 +25,12 @@ export class SongController {
     return this.songsService.create(dto);
   }
 
-  @Patch(':slug')
+  @Patch(':id')
   async updateSong(
-    @Param('slug') slug: string,
+    @Param('id') id: string,
     @Body() dto: UpdateSongDto
   ) {
-    return this.songsService.update(slug, dto);
+    return this.songsService.update(id, dto);
   }
 
   @Patch(':id/toggle-active')

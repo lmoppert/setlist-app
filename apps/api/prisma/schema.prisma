@@ -19,7 +19,18 @@ model Song {
   leadVocals  String?
   
   instruments Instrument[]
+  resources   SongResource[]
   entries     SetlistEntry[]
+}
+
+model SongResource {
+  id        String   @id @default(uuid())
+  type      String   // 'CHORDS', 'BASS', 'AKK', 'LYRICS'
+  filetype  String   // 'PDF', 'TXT', 'MD'
+  path      String
+
+  songId    String
+  song      Song    @relation(fields: [songId], references: [id], onDelete: Cascade)
 }
 
 model Member {

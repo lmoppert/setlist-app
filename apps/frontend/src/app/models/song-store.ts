@@ -55,9 +55,9 @@ export class SongStore {
     )
   }
   update(data: ISong) {
-    const slug = this.currentSong()?.slug;
-    if (!slug) throw new Error('Keine aktive Setliste gefunden');
-    return this.service.update(slug, data).pipe(
+    const id = this.currentSong()?.id;
+    if (!id) throw new Error('Keine aktive Setliste gefunden');
+    return this.service.update(id, data).pipe(
       tap(() => {
         this.reloadAllResources(); 
       })

@@ -14,6 +14,7 @@ import { HasUnsavedChanges } from '../../../shared/guards/pending-changes.guard'
 import { SongStore } from '../../../models/song-store';
 import { TitleService } from '../../../core/title.service';
 import { IBandMember, ISong } from '@setlist-app/shared-types';
+import { slugify } from '@setlist-app/shared-utils';
 
 @Component({
   selector: 'app-song-form',
@@ -110,26 +111,18 @@ export class SongForm implements HasUnsavedChanges {
   }
   submit() {
     if (this.songForm.invalid) return;
+    const data = this.songForm.getRawValue() as ISong;
 
-    // const data = this.songForm.getRawValue() as ISong;
-    // if (this.isEditMode) {
-    //   this.store.update(data).subscribe(() =>{
-    //     this.songForm.markAsPristine();
-    //     //this.router.navigate(['/setlists', this.slug()]);
-    //     if (data.location || data.date) {
-    //       const newDate = data.date ? data.date : this.store.currentSetlist()?.date;
-    //       const newLocation = data.location ? data.location : this.store.currentSetlist()?.location
-    //       const newSlug = slugify(`${newDate?.substring(0, 10)}-${newLocation}`);
-    //       console.log('new slug:', newSlug) 
-    //       this.router.navigate(['/setlists', newSlug]);
-    //     }
-    //   });
-    // } else {
-    //   this.store.create(data).subscribe((newSetlist) => {
-    //     this.songForm.markAsPristine();
-    //     this.router.navigate(['/setlists', newSetlist.slug]);
-    //   });
-    // }
+    if (this.isEditMode) {
+      this.store.update(data).subscribe(() => {
+        this.songForm.markAsPristine();
+      })
+    } else {
+      this.store.create(data).subscribe(() => {
+        this.songForm.markAsPristine();
+      })
+    }
+    this.router.navigate(['/songs']);
   }
 
   cancel() {

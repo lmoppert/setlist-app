@@ -101,23 +101,27 @@ export class SetlistForm implements HasUnsavedChanges {
 
   submit() {
     if (this.setlistForm.invalid) return;
-
     const data = this.setlistForm.getRawValue() as ISetlistBase;
+
     if (this.isEditMode) {
       this.store.update(data).subscribe(() =>{
         this.setlistForm.markAsPristine();
-        //this.router.navigate(['/setlists', this.slug()]);
         if (data.location || data.date) {
-          const newDate = data.date ? data.date : this.store.currentSetlist()?.date;
           const newLocation = data.location ? data.location : this.store.currentSetlist()?.location
-          const newSlug = slugify(`${newDate?.substring(0, 10)}-${newLocation}`);
-          console.log('new slug:', newSlug) 
+          let newSlug: string;
+          if (data.date) {
+            newSlug = slugify(`${data.date.substring(0, 10)}-${newLocation}`);
+          } else {
+            newSlug = slugify(newLocation!)
+          }
+          this.store.loadSetlist(newSlug)
           this.router.navigate(['/setlists', newSlug]);
         }
       });
     } else {
       this.store.create(data).subscribe((newSetlist) => {
         this.setlistForm.markAsPristine();
+        this.store.loadSetlist(newSetlist.slug)
         this.router.navigate(['/setlists', newSetlist.slug]);
       });
     }

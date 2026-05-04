@@ -55,16 +55,16 @@ export class SongService {
       }
     })
   }
-  async update(slug: string, dto: UpdateSongDto) {
+  async update(id: string, dto: UpdateSongDto) {
     const song = await this.prisma.song.findUnique({
-      where: { slug },
+      where: { id },
       select: { title: true }
     });
     if (!song) throw new NotFoundException('Song nicht gefunden');
     const title = dto.title ? dto.title : song.title;
     
     return this.prisma.song.update({
-      where: { slug },
+      where: { id },
       data: {
         title: title,
         slug: slugify(title),
