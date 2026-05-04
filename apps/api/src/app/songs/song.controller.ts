@@ -1,28 +1,28 @@
-import { Controller, Get, Param, NotFoundException, Patch, Body, Post } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Body, Post } from '@nestjs/common';
 import { SongService } from './song.service';
 import { CreateSongDto } from './create-song.dto';
 import { UpdateSongDto } from './update-song.dto';
 
 @Controller('songs')
 export class SongController {
-  constructor(private readonly songsService: SongService) {}
+  constructor(private readonly service: SongService) {}
 
   /***************************************************************************
    * Manage the songs themselve
    ***************************************************************************/
   @Get()
   async getAllSongs() {
-    return this.songsService.findAll();
+    return this.service.findAll();
   }
 
   @Get(':slug')
   async getSong(@Param('slug') slug: string) {
-    return this.songsService.findBySlug(slug);
+    return this.service.findBySlug(slug);
   }
 
   @Post()
   async createSong(@Body() dto: CreateSongDto) {
-    return this.songsService.create(dto);
+    return this.service.create(dto);
   }
 
   @Patch(':id')
@@ -30,12 +30,11 @@ export class SongController {
     @Param('id') id: string,
     @Body() dto: UpdateSongDto
   ) {
-    return this.songsService.update(id, dto);
+    return this.service.update(id, dto);
   }
 
   @Patch(':id/toggle-active')
   async toggleSong(@Param('id') id: string) {
-    return this.songsService.toggleSong(id);
+    return this.service.toggleSong(id);
   }
-
 }
