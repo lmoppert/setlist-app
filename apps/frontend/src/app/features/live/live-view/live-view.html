@@ -3,7 +3,10 @@
 }
 
 <div class="live-container">
-  <header class="live-header">
+  <header class="live-header"
+          [matTooltip]="showTooltip()"
+          matTooltipClass="multiline-tooltip"
+  >
     <mat-chip-set class="info-box">
       <mat-chip class="chip clock">
         <mat-icon matChipAvatar>schedule</mat-icon>

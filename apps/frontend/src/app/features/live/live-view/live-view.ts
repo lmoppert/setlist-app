@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { SetlistStore } from '../../../models/setlist-store';
@@ -22,7 +23,7 @@ import { SongStore } from '../../../models/song-store';
   imports: [
     MatChipsModule, DurationPipe, MatIconModule, MatButtonModule,
     MatProgressBarModule, CdkDrag, CdkDropList, SongCard, DatePipe,
-    MatFormFieldModule, MatMenuModule
+    MatFormFieldModule, MatMenuModule, MatTooltipModule
 ],
   templateUrl: './live-view.html',
   styleUrl: './live-view.scss',
@@ -100,4 +101,8 @@ export class LiveView {
     const newPosition = event.currentIndex + 1;
     await this.store.reorderEntry(entry.id!, newPosition);
   }
+
+  showTooltip = computed<string>(() => {
+    return 'Verwende das ⁝ Menü oder Rechtsklick für weitere Optionen.';
+  });
 }

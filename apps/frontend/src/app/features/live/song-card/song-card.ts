@@ -6,7 +6,6 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { ISetlistEntryWithSong, ISongDisplayData } from '@setlist-app/shared-types';
 import { SetlistContextMenu } from '../../../shared/menu/setlist-context-menu';
@@ -20,7 +19,7 @@ import { InitialsPipe } from '../../../shared/pipes/initials.pipe';
   imports: [
     MatChipsModule, DurationPipe, FormatMonospacePipe, InitialsPipe,
     MatIconModule, MatButtonModule, MatSlideToggleModule, MatMenuModule,
-    MatDividerModule, MatTooltipModule, SetlistContextMenu
+    MatDividerModule, SetlistContextMenu
   ],
   templateUrl: './song-card.html',
   styleUrl: './song-card.scss',
@@ -89,14 +88,6 @@ export class SongCard {
         isTuning: prev && (!!prevInst && prevInst.tuning !== inst.tuning),
       };
     });
-  });
-
-  showTooltip = computed<string>(() => {
-    const d = this.data();
-    let msg = 'Verwende das ⁝ Menü oder Rechtsklick für weitere Optionen.';
-    if (d.isEncore) msg = '... ist eine Zugabe!\n' + msg;
-    if (d.isAccustic) msg = '... ist akustisch!\n' + msg;
-    return msg;
   });
 
   displayData = computed<ISongDisplayData>(() => {
