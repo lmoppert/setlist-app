@@ -1,7 +1,7 @@
 import { NotFoundException, Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { join } from 'node:path';
-import { readFile } from 'node:fs/promises';
+import { readFile, unlink } from 'node:fs/promises';
 
 @Injectable()
 export class ResourceService {
@@ -36,16 +36,25 @@ export class ResourceService {
   }
 
   /***************************************************************************
-   * Save resource
+   * Manage resources
    ***************************************************************************/
-  async createResourceReference(songId: string, data: { filename: string, type: string, filetype: string }) {
+  async createResource(songId: string, data: { filename: string, type: string, filetype: string }) {
     return this.prisma.songResource.create({
       data: {
         songId,
         type: data.type,
         filetype: data.filetype,
-        path: data.filename, // In der DB steht nur "file-12345.pdf"
+        path: data.filename,
       }
     });
+  }
+
+  async deleteResource(id: string) {
+    const res = await this.prisma.songResource.findUnique({ where: { id } });
+    if (res) {
+      const fullPath = join(this.uploadDir, res.path);
+      await unlink(fullPath).catch(() => {}); // Datei löschen (Fehler ignorieren falls weg)
+      await this.prisma.songResource.delete({ where: { id } });
+    }
   }
 }

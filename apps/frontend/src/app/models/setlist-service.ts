@@ -7,6 +7,9 @@ import { ISetlist, ISetlistBase } from '@setlist-app/shared-types';
 export class SetlistService {
   private readonly http = inject(HttpClient);
 
+  /***************************************************************************
+   * Manage setlists
+   ***************************************************************************/
   create(data: ISetlistBase) {
     return this.http.post<ISetlist>('/api/setlists/', data);
   }
@@ -19,6 +22,9 @@ export class SetlistService {
     return this.http.delete(`/api/setlists/${id}`);
   }
 
+  /***************************************************************************
+   * Manage entries
+   ***************************************************************************/
   addSong(slug: string, songId: string, position: number) {
     return this.http.post(`/api/setlists/${slug}/entries`, {
       songId,
@@ -44,5 +50,20 @@ export class SetlistService {
 
   removeEntry(entryId: string) {
     return this.http.delete(`/api/setlists/entries/${entryId}`);
+  }
+
+  /***************************************************************************
+   * Manage resources
+   ***************************************************************************/
+  uploadResource(songId: string, type: string, file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('songId', songId);
+    formData.append('type', type);
+    return this.http.post('/api/resources/upload', formData);
+  }
+
+  deleteResource(id: string) {
+    return this.http.delete(`/api/resources/${id}`)
   }
 }

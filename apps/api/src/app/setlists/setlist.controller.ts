@@ -5,24 +5,24 @@ import { UpdateSetlistDto } from './update-setlist.dto';
 
 @Controller('setlists')
 export class SetlistController {
-  constructor(private readonly setlistService: SetlistService) {}
+  constructor(private readonly service: SetlistService) {}
 
   /***************************************************************************
    * Manage the setlists themselve
    ***************************************************************************/
   @Get(':slug')
   async getSetlistBySlug(@Param('slug') slug: string) {
-    return this.setlistService.findBySlug(slug);
+    return this.service.findBySlug(slug);
   }
 
   @Get()
   async getAllSetlists() {
-    return this.setlistService.findAll();
+    return this.service.findAll();
   }
 
   @Post()
   async createSetlist(@Body() dto: CreateSetlistDto) {
-    return this.setlistService.create(dto);
+    return this.service.create(dto);
   }
 
   @Patch(':id')
@@ -30,12 +30,12 @@ export class SetlistController {
     @Param('id') id: string, 
     @Body() dto: UpdateSetlistDto
   ) { 
-    return this.setlistService.update(id, dto); 
+    return this.service.update(id, dto); 
   }
 
   @Delete(':id')
   async deleteSetlist(@Param('id') id: string) {
-    return this.setlistService.delete(id)
+    return this.service.delete(id)
   }
 
   /***************************************************************************
@@ -46,12 +46,12 @@ export class SetlistController {
     @Param('slug') slug: string,
     @Body() dto: { songId: string; position: number }
   ) {
-    return this.setlistService.addSongToSetlist(slug, dto.songId, dto.position);
+    return this.service.addSongToSetlist(slug, dto.songId, dto.position);
   }
 
   @Delete('entries/:entryId')
   async removeSongFromSetlist(@Param('entryId') entryId: string) {
-    return this.setlistService.removeSongFromSetlist(entryId);
+    return this.service.removeSongFromSetlist(entryId);
   }
 
   @Patch(':slug/entries/reorder')
@@ -59,7 +59,7 @@ export class SetlistController {
     @Param('slug') slug: string,
     @Body() dto: { entryId: string; newPosition: number }
   ) {
-    return this.setlistService.reorder(slug, dto.entryId, dto.newPosition);
+    return this.service.reorder(slug, dto.entryId, dto.newPosition);
   }
 
   @Patch('entries/:entryId')
@@ -67,6 +67,6 @@ export class SetlistController {
     @Param('entryId') entryId: string,
     @Body() dto: { field: 'isEncore' | 'isAccustic'; value: boolean }
   ) {
-    return this.setlistService.toggleEntry(entryId, dto.value, dto.field);
+    return this.service.toggleEntry(entryId, dto.value, dto.field);
   }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Get, Param, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ResourceService } from "./resource.service";
 import { diskStorage } from 'multer';
@@ -39,10 +39,15 @@ export class ResourceController {
     @Body('type') type: string,
   ) {
     if (!file) throw new BadRequestException('Datei fehlt!');
-    return this.service.createResourceReference(songId, {
+    return this.service.createResource(songId, {
       filename: file.filename,
       type: type,
       filetype: file.originalname.endsWith('.pdf') ? 'PDF' : 'TXT'
     });
+  }
+
+  @Delete(':id')
+  async deleteSetlist(@Param('id') id: string) {
+    return this.service.deleteResource(id)
   }
 }
