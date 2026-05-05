@@ -5,6 +5,8 @@ import { SetlistService } from './setlists/setlist.service';
 import { SetlistController } from './setlists/setlist.controller';
 import { MemberController } from './members/members.controller';
 import { SongService } from './songs/song.service';
+import { ResourceController } from './resource/resource.controller';
+import { ResourceService } from './resource/resource.service';
 
 @Module({
   imports: [],
@@ -12,11 +14,13 @@ import { SongService } from './songs/song.service';
     SongController,
     SetlistController,
     MemberController,
+    ResourceController,
   ],
   providers: [
     PrismaService,
     SongService,
-    SetlistService
+    SetlistService,
+    ResourceService,
   ],
 })
 export class AppModule {}
