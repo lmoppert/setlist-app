@@ -1,6 +1,6 @@
 <div class="live-nav-header">
   <!-- Previous Song -->
-  <div class="nav-slot prev" (click)="store.prevSong()" [class.hidden]="!data.prev">
+  <div class="nav-slot prev" (click)="service.prevSong()" [class.hidden]="!data.prev">
     <mat-icon>chevron_left</mat-icon>
     <div class="title">{{ data.prev?.song?.title }}</div>
   </div>
@@ -18,11 +18,10 @@
   </div>
 
   <!-- Next Song -->
-  <div class="nav-slot next" (click)="store.nextSong()" [class.hidden]="!data.next">
+  <div class="nav-slot next" (click)="service.nextSong()" [class.hidden]="!data.next">
     <div class="next-preview">
       <span class="label">Next:</span>
       <span class="title">{{ data.next?.song?.title }}</span>
-      <!-- Beispiel für Instrumenten-Check -->
       <div class="setup-hint">
         {{ getHint(data.current, data.next) }}
       </div>
@@ -30,6 +29,7 @@
     <mat-icon>chevron_right</mat-icon>
   </div>
 </div>
+
 <main class="resource-container">
   @let file = activeFile();
 
@@ -42,7 +42,6 @@
   } @else {
     <div class="no-resource">
       <h3>Keine {{ selectedCategory() }} für diesen Song hinterlegt.</h3>
-      <!-- Fallback: Zeige Standard-Info oder Lyrics -->
     </div>
   }
 </main>

@@ -1,6 +1,6 @@
 import { Component, computed, effect, ElementRef, inject, input, signal, viewChildren } from '@angular/core';
 import { CdkDrag, CdkDragDrop, CdkDropList } from '@angular/cdk/drag-drop';
-import { DatePipe, formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
 
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
@@ -14,8 +14,6 @@ import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { SetlistStore } from '../../../models/setlist-store';
 import { SongCard } from '../song-card/song-card'
 import { ISetlistEntry } from '@setlist-app/shared-types';
-import { TitleService } from '../../../core/title.service';
-import { AlertService } from '../../../core/alert.service';
 import { SongStore } from '../../../models/song-store';
 
 @Component({
@@ -31,10 +29,6 @@ import { SongStore } from '../../../models/song-store';
 export class LiveView {
   protected store = inject(SetlistStore);
   protected songStore = inject(SongStore);
-  private titleService = inject(TitleService);
-  private alert = inject(AlertService);
-
-  slug = input.required<string>();
 
   hasStarted = signal(false)
   activeSongIndex = signal(0);  
@@ -43,10 +37,6 @@ export class LiveView {
   songElements = viewChildren<ElementRef>('songItem');
 
   constructor() {
-    effect(() => {
-      const currentSlug = this.slug();
-      if (currentSlug) this.store.loadSetlist(currentSlug);
-    });
     effect((onCleanup) => {
       const id = setInterval(() => {
         this.currentTime.set(new Date());
@@ -56,21 +46,12 @@ export class LiveView {
     effect(() => {
       const index = this.activeSongIndex();
       const elements = this.songElements();
-      console.log('Scrolling triggert:', index, elements[index])
       if (elements[index]) {
         elements[index].nativeElement.scrollIntoView({
           behavior: 'smooth',
           block: 'center',
         });
       }
-    });
-    effect(() => {
-      let title: string = this.store.currentSetlist()?.location ?? ''; 
-      const date = this.store.currentSetlist()?.date;
-      if (date) {
-        title += ` (${formatDate(date, 'dd.MM.yyyy', 'de-DE')})`; 
-      }
-      this.titleService.setTitle(location ? title : 'Setliste bearbeiten');
     });
   }
 
@@ -83,7 +64,6 @@ export class LiveView {
   }
 
   activateEntry(id: number) {
-    console.log('Received activate ID-', id)
     this.activeSongIndex.set(id);
   }
 

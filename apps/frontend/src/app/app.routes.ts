@@ -22,7 +22,7 @@ export const routes: Routes = [
   },
   {
     path: 'live/:slug',
-    loadComponent: () => import('./features/live/live-view/live-view').then(m => m.LiveView),
+    loadComponent: () => import('./features/live/live-tabs/live-tabs').then(m => m.LiveTabs),
   },
   {
     path: 'songs',

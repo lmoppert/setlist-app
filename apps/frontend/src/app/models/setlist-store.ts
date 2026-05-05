@@ -25,33 +25,6 @@ export class SetlistStore {
   readonly setlistIsLoading = computed(() => this.setlistResource.isLoading())
   readonly setlistError = computed(() => this.setlistResource.error())
 
-  // Live data
-  private activeSongIndex = signal<number>(0);  
-  readonly fileViewData = computed(() => {
-    const songs = this.enrichedSetlist();
-    const index = this.activeSongIndex();
-
-    if (songs.length === 0) {
-      return { prev: null, current: null, next: null };
-    }
-    return {
-      prev: index > 0 ? songs[index - 1] : null,
-      current: songs[index] ?? null,
-      next: index < songs.length - 1 ? songs[index + 1] : null
-    };
-  });
-  readonly liveLink = computed(() => {
-    const slug = this.activeSlug();
-    return slug ? ['/live', slug] : null;
-  });
-  nextSong() {
-    const len = this.enrichedSetlist().length - 1;
-    this.activeSongIndex.update(i => Math.min(i + 1, len));
-  }
-  prevSong() {
-    this.activeSongIndex.update(i => Math.max(i - 1, 0));
-  }
-
   // List of setlists
   readonly listResource = httpResource<ISetlist[]>(() =>
     this.activeSlug() ? undefined : '/api/setlists'
@@ -70,6 +43,11 @@ export class SetlistStore {
   loadSetlist(slug: string | null) {
     this.activeSlug.set(slug);
   }
+
+  readonly liveLink = computed(() => {
+    const slug = this.activeSlug();
+    return slug ? ['/live', slug] : null;
+  });
 
   // List of available Songs, not yet on the setlist
   readonly availableSongs = computed(() => {
