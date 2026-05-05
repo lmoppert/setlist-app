@@ -21,13 +21,36 @@ export class SetlistStore {
     const slug = this.activeSlug();
     return slug ? `/api/setlists/${slug}` : undefined;
   });
+  readonly currentSetlist = computed(() => this.setlistResource.value())
+  readonly setlistIsLoading = computed(() => this.setlistResource.isLoading())
+  readonly setlistError = computed(() => this.setlistResource.error())
+
+  // Live data
+  private activeSongIndex = signal<number>(0);  
+  readonly fileViewData = computed(() => {
+    const songs = this.enrichedSetlist();
+    const index = this.activeSongIndex();
+
+    if (songs.length === 0) {
+      return { prev: null, current: null, next: null };
+    }
+    return {
+      prev: index > 0 ? songs.[index - 1] : null,
+      current: songs[index] ?? null,
+      next: index < songs.length - 1 ? songs[index + 1] : null
+    };
+  });
   readonly liveLink = computed(() => {
     const slug = this.activeSlug();
     return slug ? ['/live', slug] : null;
   });
-  readonly currentSetlist = computed(() => this.setlistResource.value())
-  readonly setlistIsLoading = computed(() => this.setlistResource.isLoading())
-  readonly setlistError = computed(() => this.setlistResource.error())
+  nextSong() {
+    const len = this.enrichedSetlist().length - 1;
+    this.activeSongIndex.update(i => Math.min(i + 1, len));
+  }
+  prevSong() {
+    this.activeSongIndex.update(i => Math.max(i - 1, 0));
+  }
 
   // List of setlists
   readonly listResource = httpResource<ISetlist[]>(() =>
@@ -67,12 +90,14 @@ export class SetlistStore {
       const songData = songs.find(s => s.id === entry.songId);
       if (!songData) return { ...entry, song: null };
       const instruments = songData.instruments || [];
+      const resources = songData.resources || [];
 
       return {
         ...entry,
         song: {
           ...songData,
           instruments: instruments,
+          resources: resources,
         }
       };
     });
@@ -129,8 +154,8 @@ export class SetlistStore {
         this.listResource.reload();
         this.alert.success('Setliste wurde erfolgreich gelöscht.')
         this.router.navigate(['/setlists']);
-      } catch (err) {
-        this.alert.error('Fehler beim Löschen der Setliste:' + err)
+      } catch (error) {
+        this.alert.error('Fehler beim Löschen der Setliste:' + error)
       }
     }
   }

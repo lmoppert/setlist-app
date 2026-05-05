@@ -19,8 +19,8 @@ export class SongService {
   async toggleActive(id: string) {
     try {
       await firstValueFrom(this.http.patch(`/api/songs/${id}/toggle-active`, {}));
-    } catch (err) {
-      console.error('Error toggling song active status:', err);
+    } catch (error) {
+      console.error('Error toggling song active status:', error);
     }
   }
 }

@@ -27,6 +27,7 @@ export interface ISong {
   leadVocals?: string;
 
   instruments?: IInstrumentAssignment[];
+  resources?:   ISongResource[];
 }
 
 export interface ISongAssignment {
@@ -57,7 +58,13 @@ export interface ISongResource {
     | 'sheet'
     | 'recording'
     | 'other';
-  url: string;
+  filetype:
+    | 'txt'
+    | 'pdf'
+    | 'md'
+    | 'mp3';
+  path: string;
+  content?: string;
 }
 
 export interface ISongDisplayData {
