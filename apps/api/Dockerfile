@@ -1,25 +1,32 @@
-# Build Stage
-FROM node:20-slim AS builder
+# 1. Build Stage
+FROM node:24-slim AS builder
 WORKDIR /app
 COPY . .
 RUN npm install
-# Nx Build für die API
 RUN npx nx build api --prod
 
-# Production Stage
-FROM node:20-slim
-WORKDIR /app
+# 2. Production Stage
+FROM node:24-slim
+# WICHTIG: Pfad definieren
+WORKDIR /usr/src/app
 
-# System Bibliotheken für Prisma installieren
+# System-Libs für Prisma (unverzichtbar)
 RUN apt-get update -y && apt-get install -y openssl libssl-dev && rm -rf /var/lib/apt/lists/*
 
-# Nur die gebauten Dateien und die nötigsten Module kopieren
+# Kopieren der Dateien aus dem Builder
 COPY --from=builder /app/dist/apps/api .
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/api/prisma ./prisma
 
-# Prisma Client generieren (für Postgres)
+# Upload-Ordner erstellen und Berechtigungen setzen
+# Wir erstellen den Ordner hier im Container-Dateisystem
+RUN mkdir -p uploads && chown -R node:node /usr/src/app
+
+# Prisma Client generieren
 RUN npx prisma generate
+
+# JETZT erst auf den User wechseln
+USER node
 
 EXPOSE 3000
 CMD ["node", "main.js"]
