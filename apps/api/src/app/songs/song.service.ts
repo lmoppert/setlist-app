@@ -18,7 +18,8 @@ export class SongService {
           include: {
             member: true
           }
-        }
+        },
+        resources: true,
       },
       orderBy: [
         { isActive: 'desc' },
@@ -37,7 +38,7 @@ export class SongService {
           }
         },
         resources: true,
-      }
+      },
     });
     if (!song) throw new NotFoundException('Song nicht gefunden');
     return song;

@@ -10,11 +10,12 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+import { ISetlistEntry } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { SetlistStore } from '../../../models/setlist-store';
 import { SongCard } from '../song-card/song-card'
-import { ISetlistEntry } from '@setlist-app/shared-types';
 import { SongStore } from '../../../models/song-store';
+import { LiveService } from '../../../models/live-service';
 
 @Component({
   selector: 'app-live-view',
@@ -29,12 +30,16 @@ import { SongStore } from '../../../models/song-store';
 export class LiveView {
   protected store = inject(SetlistStore);
   protected songStore = inject(SongStore);
+  protected service = inject(LiveService)
 
   hasStarted = signal(false)
-  activeSongIndex = signal(0);  
   currentTime = signal(new Date());
   activeMember = signal<string | null>(null);
   songElements = viewChildren<ElementRef>('songItem');
+
+  readonly index = computed(() => {
+    return this.service.activeSongIndex();
+  })
 
   constructor() {
     effect((onCleanup) => {
@@ -44,7 +49,7 @@ export class LiveView {
       onCleanup(() => clearInterval(id));
     });
     effect(() => {
-      const index = this.activeSongIndex();
+      const index = this.index();
       const elements = this.songElements();
       if (elements[index]) {
         elements[index].nativeElement.scrollIntoView({
@@ -64,14 +69,14 @@ export class LiveView {
   }
 
   activateEntry(id: number) {
-    this.activeSongIndex.set(id);
+    this.service.setActiveSong(id);
   }
 
   readonly timeLeft = computed(() => {
     const songs = this.store.enrichedSetlist();
-    const currentIndex = this.activeSongIndex();
+    const index = this.index();
     return songs
-      .slice(currentIndex)
+      .slice(index)
       .reduce((total, entry) => total + (entry.song?.duration || 0), 0);
   });
 

@@ -1,41 +1,45 @@
-<div class="live-nav-header">
-  <!-- Previous Song -->
-  <div class="nav-slot prev" (click)="service.prevSong()" [class.hidden]="!data.prev">
-    <mat-icon>chevron_left</mat-icon>
-    <div class="title">{{ data.prev?.song?.title }}</div>
-  </div>
+@let data = navData();
 
-  <!-- Current Song -->
-  <div class="nav-slot current">
-    <div class="song-info">
-      <span class="bpm">{{ data.current?.song?.tempo }} BPM</span>
-      <span class="key">{{ data.current?.song?.key }}</span>
-      <div class="setup-hint">
-        {{ getHint(data.prev, data.current) }}
-      </div>
+@if (data){
+  <div class="live-nav-header">
+    <!-- Previous Song -->
+    <div class="nav-slot prev" (click)="service.prevSong()" [class.hidden]="!data.prev">
+      <mat-icon>chevron_left</mat-icon>
+      <div class="title">{{ data.prev?.song?.title }}</div>
     </div>
-    <h2>{{ data.current?.song?.title }}</h2>
-  </div>
 
-  <!-- Next Song -->
-  <div class="nav-slot next" (click)="service.nextSong()" [class.hidden]="!data.next">
-    <div class="next-preview">
-      <span class="label">Next:</span>
-      <span class="title">{{ data.next?.song?.title }}</span>
-      <div class="setup-hint">
-        {{ getHint(data.current, data.next) }}
+    <!-- Current Song -->
+    <div class="nav-slot current">
+      <div class="song-info">
+        <span class="bpm">{{ data.current?.song?.tempo }} BPM</span>
+        <span class="key">{{ data.current?.song?.key }}</span>
+        <div class="setup-hint">
+          {{ getHint(data.prev, data.current) }}
+        </div>
       </div>
+      <h2>{{ data.current?.song?.title }}</h2>
     </div>
-    <mat-icon>chevron_right</mat-icon>
+
+    <!-- Next Song -->
+    <div class="nav-slot next" (click)="service.nextSong()" [class.hidden]="!data.next">
+      <div class="next-preview">
+        <span class="label">Next:</span>
+        <span class="title">{{ data.next?.song?.title }}</span>
+        <div class="setup-hint">
+          {{ getHint(data.current, data.next) }}
+        </div>
+      </div>
+      <mat-icon>chevron_right</mat-icon>
+    </div>
   </div>
-</div>
+}
 
 <main class="resource-container">
   @let file = activeFile();
 
   @if (file) {
     @if (file.filetype === 'PDF') {
-      <iframe [src]="file.path | safeUrl" class="pdf-viewer" title="PDF viewer"></iframe>
+      <iframe [src]="('/uploads/' + file.path) | safeUrl" class="pdf-viewer" title="PDF viewer"></iframe>
     } @else if (file.filetype === 'TXT') {
       <pre class="lyrics-view">{{ file.content }}</pre>
     }

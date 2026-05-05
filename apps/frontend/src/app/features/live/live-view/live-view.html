@@ -22,7 +22,7 @@
           }
         </span>
       </mat-chip>
-      <button matIconButton (click)="activeSongIndex.set(0)" type="button"
+      <button matIconButton (click)="service.setActiveSong(0)" type="button"
               title="Aktives Lied zurücksetzen" class="reset-btn">
         <mat-icon>refresh</mat-icon>
       </button>
@@ -63,8 +63,8 @@
       <div cdkDrag [cdkDragData]="entry" [cdkDragStartDelay]="1000" #songItem>
         <app-song-card
           [class.b-top]="isFirst"
-          [class.active]="activeSongIndex() === entry.position"
-          (activate)="activateEntry(entry.position)"
+          [class.active]="index() === entry.position - 1"
+          (activate)="activateEntry(entry.position - 1)"
           [data]="entry"
           [prevData]="entries[i - 1]"
           [activeMember]="activeMember() ?? null">

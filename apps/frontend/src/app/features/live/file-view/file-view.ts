@@ -13,19 +13,26 @@ import { LiveService } from '../../../models/live-service';
 export class FileView {
   protected service = inject(LiveService)
 
-  data = this.service.fileViewData();
-  selectedCategory = signal<string>( localStorage.getItem('preferredResource') || 'BASS');
+  readonly navData = computed(() => {
+    return this.service.fileViewData();
+  });
 
+  readonly index = computed(() => {
+    return this.service.activeSongIndex();
+  });
+
+  selectedCategory = signal<string>( localStorage.getItem('preferredResource') || 'BASS');
   activeFile = computed(() => {
-    const song = this.data.current?.song;
-    const category = this.selectedCategory();
-    return song?.resources.find(r => r.type === category) ?? null;
+    const files = this.navData().current?.song?.resources;
+    if (!files) return null;
+    return files.find(r => r.type === this.selectedCategory())
   });
 
   setCategory(cat: string) {
     this.selectedCategory.set(cat);
     localStorage.setItem('preferredResource', cat);
   }
+
   getHint(fromEntry: any, toEntry: any): string {
     if (!fromEntry || !toEntry) return '';
     // TODO: check instrument or tuning changes
