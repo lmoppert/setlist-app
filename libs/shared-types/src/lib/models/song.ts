@@ -53,16 +53,16 @@ export interface IInstrumentAssignment {
 
 export interface ISongResource {
   type:
-    | 'chords'
-    | 'lyrics'
-    | 'sheet'
-    | 'recording'
-    | 'other';
+    | 'SHEET'
+    | 'LYRICS'
+    | 'BASS'
+    | 'RECORDING'
+    | 'OTHER';
   filetype:
-    | 'txt'
-    | 'pdf'
-    | 'md'
-    | 'mp3';
+    | 'TXT'
+    | 'PDF'
+    | 'MD'
+    | 'MP3';
   path: string;
   content?: string;
 }

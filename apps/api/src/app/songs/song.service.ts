@@ -26,15 +26,17 @@ export class SongService {
       ]
     });
   }
+
   async findBySlug(slug: string) {
     const song = await this.prisma.song.findUnique({
       where: { slug },
       include: {
         instruments: {
           include: {
-            member: true
+            member: true,
           }
-        }
+        },
+        resources: true,
       }
     });
     if (!song) throw new NotFoundException('Song nicht gefunden');

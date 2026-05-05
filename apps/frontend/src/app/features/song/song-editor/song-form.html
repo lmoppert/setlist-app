@@ -1,7 +1,3 @@
-@if (store.songIsLoading()) {
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-}
-
 <form [formGroup]="songForm" (ngSubmit)="submit()">
   <div class="row">
     <mat-form-field appearance="outline" class="long-input">
@@ -75,7 +71,7 @@
   </div>
 
   <mat-divider></mat-divider>
-  <h3>Besetung & Instrumente</h3>
+  <h3 class="band-details">Besetung & Instrumente</h3>
 
   <div formArrayName="instruments">
     @for (ctrl of instruments.controls; track ctrl; let i = $index) {

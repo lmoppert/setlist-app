@@ -30,7 +30,7 @@ export const routes: Routes = [
   },
   {
     path: 'songs/:slug',
-    loadComponent: () => import('./features/song/song-form/song-form').then(m => m.SongForm),
+    loadComponent: () => import('./features/song/song-editor/song-editor').then(m => m.SongEditor),
     canDeactivate: [pendingChangesGuard],
   },
 ];

@@ -34,9 +34,9 @@
   @let file = activeFile();
 
   @if (file) {
-    @if (file.filetype === 'pdf') {
+    @if (file.filetype === 'PDF') {
       <iframe [src]="file.path | safeUrl" class="pdf-viewer" title="PDF viewer"></iframe>
-    } @else if (file.filetype === 'txt') {
+    } @else if (file.filetype === 'TXT') {
       <pre class="lyrics-view">{{ file.content }}</pre>
     }
   } @else {

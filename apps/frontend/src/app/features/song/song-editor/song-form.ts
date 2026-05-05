@@ -1,38 +1,32 @@
-import { Component, effect, inject, input, untracked } from '@angular/core';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { Component, effect, inject, input, output } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 
-import { HasUnsavedChanges } from '../../../shared/guards/pending-changes.guard';
 import { SongStore } from '../../../models/song-store';
-import { TitleService } from '../../../core/title.service';
 import { IBandMember, ISong } from '@setlist-app/shared-types';
-import { slugify } from '@setlist-app/shared-utils';
 
 @Component({
   selector: 'app-song-form',
   imports: [
     RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule,
-    MatIconModule, MatProgressBarModule, MatButtonModule, MatDividerModule,
-    MatSelectModule
+    MatIconModule, MatButtonModule, MatDividerModule, MatSelectModule
   ],
   templateUrl: './song-form.html',
   styleUrl: './song-form.scss',
 })
-export class SongForm implements HasUnsavedChanges {
+export class SongForm {
   protected fb = inject(FormBuilder);
   protected router = inject(Router);
-  protected route = inject(ActivatedRoute);
-  protected titleService = inject(TitleService);
   protected store = inject(SongStore);
 
+  formDirty = output<boolean>();
   slug = input.required<string>();
   isEditMode = false;
 
@@ -49,9 +43,6 @@ export class SongForm implements HasUnsavedChanges {
   get instruments() {
     return this.songForm.get('instruments') as FormArray;
   }
-  hasUnsavedChanges(): boolean { 
-    return this.songForm.dirty;
-  }
   initInstruments(members: IBandMember[], song?: ISong) {
     members.forEach(member => {
       const existing = song?.instruments?.find(i => i.memberId === member.id);
@@ -66,6 +57,9 @@ export class SongForm implements HasUnsavedChanges {
   }
 
   constructor() {
+    this.songForm.statusChanges.subscribe(() => {
+      this.formDirty.emit(this.songForm.dirty);
+    });
     effect(() => {
       const currentSlug = this.slug();
       const allMembers = this.store.members();

@@ -51,3 +51,4 @@ __screenshots__/
 
 /generated/prisma
 apps/api/src/app/database
+/uploads
