@@ -19,7 +19,6 @@ export class FileView {
   activeFile = computed(() => {
     const song = this.data.current?.song;
     const category = this.selectedCategory();
-    
     return song?.resources.find(r => r.type === category) ?? null;
   });
 

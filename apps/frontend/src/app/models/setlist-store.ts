@@ -35,7 +35,7 @@ export class SetlistStore {
       return { prev: null, current: null, next: null };
     }
     return {
-      prev: index > 0 ? songs.[index - 1] : null,
+      prev: index > 0 ? songs[index - 1] : null,
       current: songs[index] ?? null,
       next: index < songs.length - 1 ? songs[index + 1] : null
     };
