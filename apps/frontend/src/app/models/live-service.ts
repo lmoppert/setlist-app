@@ -6,8 +6,14 @@ export class LiveService {
   private store = inject(SetlistStore);
 
   activeSongIndex = signal<number>(0);  
+  setActiveSong(index: number) { this.activeSongIndex.set(index); }
+
+  activeMember = signal<string | null>(null);
+  setActiveMember(value: string | null) { this.activeMember.set(value); }
+
   activeCategory = signal<string>('SHEET');  
   categories = ['SHEET', 'LYRICS', 'BASS', 'RECORDING', 'OTHER'];
+  setActiveCategory(value: string) { this.activeCategory.set(value); }
 
   readonly fileViewData = computed(() => {
     const entries = this.store.enrichedSetlist();
@@ -23,21 +29,11 @@ export class LiveService {
       index: index,
     };
   });
-
   nextSong() {
     const len = this.store.enrichedSetlist().length - 1;
     this.activeSongIndex.update(i => Math.min(i + 1, len));
   }
-
   prevSong() {
     this.activeSongIndex.update(i => Math.max(i - 1, 0));
-  }
-
-  setActiveSong(index: number) {
-    this.activeSongIndex.set(index);
-  }
-
-  setActiveCategory(value: string) {
-    this.activeCategory.set(value);
   }
 }

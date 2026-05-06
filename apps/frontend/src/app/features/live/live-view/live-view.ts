@@ -35,15 +35,11 @@ export class LiveView {
 
   hasStarted = signal(false)
   currentTime = signal(new Date());
-  activeMember = signal<string | null>(null);
   songElements = viewChildren<ElementRef>('songItem');
 
-  readonly category = computed(() => {
-    return this.service.activeCategory();
-  })
-  readonly index = computed(() => {
-    return this.service.activeSongIndex();
-  })
+  readonly activeMember = computed(() => { return this.service.activeMember(); })
+  readonly activeCategory = computed(() => { return this.service.activeCategory(); })
+  readonly activeIndex = computed(() => { return this.service.activeSongIndex(); })
 
   constructor() {
     effect((onCleanup) => {
@@ -53,7 +49,7 @@ export class LiveView {
       onCleanup(() => clearInterval(id));
     });
     effect(() => {
-      const index = this.index();
+      const index = this.activeIndex();
       const elements = this.songElements();
       if (elements[index]) {
         elements[index].nativeElement.scrollIntoView({
@@ -68,17 +64,10 @@ export class LiveView {
     const id = this.activeMember();
     return this.songStore.members()?.find(m => m.id === id)?.name;
   }
-  setActiveMember(id: string | null) {
-    this.activeMember.set(id);
-  }
-
-  activateEntry(id: number) {
-    this.service.setActiveSong(id);
-  }
 
   readonly timeLeft = computed(() => {
     const songs = this.store.enrichedSetlist();
-    const index = this.index();
+    const index = this.activeIndex();
     return songs
       .slice(index)
       .reduce((total, entry) => total + (entry.song?.duration || 0), 0);

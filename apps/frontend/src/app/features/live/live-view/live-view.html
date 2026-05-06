@@ -37,12 +37,12 @@
       </button>
 
       <mat-menu #memberMenu="matMenu">
-        <button mat-menu-item (click)="setActiveMember(null)" type="button">
+        <button mat-menu-item (click)="service.setActiveMember(null)" type="button">
           <mat-icon>groups</mat-icon>
           <span>Gesamte Band</span>
         </button>
         @for (member of songStore.members(); track member.id) {
-          <button mat-menu-item (click)="setActiveMember(member.id)" type="button">
+          <button mat-menu-item (click)="service.setActiveMember(member.id)" type="button">
             <mat-icon>{{ activeMember() === member.id ? 'person' : 'person_outline' }}</mat-icon>
             {{ member.name }}
           </button>
@@ -51,13 +51,13 @@
     </div>
 
     <div class="category-selector">
-      <button matButton [matMenuTriggerFor]="ftMenu" type="button">
+      <button matButton [matMenuTriggerFor]="categoryMenu" type="button">
         <mat-icon>arrow_drop_down</mat-icon>
         <span class="category-label">
-          {{ category() }}
+          {{ activeCategory() }}
         </span>
       </button>
-      <mat-menu #ftMenu="matMenu">
+      <mat-menu #categoryMenu="matMenu">
         @for (cat of service.categories;  track cat) {
           <button mat-menu-item (click)="service.setActiveCategory(cat)" type="button">
             <mat-icon>{{ cat | catIcon }}</mat-icon>
@@ -80,8 +80,8 @@
       <div cdkDrag [cdkDragData]="entry" [cdkDragStartDelay]="1000" #songItem>
         <app-song-card
           [class.b-top]="isFirst"
-          [class.active]="index() === entry.position - 1"
-          (activate)="activateEntry(entry.position - 1)"
+          [class.active]="activeIndex() === entry.position - 1"
+          (activate)="service.setActiveSong(entry.position - 1)"
           [data]="entry"
           [prevData]="entries[i - 1]"
           [activeMember]="activeMember() ?? null">
