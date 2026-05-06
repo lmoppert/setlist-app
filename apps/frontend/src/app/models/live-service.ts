@@ -6,6 +6,8 @@ export class LiveService {
   private store = inject(SetlistStore);
 
   activeSongIndex = signal<number>(0);  
+  activeCategory = signal<string>('SHEET');  
+  categories = ['SHEET', 'LYRICS', 'BASS', 'RECORDING', 'OTHER'];
 
   readonly fileViewData = computed(() => {
     const entries = this.store.enrichedSetlist();
@@ -33,5 +35,9 @@ export class LiveService {
 
   setActiveSong(index: number) {
     this.activeSongIndex.set(index);
+  }
+
+  setActiveCategory(value: string) {
+    this.activeCategory.set(value);
   }
 }

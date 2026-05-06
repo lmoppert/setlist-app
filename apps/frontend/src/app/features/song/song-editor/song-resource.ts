@@ -8,11 +8,12 @@ import { MatListModule } from "@angular/material/list";
 import { SetlistService } from "../../../models/setlist-service";
 import { SongStore } from "../../../models/song-store";
 import { ResourceTypeDialogComponent } from "./song-editor";
+import { FiletypePipe } from "../../../shared/pipes/icon.pipe";
 
 @Component({
   selector: 'app-song-resources',
   standalone: true,
-  imports: [MatListModule, MatButtonModule, MatIconModule],
+  imports: [MatListModule, MatButtonModule, MatIconModule, FiletypePipe],
   template: `
     <div class="upload-section">
       <h2>{{ currentSong()?.title }}</h2>
@@ -25,7 +26,7 @@ import { ResourceTypeDialogComponent } from "./song-editor";
         @for (res of resources(); track res.id) {
           <mat-list-item>
             <mat-icon matListItemIcon>
-              {{ getFileIcon(res.filetype) }}
+              {{ res.filetype | ftIcon }}
             </mat-icon>
             <div matListItemTitle>{{ res.type }}: {{ res.filetype }}</div>
             <div matListItemLine>{{ res.path }}</div>
@@ -108,12 +109,5 @@ export class SongResources {
 
   delete(id: string) {
     this.service.delete(id).subscribe(() => this.store.loadSong(this.slug()));
-  }
-
-  getFileIcon(type: string) {
-    if (type === 'PDF') return 'picture_as_pdf';
-    if (type === 'TXT') return 'lyrics';
-    if (type === 'MD') return 'description';
-    return 'audio_file';
   }
 }

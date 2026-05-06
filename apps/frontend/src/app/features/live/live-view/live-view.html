@@ -49,6 +49,23 @@
         }
       </mat-menu>
     </div>
+
+    <div class="category-selector">
+      <button matButton [matMenuTriggerFor]="ftMenu" type="button">
+        <mat-icon>arrow_drop_down</mat-icon>
+        <span class="category-label">
+          {{ category() }}
+        </span>
+      </button>
+      <mat-menu #ftMenu="matMenu">
+        @for (cat of service.categories;  track cat) {
+          <button mat-menu-item (click)="service.setActiveCategory(cat)" type="button">
+            <mat-icon>{{ cat | catIcon }}</mat-icon>
+            {{ cat }}
+          </button>
+        }
+      </mat-menu>
+    </div>
   </header>
 
   <main 

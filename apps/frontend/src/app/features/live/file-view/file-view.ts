@@ -16,22 +16,18 @@ export class FileView {
   readonly navData = computed(() => {
     return this.service.fileViewData();
   });
-
+  readonly category = computed(() => {
+    return this.service.activeCategory();
+  })
   readonly index = computed(() => {
     return this.service.activeSongIndex();
   });
 
-  selectedCategory = signal<string>( localStorage.getItem('preferredResource') || 'BASS');
   activeFile = computed(() => {
     const files = this.navData().current?.song?.resources;
     if (!files) return null;
-    return files.find(r => r.type === this.selectedCategory())
+    return files.find(r => r.type === this.category())
   });
-
-  setCategory(cat: string) {
-    this.selectedCategory.set(cat);
-    localStorage.setItem('preferredResource', cat);
-  }
 
   getHint(fromEntry: any, toEntry: any): string {
     if (!fromEntry || !toEntry) return '';
