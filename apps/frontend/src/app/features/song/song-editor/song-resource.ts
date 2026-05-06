@@ -98,6 +98,7 @@ export class SongResources {
           // this.store.loadSong(this.slug());
           console.log('[DEBUG] state:', this.store.songResource.isLoading())
           this.store.songResource.reload();
+          this.store.listResource.reload();
           event.target.value = '';
         });
       }

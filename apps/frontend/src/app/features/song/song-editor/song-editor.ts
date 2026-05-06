@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from "@angular/core";
+import { Component, computed, effect, inject, input, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 
 import { MatButtonModule } from "@angular/material/button";
@@ -7,6 +7,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule, MatDialogRef } from "@angular/material/dialog";
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatBadgeModule } from '@angular/material/badge';
 
 import { HasUnsavedChanges } from '../../../shared/guards/pending-changes.guard';
 import { TitleService } from '../../../core/title.service';
@@ -16,17 +17,25 @@ import { SongStore } from "../../../models/song-store";
 
 @Component({
   selector: 'app-song-editor',
-  imports: [MatProgressBarModule, MatTabsModule, SongForm, SongResources],
+  imports: [
+    MatBadgeModule, MatProgressBarModule, MatTabsModule, SongForm, SongResources
+  ],
   template: `
     @if (store.songIsLoading()) {
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
     }
+    @let resCount = resources().length;
     <mat-tab-group>
       <mat-tab label="Details">
         <app-song-form [slug]="slug()" (formDirty)="emitFormStatus($event)"></app-song-form>
       </mat-tab>
 
-      <mat-tab label="Dateien" [disabled]="!slug()">
+      <mat-tab [disabled]="!slug()">
+        <ng-template mat-tab-label>
+          <div [matBadge]="resCount" matBadgeOverlap="false" [matBadgeHidden]="resCount === 0">
+            Dateien&nbsp;
+          </div>
+        </ng-template>
         @if (slug()) {
           <app-song-resources [slug]="slug()"></app-song-resources>
         }
@@ -38,6 +47,8 @@ export class SongEditor implements HasUnsavedChanges {
   protected store = inject(SongStore);
   protected titleService = inject(TitleService);
   slug = input.required<string>();
+
+  readonly resources = computed(() => this.store.currentSong()?.resources ?? []);
 
   isFormDirty = signal(false);
   hasUnsavedChanges(): boolean { return this.isFormDirty(); };
@@ -72,6 +83,6 @@ export class SongEditor implements HasUnsavedChanges {
   `
 })
 export class ResourceTypeDialogComponent {
-  selectedType = 'SHEET';
+  selectedType = 'BASS';
   constructor(public dialogRef: MatDialogRef<ResourceTypeDialogComponent>) {}
 }
