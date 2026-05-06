@@ -30,7 +30,7 @@ export class Songs {
   protected alert = inject(AlertService)
 
   searchTerm = signal('');
-  displayedColumns: string[] = ['title', 'key', 'tempo', 'vocals', 'actions'];
+  displayedColumns: string[] = ['title', 'key', 'tempo', 'vocals', 'resources', 'actions'];
 
   readonly filteredSongs = computed(() => {
     const songs = this.store.songs() ?? [];
