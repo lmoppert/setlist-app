@@ -1,5 +1,6 @@
 import { Component, computed, effect, inject, input, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
+import { RouterLink } from "@angular/router";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -18,8 +19,9 @@ import { SongStore } from "../../../models/song-store";
 @Component({
   selector: 'app-song-editor',
   imports: [
-    MatBadgeModule, MatProgressBarModule, MatTabsModule, SongForm, SongResources
-  ],
+    MatBadgeModule, MatProgressBarModule, MatTabsModule, SongForm, SongResources,
+    MatIconModule, MatButtonModule, RouterLink
+],
   template: `
     @if (store.songIsLoading()) {
       <mat-progress-bar mode="indeterminate"></mat-progress-bar>
@@ -27,6 +29,9 @@ import { SongStore } from "../../../models/song-store";
     @let resCount = resources().length;
     <mat-tab-group>
       <mat-tab label="Details">
+        <button matButton type="button" routerLink="/songs">
+          <mat-icon>chevron_left</mat-icon> Zurück zur Song-Übersicht
+        </button>
         <app-song-form [slug]="slug()" (formDirty)="emitFormStatus($event)"></app-song-form>
       </mat-tab>
 
@@ -36,6 +41,9 @@ import { SongStore } from "../../../models/song-store";
             Dateien&nbsp;
           </div>
         </ng-template>
+        <button matButton type="button" routerLink="/songs">
+          <mat-icon>chevron_left</mat-icon> Zurück zur Song-Übersicht
+        </button>
         @if (slug()) {
           <app-song-resources [slug]="slug()"></app-song-resources>
         }

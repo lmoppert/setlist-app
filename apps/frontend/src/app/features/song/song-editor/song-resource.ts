@@ -15,6 +15,7 @@ import { ResourceTypeDialogComponent } from "./song-editor";
   imports: [MatListModule, MatButtonModule, MatIconModule],
   template: `
     <div class="upload-section">
+      <h2>{{ currentSong()?.title }}</h2>
       <h3>Ressourcen & Dokumente</h3>
       <input #fileInput type="file" hidden (change)="uploadResource($event)" accept=".pdf,.txt,.md,.mp3">
       <button matButton="elevated" (click)="fileInput.click()">
