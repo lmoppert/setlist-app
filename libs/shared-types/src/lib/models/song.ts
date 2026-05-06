@@ -52,6 +52,7 @@ export interface IInstrumentAssignment {
 }
 
 export interface ISongResource {
+  id: string;
   type:
     | 'SHEET'
     | 'LYRICS'

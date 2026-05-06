@@ -1,4 +1,4 @@
-import { Component, effect, inject, input, signal } from "@angular/core";
+import { Component, computed, effect, inject, input, signal, untracked } from "@angular/core";
 
 import { MatDialog, MatDialogRef } from "@angular/material/dialog";
 import { MatButtonModule } from "@angular/material/button";
@@ -69,22 +69,16 @@ export class SongResources {
   private dialog = inject(MatDialog);
 
   slug = input.required<string>();
-  resources = signal<any[]>([]);
-  songId = signal<string | null>(null);
+
+  readonly currentSong = this.store.currentSong;
+  readonly resources = computed(() => this.currentSong()?.resources ?? []);
+  readonly songId = computed(() => this.currentSong()?.id ?? null);
 
   constructor() {
     effect(() => {
       const currentSlug = this.slug();
-      const isLoading = this.store.songIsLoading();
-      if(isLoading || !currentSlug || currentSlug === 'new') {
-        this.store.loadSong(currentSlug);
-        return;
-      }
-      const song = this.store.currentSong()
-      if (song) {
-        this.resources.set(song.resources ?? []);
-        this.songId.set(song.id || null)
-        console.log('Resources:', song.resources)
+      if(currentSlug || currentSlug !== 'new') {
+        untracked(() => this.store.loadSong(currentSlug));
       }
     });
   }
@@ -92,14 +86,18 @@ export class SongResources {
   uploadResource(event: any) {
     const file = event.target.files[0];
     const songId = this.songId();
-    if (!file) return;
-    const dialogRef = this.dialog.open(ResourceTypeDialogComponent, {
-      width: '300px'
-    });
+
+    if (!file || !songId) return;
+
+    const dialogRef = this.dialog.open(ResourceTypeDialogComponent, { width: '300px', height: '280px' });
+
     dialogRef.afterClosed().subscribe(result => {
+      console.log('[DEBUG] result:', result)
       if(result) {
-        if (songId) this.service.uploadResource(songId, result, file).subscribe(() => {
-          this.store.loadSong(this.slug());
+        this.service.uploadResource(songId, result, file).subscribe(() => {
+          // this.store.loadSong(this.slug());
+          console.log('[DEBUG] state:', this.store.songResource.isLoading())
+          this.store.songResource.reload();
           event.target.value = '';
         });
       }

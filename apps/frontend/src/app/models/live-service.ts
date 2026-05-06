@@ -34,5 +34,4 @@ export class LiveService {
   setActiveSong(index: number) {
     this.activeSongIndex.set(index);
   }
-
 }
