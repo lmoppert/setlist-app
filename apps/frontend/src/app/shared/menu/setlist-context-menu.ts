@@ -1,5 +1,5 @@
 import { Component, inject, input, viewChild } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { ActivatedRoute, Router, RouterModule } from "@angular/router";
 
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
@@ -33,7 +33,7 @@ import { SetlistStore } from "../../models/setlist-store";
         <mat-divider></mat-divider>
       }
 
-      <button mat-menu-item [routerLink]="['/songs', data().slug]">
+      <button mat-menu-item (click)="editSong(data().slug)">
         <mat-icon>edit_note</mat-icon>
         Song bearbeiten
       </button>
@@ -50,7 +50,26 @@ import { SetlistStore } from "../../models/setlist-store";
   `]
 })
 export class SetlistContextMenu {
+  protected store = inject(SetlistStore);
+  private route = inject(ActivatedRoute);
+  protected router = inject(Router);
   readonly data = input.required<ISongDisplayData>();
   readonly menu = viewChild<MatMenu>('menu');
-  protected store = inject(SetlistStore);
+
+  returnTo() {
+    let setlistSlug = this.route.snapshot.paramMap.get('slug');
+    let baseURL = this.route.snapshot.url[0].path;
+    let currentRoute = this.route;
+    while(!setlistSlug && currentRoute.parent) {
+      currentRoute = currentRoute.parent;
+      setlistSlug = currentRoute.snapshot.paramMap.get('slug');
+    }
+    return setlistSlug ? [baseURL, setlistSlug] : ['/songs'];
+  }
+
+  editSong(slug: string) {
+    this.router.navigate(['/songs', slug], { 
+      state: { returnTo: this.returnTo() } 
+    });
+  }
 }

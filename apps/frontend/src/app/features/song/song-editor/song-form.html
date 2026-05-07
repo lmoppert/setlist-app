@@ -1,5 +1,4 @@
 <form [formGroup]="songForm" (ngSubmit)="submit()">
-    return 'audio_file';
   <div class="row">
     <mat-form-field appearance="outline" class="long-input">
       <mat-label>Titel des Songs</mat-label>
@@ -107,7 +106,7 @@
       {{ isEditMode ? 'Änderungen speichern' : 'Song erstellen' }}
     </button>
 
-    <button matButton="outlined" type="button" routerLink="/songs">
+    <button matButton="outlined" type="button" (click)="navigateBack()">
       <mat-icon>cancel</mat-icon> Abbrechen
     </button>
   </div>

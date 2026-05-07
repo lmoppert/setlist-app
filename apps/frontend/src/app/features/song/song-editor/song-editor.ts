@@ -1,6 +1,6 @@
 import { Component, computed, effect, inject, input, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
@@ -29,8 +29,8 @@ import { SongStore } from "../../../models/song-store";
     @let resCount = resources().length;
     <mat-tab-group>
       <mat-tab label="Details">
-        <button matButton type="button" routerLink="/songs">
-          <mat-icon>chevron_left</mat-icon> Zurück zur Song-Übersicht
+        <button matButton type="button" (click)="navigateBack()">
+          <mat-icon>chevron_left</mat-icon> Zurück zur letzten Ansicht
         </button>
         <app-song-form [slug]="slug()" (formDirty)="emitFormStatus($event)"></app-song-form>
       </mat-tab>
@@ -41,8 +41,8 @@ import { SongStore } from "../../../models/song-store";
             Dateien&nbsp;
           </div>
         </ng-template>
-        <button matButton type="button" routerLink="/songs">
-          <mat-icon>chevron_left</mat-icon> Zurück zur Song-Übersicht
+        <button matButton type="button" (click)="navigateBack()">
+          <mat-icon>chevron_left</mat-icon> Zurück zur letzten Ansicht
         </button>
         @if (slug()) {
           <app-song-resources [slug]="slug()"></app-song-resources>
@@ -53,6 +53,7 @@ import { SongStore } from "../../../models/song-store";
 })
 export class SongEditor implements HasUnsavedChanges {
   protected store = inject(SongStore);
+  protected router = inject(Router);  
   protected titleService = inject(TitleService);
   slug = input.required<string>();
 
@@ -66,6 +67,14 @@ export class SongEditor implements HasUnsavedChanges {
     effect(() => {
       this.titleService.setTitle('Song bearbeiten');
     })
+  }
+  navigateBack() {
+    const returnTo = window.history.state?.returnTo;
+    if (returnTo) {
+      this.router.navigate(returnTo);
+    } else {
+      this.router.navigate(['/songs']);
+    }
   }
 }
 

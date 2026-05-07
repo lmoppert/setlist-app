@@ -17,9 +17,9 @@ import {
 @Component({
   selector: 'app-song-form',
   imports: [
-    RouterLink, ReactiveFormsModule, MatFormFieldModule, MatInputModule,
+    ReactiveFormsModule, MatFormFieldModule, MatInputModule,
     MatIconModule, MatButtonModule, MatDividerModule, MatSelectModule
-  ],
+],
   templateUrl: './song-form.html',
   styleUrl: './song-form.scss',
 })
@@ -120,18 +120,26 @@ export class SongForm {
 
     if (this.isEditMode) {
       this.store.update(songData).subscribe(() => {
-        this.songForm.markAsPristine();
+        console.log('[DEBUG] Form marked')
+        this.markSaved();
       })
     } else {
       this.store.create(songData).subscribe(() => {
-        this.songForm.markAsPristine();
+        this.markSaved();
       })
     }
-    this.router.navigate(['/songs']);
   }
-
-  cancel() {
-    console.log('CANCEL')
-    this.router.navigate(['/songs']);
+  markSaved() {
+    this.songForm.markAsPristine();
+    this.formDirty.emit(false);
+    this.navigateBack();
+  }
+  navigateBack() {
+    const returnTo = window.history.state?.returnTo;
+    if (returnTo) {
+      this.router.navigate(returnTo);
+    } else {
+      this.router.navigate(['/songs']);
+    }
   }
 }
