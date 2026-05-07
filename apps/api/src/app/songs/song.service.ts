@@ -48,38 +48,38 @@ export class SongService {
     * Manage songs
     ***************************************************************************/
   async create(dto: CreateSongDto) {
+    const { instruments, ...data } = dto;
+
     return this.prisma.song.create({
       data: {
-        title: dto.title,
-        slug: slugify(dto.title),
-        artist: dto.artist,
-        duration: dto.duration,
-        leadVocals: dto.leadVocals,
+        ...data,
+        slug: slugify(data.title),
         instruments: {
-          create: dto.instruments
+          create: instruments
         }
       }
     })
   }
   async update(id: string, dto: UpdateSongDto) {
+    const { instruments, ...data } = dto;
+
     const song = await this.prisma.song.findUnique({
       where: { id },
       select: { title: true }
     });
     if (!song) throw new NotFoundException('Song nicht gefunden');
-    const title = dto.title ? dto.title : song.title;
+
+    const title = data.title ? data.title : song.title;
     
     return this.prisma.song.update({
       where: { id },
       data: {
-        title: title,
+        ...data,
+        title,
         slug: slugify(title),
-        artist: dto.artist,
-        duration: dto.duration,
-        leadVocals: dto.leadVocals,
         instruments: {
           deleteMany: {},
-          create: dto.instruments
+          create: instruments
         }
       }
     });

@@ -31,7 +31,7 @@ export class CreateSongDto implements ISong {
   duration: number=0;
 
   @IsOptional()
-  @IsString()
+  @IsNumber()
   tempo?: number;
 
   @IsOptional()
