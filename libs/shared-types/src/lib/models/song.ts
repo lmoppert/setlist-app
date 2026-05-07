@@ -1,4 +1,6 @@
 import { ISetlistEntry } from './setlist';
+import { IInstrumentAssignment } from './instruments';
+import { ISongResource } from './resource';
 
 export interface ISongBase {
   isActive: boolean;
@@ -44,29 +46,6 @@ export type Role =
   | 'lead-vocals'
   | 'backing-vocals'
   | 'instrumental';
-
-export interface IInstrumentAssignment {
-  name: string;
-  tuning?: string;
-  memberId: string;
-}
-
-export interface ISongResource {
-  id: string;
-  type:
-    | 'SHEET'
-    | 'LYRICS'
-    | 'BASS'
-    | 'RECORDING'
-    | 'OTHER';
-  filetype:
-    | 'TXT'
-    | 'PDF'
-    | 'MD'
-    | 'MP3';
-  path: string;
-  content?: string;
-}
 
 export interface ISongDisplayData {
   // Common attributes
