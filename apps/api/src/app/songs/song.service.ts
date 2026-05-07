@@ -55,6 +55,9 @@ export class SongService {
         artist: dto.artist,
         duration: dto.duration,
         leadVocals: dto.leadVocals,
+        instruments: {
+          create: dto.instruments
+        }
       }
     })
   }
@@ -74,6 +77,10 @@ export class SongService {
         artist: dto.artist,
         duration: dto.duration,
         leadVocals: dto.leadVocals,
+        instruments: {
+          deleteMany: {},
+          create: dto.instruments
+        }
       }
     });
   }

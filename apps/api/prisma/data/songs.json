@@ -6,7 +6,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Drop-D" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Drop-D" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Drop-D" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Drop-D" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Drop-D" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -20,7 +20,7 @@
     "leadVocals": "Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Drop-D" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -33,7 +33,7 @@
     "duration": 280, "tempo": 138, "key": "Am",
     "leadVocals": "Volker",
     "instruments": [
-      { "name": "Volker",     "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Volker",     "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Bernd",      "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
@@ -48,7 +48,7 @@
     "duration": 310, "tempo": 130, "key": "Am",
     "leadVocals": "Bernd",
     "instruments": [
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -63,7 +63,7 @@
     "leadVocals": "Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -78,7 +78,7 @@
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Bernd",      "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Dirk",       "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Dirk",       "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
       { "name": "Jürgen",     "gear": "Schlagzeug" }
@@ -91,7 +91,7 @@
     "leadVocals": "Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Drop-D" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -105,7 +105,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -119,7 +119,7 @@
     "leadVocals": "Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -133,7 +133,7 @@
     "leadVocals": "Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -146,7 +146,7 @@
     "duration": 280, "tempo": 79, "key": "D",
     "leadVocals": "Volker, Bernd",
     "instruments": [
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Drop-D" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Drop-D" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Drop-D" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Drop-D" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -160,7 +160,7 @@
     "leadVocals": "Bernd, Volker",
     "instruments": [
       { "name": "Volker",     "gear": "Mundharmonika", "tuning": "C" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -173,7 +173,7 @@
     "duration": 260, "tempo": 78, "key": "Am",
     "leadVocals": "Volker, Bernd",
     "instruments": [
-      { "name": "Dirk",       "gear": "Akkustik", "tuning": "Standard" },
+      { "name": "Dirk",       "gear": "Akustik", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",     "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
       { "name": "Jürgen",     "gear": "Banjo" }
@@ -186,8 +186,8 @@
     "leadVocals": "Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "Mundharmonika", "tuning": "A" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
-      { "name": "Dirk",       "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
+      { "name": "Dirk",       "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
       { "name": "Jürgen",     "gear": "Schlagzeug" }
@@ -200,7 +200,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Bernd",      "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Dirk",       "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Dirk",       "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Drop-D" },
       { "name": "Christiane", "gear": "Akkordeon" },
       { "name": "Jürgen",     "gear": "Schlagzeug" }
@@ -213,7 +213,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -227,7 +227,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -240,8 +240,8 @@
     "duration": 240, "tempo": 78, "key": "D",
     "leadVocals": "Volker",
     "instruments": [
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
-      { "name": "Dirk",       "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
+      { "name": "Dirk",       "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
       { "name": "Jürgen",     "gear": "Schlagzeug" }
@@ -254,7 +254,7 @@
     "leadVocals": "Bernd, Volker",
     "instruments": [
       { "name": "Volker",     "gear": "Mundharmonika", "tuning": "A" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -268,8 +268,8 @@
     "leadVocals": "Bernd, Volker",
     "instruments": [
       { "name": "Volker",     "gear": "Mundharmonika", "tuning": "D" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Drop-D" },
-      { "name": "Dirk",       "gear": "Akkustik",  "tuning": "Drop-D" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Drop-D" },
+      { "name": "Dirk",       "gear": "Akustik",  "tuning": "Drop-D" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Drop-D" },
       { "name": "Christiane", "gear": "Akkordeon" },
       { "name": "Jürgen",     "gear": "Schlagzeug" }
@@ -282,7 +282,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -296,7 +296,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -310,7 +310,7 @@
     "leadVocals": "Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -324,7 +324,7 @@
     "leadVocals": "Bernd, Volker",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -338,7 +338,7 @@
     "leadVocals": "Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -351,7 +351,7 @@
     "duration": 177, "tempo": 210, "key": "G",
     "leadVocals": "Volker, Bernd",
     "instruments": [
-      { "name": "Volker",     "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Volker",     "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Bernd",      "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
@@ -366,7 +366,7 @@
     "leadVocals": "Volker, Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -380,7 +380,7 @@
     "leadVocals": "Volker, Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
@@ -394,7 +394,7 @@
     "leadVocals": "Volker, Bernd",
     "instruments": [
       { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
-      { "name": "Bernd",      "gear": "Akkustik",  "tuning": "Standard" },
+      { "name": "Bernd",      "gear": "Akustik",  "tuning": "Standard" },
       { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Standard" },
       { "name": "Christiane", "gear": "Akkordeon" },
