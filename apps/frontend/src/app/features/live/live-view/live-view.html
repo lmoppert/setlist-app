@@ -58,10 +58,10 @@
         </span>
       </button>
       <mat-menu #categoryMenu="matMenu">
-        @for (cat of service.categories;  track cat) {
-          <button mat-menu-item (click)="service.setActiveCategory(cat)" type="button">
-            <mat-icon>{{ cat | catIcon }}</mat-icon>
-            {{ cat }}
+        @for (type of resourceTypes; track type) {
+          <button mat-menu-item (click)="service.setActiveCategory(type)" type="button">
+            <mat-icon>{{ categories[type].icon }}</mat-icon>
+            {{ categories[type].label }}
           </button>
         }
       </mat-menu>

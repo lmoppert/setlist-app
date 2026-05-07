@@ -1,5 +1,6 @@
 import { computed, inject, Injectable, signal } from "@angular/core";
 import { SetlistStore } from "./setlist-store";
+import { RESOURCE_TYPES } from "@setlist-app/shared-types";
 
 @Injectable({ providedIn: 'root' })
 export class LiveService {
@@ -11,8 +12,8 @@ export class LiveService {
   activeMember = signal<string | null>(null);
   setActiveMember(value: string | null) { this.activeMember.set(value); }
 
-  activeCategory = signal<string>('SHEET');  
-  categories = ['SHEET', 'LYRICS', 'BASS', 'RECORDING', 'OTHER'];
+  activeCategory = signal<string>('SHEET');
+  categories = RESOURCE_TYPES //['SHEET', 'LYRICS', 'BASS', 'RECORDING', 'OTHER'];
   setActiveCategory(value: string) { this.activeCategory.set(value); }
 
   readonly fileViewData = computed(() => {

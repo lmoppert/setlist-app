@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
-import { ISetlistEntry } from '@setlist-app/shared-types';
+import { ISetlistEntry, RESOURCE_CATEGORIES, RESOURCE_TYPES } from '@setlist-app/shared-types';
 import { DurationPipe } from '../../../shared/pipes/duration.pipe';
 import { SetlistStore } from '../../../models/setlist-store';
 import { SongCard } from '../song-card/song-card'
@@ -36,6 +36,9 @@ export class LiveView {
   hasStarted = signal(false)
   currentTime = signal(new Date());
   songElements = viewChildren<ElementRef>('songItem');
+
+  readonly resourceTypes = RESOURCE_TYPES;
+  readonly categories = RESOURCE_CATEGORIES;
 
   readonly activeMember = computed(() => { return this.service.activeMember(); })
   readonly activeCategory = computed(() => { return this.service.activeCategory(); })
