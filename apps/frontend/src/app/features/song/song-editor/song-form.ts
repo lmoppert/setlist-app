@@ -10,7 +10,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 
 import { SongStore } from '../../../models/song-store';
-import { IBandMember, ISong } from '@setlist-app/shared-types';
+import {
+  IBandMember, ISong, AVAILABLE_INSTRUMENTS, DEFAULT_INSTRUMENTS
+} from '@setlist-app/shared-types';
 
 @Component({
   selector: 'app-song-form',
@@ -25,6 +27,9 @@ export class SongForm {
   protected fb = inject(FormBuilder);
   protected router = inject(Router);
   protected store = inject(SongStore);
+
+  readonly availableInstruments = AVAILABLE_INSTRUMENTS;
+  readonly memberDefaults = DEFAULT_INSTRUMENTS;
 
   formDirty = output<boolean>();
   slug = input.required<string>();
@@ -46,11 +51,12 @@ export class SongForm {
   initInstruments(members: IBandMember[], song?: ISong) {
     members.forEach(member => {
       const existing = song?.instruments?.find(i => i.memberId === member.id);
+      const defaultName = this.memberDefaults[member.name] || '';
       
       this.instruments.push(this.fb.group({
         memberId: [member.id],
         memberName: [member.name],
-        instrumentName: [existing?.name || ''],
+        name: [existing?.name || defaultName],
         tuning: [existing?.tuning || 'Standard']
       }));
     });
@@ -107,12 +113,17 @@ export class SongForm {
     if (this.songForm.invalid) return;
     const data = this.songForm.getRawValue() as ISong;
 
+    const activeInstruments = data.instruments
+      ?.filter((i: any) => i.name && i.name.trim() !== '')
+      .map((i: any) => ({ name: i.name, tuning: i.tuning, memberId: i.memberId }));
+    const songData = { ...data, instruments: activeInstruments };
+
     if (this.isEditMode) {
-      this.store.update(data).subscribe(() => {
+      this.store.update(songData).subscribe(() => {
         this.songForm.markAsPristine();
       })
     } else {
-      this.store.create(data).subscribe(() => {
+      this.store.create(songData).subscribe(() => {
         this.songForm.markAsPristine();
       })
     }

@@ -44,6 +44,16 @@
     overflow-y: auto;
     padding: 1rem;
     scroll-behavior: smooth; 
+
+    /* Verhindert das Markieren von Text */
+    -webkit-user-select: none;
+    user-select: none;
+
+    /* Verhindert Standard-Gesten (wie Scrollen/Magnifier) während des Touches */
+    touch-action: none; 
+    
+    /* Wichtig für iOS: Verhindert das Kontextmenü beim langen Drücken */
+    -webkit-touch-callout: none;
   }
 
 }

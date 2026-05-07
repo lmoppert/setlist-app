@@ -81,15 +81,11 @@
         
         <mat-form-field appearance="outline">
           <mat-label>Instrument</mat-label>
-          <mat-select formControlName="instrumentName">
+          <mat-select formControlName="name">
             <mat-option value="">-- keins / Stimme --</mat-option>
-            <mat-option value="E-Gitarre">E-Gitarre</mat-option>
-            <mat-option value="Akkustik">Akustik</mat-option>
-            <mat-option value="Schlagzeug">Schlagzeug</mat-option>
-            <mat-option value="Akkordeon">Akkordeon</mat-option>
-            <mat-option value="Bass">Bass</mat-option>
-            <mat-option value="Mundharmonika">Mundharmonika</mat-option>
-            <mat-option value="Tamborin">Tamborin</mat-option>
+            @for (instrument of availableInstruments; track instrument) {
+              <mat-option [value]="instrument">{{ instrument }}</mat-option>
+            }
           </mat-select>
         </mat-form-field>
 
