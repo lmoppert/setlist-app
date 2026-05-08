@@ -49,6 +49,6 @@ Thumbs.db
 
 __screenshots__/
 
-/generated/prisma
 apps/api/src/app/database
 /uploads
+/secrets

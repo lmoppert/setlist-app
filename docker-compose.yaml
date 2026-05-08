@@ -5,9 +5,9 @@ services:
       dockerfile: ./apps/api/Dockerfile
     container_name: setlist-api
     restart: always
+    secrets:
+      - database_url
     environment:
-      # Die Verbindung zu deiner bestehenden Postgres-Instanz
-      - DATABASE_URL=postgres://setlist:lXKcwoxw1eykhDUsgl7ITcamaQszjfQF@172.17.0.1:5432/setlist
       - NODE_ENV=production
       - PORT=3000
       - APP_PASSWORD=bandidos
@@ -18,3 +18,6 @@ services:
       - "host.docker.internal:host-gateway" # Hilft, den Host-Postgres zu finden
     volumes:
       - /var/www/setlist/uploads:/usr/src/app/uploads
+secrets:
+  database_url:
+    file: ./secrets/database_url.txt
