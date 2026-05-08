@@ -42,5 +42,5 @@ USER node
 
 EXPOSE 3000
 
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["start.sh"]
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+CMD ["/usr/local/bin/start.sh"]
