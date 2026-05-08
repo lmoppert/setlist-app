@@ -6,7 +6,6 @@ COPY . .
 # Pakete installieren und builds durchführen
 RUN npm install
 RUN npx nx build api --prod
-RUN npx prisma generate
 
 # 2. Production Stage
 FROM node:24-slim
@@ -22,6 +21,8 @@ RUN apt-get update -y && \
 COPY --from=builder /app/dist/apps/api .
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/apps/api/prisma ./prisma
+
+RUN npx prisma generate
 
 # Entry Scripts kopieren
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
