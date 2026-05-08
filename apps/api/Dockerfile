@@ -25,11 +25,11 @@ COPY --from=builder /app/apps/api/prisma ./prisma
 
 # Entry Scripts kopieren
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
-COPY api-start.sh /usr/local/bin/api-start.sh
+COPY start.sh /usr/local/bin/start.sh
 
 # Executable machen
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh && \
-    chmod +x /usr/local/bin/api-start.sh
+    chmod +x /usr/local/bin/start.sh
 
 # Upload-Ordner erstellen und Berechtigungen setzen
 # Wir erstellen den Ordner hier im Container-Dateisystem
@@ -42,4 +42,4 @@ USER node
 EXPOSE 3000
 
 ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["api-start.sh"]
+CMD ["start.sh"]
