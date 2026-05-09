@@ -1,11 +1,6 @@
 #!/bin/sh
 set -e
 
-echo "Checking secret..."
-ls -ls /run/secrets
-
-export DATABASE_URL="$(cat /run/secrets/database_url)"
-
-echo "DATABASE_URL is set"
+export DATABASE_URL="$(tr -d '\n' < /run/secrets/database_url)"
 
 exec "$@"
