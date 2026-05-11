@@ -7,10 +7,10 @@ services:
     restart: always
     secrets:
       - database_url
+      - jwt_secret
     environment:
       - NODE_ENV=production
       - PORT=3000
-      - APP_PASSWORD=bandidos
       - UPLOAD_DIR=/usr/src/app/uploads
     ports:
       - "127.0.0.1:3000:3000" # Nur lokal binden, Apache leitet von außen weiter
@@ -21,3 +21,5 @@ services:
 secrets:
   database_url:
     file: ./secrets/database_url.txt
+  jwt_secret:
+    file: ./secrets/jwt_secret.txt

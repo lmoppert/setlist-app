@@ -1,8 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UseGuards } from '@nestjs/common';
 import { SetlistService } from './setlist.service';
 import { CreateSetlistDto } from './create-setlist.dto';
 import { UpdateSetlistDto } from './update-setlist.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('setlists')
 export class SetlistController {
   constructor(private readonly service: SetlistService) {}

@@ -2,6 +2,7 @@ import { NotFoundException, Injectable, Logger } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { join } from 'node:path';
 import { readFile, unlink } from 'node:fs/promises';
+import type { Category, FileType } from '../database/client';
 
 @Injectable()
 export class ResourceService {
@@ -20,14 +21,14 @@ export class ResourceService {
     });
     return Promise.all(
       resources.map(async (res) => {
-        if (res.filetype === 'txt') {
+        if (res.filetype === 'TXT') {
           try {
             const absolutePath = join(this.uploadDir, res.path);
             const content = await readFile(absolutePath, 'utf-8');
             return { ...res, content };
           } catch (error) {
             this.logger.error(`Fehler beim Lesen der Datei ${res.path}:`, error);
-            return { ...res, content: 'Fehler beim Laden der Datie.' };
+            return { ...res, content: 'Fehler beim Laden der Datei.' };
           }
         }
         return res;
@@ -38,7 +39,7 @@ export class ResourceService {
   /***************************************************************************
    * Manage resources
    ***************************************************************************/
-  async createResource(songId: string, data: { filename: string, type: string, filetype: string }) {
+  async createResource(songId: string, data: { filename: string, type: Category, filetype: FileType }) {
     return this.prisma.songResource.create({
       data: {
         songId,

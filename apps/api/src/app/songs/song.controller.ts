@@ -1,8 +1,10 @@
-import { Controller, Get, Param, Patch, Body, Post } from '@nestjs/common';
+import { Controller, Get, Param, Patch, Body, Post, UseGuards } from '@nestjs/common';
 import { SongService } from './song.service';
 import { CreateSongDto } from './create-song.dto';
 import { UpdateSongDto } from './update-song.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('songs')
 export class SongController {
   constructor(private readonly service: SongService) {}

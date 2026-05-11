@@ -16,14 +16,13 @@ import { SetlistStore } from '../../../models/setlist-store';
 import { SongCard } from '../song-card/song-card'
 import { SongStore } from '../../../models/song-store';
 import { LiveService } from '../../../models/live-service';
-import { CategoryPipe } from '../../../shared/pipes/icon.pipe';
 
 @Component({
   selector: 'app-live-view',
   imports: [
     MatChipsModule, DurationPipe, MatIconModule, MatButtonModule,
     MatProgressBarModule, CdkDrag, CdkDropList, SongCard, DatePipe,
-    MatFormFieldModule, MatMenuModule, MatTooltipModule, CategoryPipe
+    MatFormFieldModule, MatMenuModule, MatTooltipModule, 
 ],
   templateUrl: './live-view.html',
   styleUrl: './live-view.scss',

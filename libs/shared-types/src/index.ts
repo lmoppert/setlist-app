@@ -4,3 +4,4 @@ export * from './lib/models/setlist';
 export * from './lib/models/song';
 export * from './lib/models/resource';
 export * from './lib/models/instruments';
+export * from './lib/models/user';

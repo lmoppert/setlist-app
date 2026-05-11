@@ -1,9 +1,13 @@
-import { BadRequestException, Body, Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, Delete, Get, Param, Post, UploadedFile, UseGuards, UseInterceptors } from "@nestjs/common";
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ResourceService } from "./resource.service";
 import { diskStorage } from 'multer';
 import { extname, join } from 'path';
+import { UploadResourceDto } from "./upload-resource.dto";
+import { Category, FileType } from '../database/client';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('resources')
 export class ResourceController {
   constructor(private readonly service: ResourceService) {}
@@ -35,15 +39,27 @@ export class ResourceController {
   }))
   async uploadFile(
     @UploadedFile() file: Express.Multer.File,
-    @Body('songId') songId: string,
-    @Body('type') type: string,
+    @Body() dto: UploadResourceDto,
   ) {
     if (!file) throw new BadRequestException('Datei fehlt!');
-    return this.service.createResource(songId, {
-      filename: file.filename,
-      type: type,
-      filetype: file.originalname.endsWith('.pdf') ? 'PDF' : 'TXT'
-    });
+    const extension = extname(file.originalname).toLocaleLowerCase();
+    const extensionMap: Record<string, FileType>= {
+      '.txt': FileType.TXT,
+      '.pdf': FileType.PDF,
+      '.md': FileType.MD,
+      '.mp3': FileType.MP3,
+    }
+    const filetype = extensionMap[extension];
+    if (!filetype) { throw new BadRequestException('Ungültiger Dateityp'); }
+
+    return this.service.createResource(
+      dto.songId,
+      {
+        filename: file.filename,
+        type: dto.type,
+        filetype: filetype, 
+      },
+    );
   }
 
   @Delete(':id')
