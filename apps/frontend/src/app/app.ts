@@ -11,6 +11,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { TitleService } from './core/title.service';
 import { LoginDialog } from './shared/auth/login';
+import { AuthService } from './shared/auth/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -24,6 +25,7 @@ import { LoginDialog } from './shared/auth/login';
 export class App implements OnInit {
   readonly titleService = inject(TitleService);
   private dialog = inject(MatDialog)
+  private auth = inject(AuthService)
 
   protected darkTheme = signal(false);
   readonly isDarkTheme = computed(() => this.darkTheme());
@@ -33,20 +35,23 @@ export class App implements OnInit {
   }
 
   checkAuth() {
-    if (!localStorage.getItem('band_password')) {
-      const dialogRef = this.dialog.open(LoginDialog, {
-        disableClose: true,
-        width: '400px',
-      });
+    this.auth.status().subscribe({
+      next: () => {
+        console.log('User ist eingeloggt');
+      },
+      error: () => {
+        const dialogRef = this.dialog.open(LoginDialog, {
+          disableClose: true,
+          width: '400px',
+        });
 
-      dialogRef.afterClosed().subscribe(result => {
-        if (result) {
-          localStorage.setItem('band_password', result);
-          location.reload();
-        }
-      })
-    }
+        dialogRef.afterClosed().subscribe(() => {
+          this.checkAuth();
+        })
+      },
+    });
   }
+
   toggleTheme() {
     this.darkTheme.update((value) => !value);
     this.applyTheme()

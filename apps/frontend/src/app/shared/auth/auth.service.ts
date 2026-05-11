@@ -14,7 +14,6 @@ export class AuthService {
     return this.http.post<void>(
       '/api/auth/login',
       { username, password, },
-      { withCredentials: true, },
     );
   }
 
@@ -22,7 +21,12 @@ export class AuthService {
     return this.http.post<void>(
       '/api/auth/logout',
       {},
-      { withCredentials: true, },
+    );
+  }
+
+  status() {
+    return this.http.get<{ user: any; }>(
+      '/api/auth/status'
     );
   }
 }

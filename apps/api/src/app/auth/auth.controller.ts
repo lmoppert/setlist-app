@@ -1,12 +1,23 @@
 import "dotenv/config";
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
 import { AuthService } from './auth.service'
+import { JwtAuthGuard } from "./jwt-auth.guard";
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  // Check, whether user is loggen id
+  @UseGuards(JwtAuthGuard)
+  @Get('status')
+  getStatus(@Req() req: any) {
+    return {
+      user: req.user,
+    };
+  }
+
+  // Login endpoint, no AuthGuard!
   @Post('login')
   async login(
     @Body() body: any,
