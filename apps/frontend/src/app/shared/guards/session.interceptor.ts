@@ -14,7 +14,7 @@ export function sessionInterceptor(
       error: (error: HttpErrorResponse) => {
         if (error.status === 401 || error.status === 403) {
           console.warn('Authentifizierung abgelaufen.');
-          location.reload();
+          //location.reload();
         }
       },
     }),

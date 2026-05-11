@@ -57,7 +57,4 @@ export class App implements OnInit {
     body.classList.toggle('light-theme', !this.isDarkTheme());
     body.style.colorScheme = this.isDarkTheme() ? 'dark' : 'light';
   }
-  toggleMenu() {
-    // TODO: Toggle menu
-  }
 }
