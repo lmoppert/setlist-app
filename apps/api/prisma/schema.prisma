@@ -21,16 +21,38 @@ model Song {
   instruments Instrument[]
   resources   SongResource[]
   entries     SetlistEntry[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now()) @updatedAt
 }
 
 model SongResource {
   id        String   @id @default(uuid())
-  type      String   // 'CHORDS', 'BASS', 'AKK', 'LYRICS'
-  filetype  String   // 'PDF', 'TXT', 'MD'
+  type      Category
+  filetype  FileType
   path      String
 
   songId    String
-  song      Song    @relation(fields: [songId], references: [id], onDelete: Cascade)
+  song      Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+}
+
+enum Category {
+  SHEET
+  LYRICS
+  BASS
+  RECORDING
+  ORIGINAL
+  OTHER
+}
+
+enum FileType {
+  TXT
+  PDF
+  MD
+  MP3
 }
 
 model Member {
@@ -39,23 +61,29 @@ model Member {
   isLeadVocalist Boolean      @default(false)
   
   instruments    Instrument[]
+
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @default(now()) @updatedAt
 }
 
 model Instrument {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   name       String
   tuning     String?
 
   songId     String
-  song       Song    @relation(fields: [songId], references: [id], onDelete: Cascade)
+  song       Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
   
   memberId   String
-  member     Member  @relation(fields: [memberId], references: [id])
+  member     Member   @relation(fields: [memberId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 }
 
 model Setlist {
-  id        String   @id @default(uuid())
-  slug      String   @unique
+  id        String     @id @default(uuid())
+  slug      String     @unique
   date      DateTime?
   location  String
 
@@ -63,19 +91,45 @@ model Setlist {
   duration  Int?
   
   entries   SetlistEntry[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
 }
 
 model SetlistEntry {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   position   Int
-  isAccustic Boolean @default(false)
-  isEncore   Boolean @default(false)
+  isAccustic Boolean  @default(false)
+  isEncore   Boolean  @default(false)
 
   setlistId  String
-  setlist    Setlist @relation(fields: [setlistId], references: [id], onDelete: Cascade)
+  setlist    Setlist  @relation(fields: [setlistId], references: [id], onDelete: Cascade)
   
   songId     String
-  song       Song    @relation(fields: [songId], references: [id])
+  song       Song     @relation(fields: [songId], references: [id])
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 
   @@index([setlistId, position])
+}
+
+model User {
+  id            String    @id @default(uuid())
+  username      String    @unique
+  passwordHash  String
+
+  displayName   String?
+  role          UserRole  @default(MEMBER)
+
+  categoryPref  String?
+  memberPref    String?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @default(now()) @updatedAt
+}
+
+enum UserRole {
+  ADMIN
+  MEMBER
 }

@@ -5,9 +5,9 @@
     "duration": 270, "tempo": 57, "key": "Dm",
     "leadVocals": "Volker",
     "instruments": [
-      { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Drop-D" },
+      { "name": "Volker",     "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Bernd",      "gear": "Akustik",  "tuning": "Drop-D" },
-      { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Drop-D" },
+      { "name": "Dirk",       "gear": "E-Gitarre", "tuning": "Standard" },
       { "name": "Lutz",       "gear": "Bass",      "tuning": "Drop-D" },
       { "name": "Christiane", "gear": "Akkordeon" },
       { "name": "Jürgen",     "gear": "Schlagzeug" }

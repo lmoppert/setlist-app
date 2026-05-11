@@ -1,3 +1,5 @@
+import "dotenv/config";
+import * as argon2 from 'argon2';
 import { createPrismaClient } from "../src/app/lib/prisma";
 import { slugify } from "@setlist-app/shared-utils";
 
@@ -7,15 +9,18 @@ import setlists from "./data/setlists.json";
 
 const prisma = createPrismaClient();
 
-async function main() {
-  console.log('Bereinige Datenbank...')
+async function resetData() {
+  console.log('Bereinige Datenbank...');
   await prisma.instrument.deleteMany({});
   await prisma.member.deleteMany({});
   await prisma.setlistEntry.deleteMany({});
   await prisma.setlist.deleteMany({});
   await prisma.song.deleteMany({});
+  console.log('Daten wurden entfernt!');
+}
 
-  console.log('Datenbank ist Leer, starte Import...')
+async function seedData() {
+  console.log('Starte den Import...')
 
   // Band members
   await prisma.member.createMany({
@@ -68,8 +73,46 @@ async function main() {
       }
     });
   };
-
-  console.log('Datenbank ist wieder gefüllt!')
+  console.log('Datenbank ist wieder gefüllt!');
 }
+
+async function createInitialUser() {
+  const password = process.env.BAND_PW
+  if (!password) {
+    console.log('Es wurde kein Band-Passwort konfiguriert, ich breche ab!')
+    return;
+  }
+  const passwordHash = await argon2.hash(password, {
+    type: argon2.argon2id,
+  });
+
+  await prisma.user.upsert({
+    where: {
+      username: 'band',
+    },
+    update: {},
+    create: {
+      username: 'band',
+      passwordHash,
+      displayName: 'Pontchartrain',
+      role: 'MEMBER',
+    }
+  })
+  console.log('Ersten Benutzer angelegt.');
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+
+  if (args.includes('--user-only')) {
+    await createInitialUser();
+    return;
+  }
+  await resetData();
+  await createInitialUser();
+  await seedData();
+  console.log('Seed wurde vollständig abgeschlossen!');
+}
+
 
 main().catch(console.error).finally(() => prisma.$disconnect());
