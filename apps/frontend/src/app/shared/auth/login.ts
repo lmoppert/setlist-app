@@ -1,20 +1,22 @@
 import { Component, inject } from '@angular/core';
-import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { FormsModule } from '@angular/forms';
+import { finalize } from 'rxjs';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule } from '@angular/forms';
-import { finalize } from 'rxjs';
+
 import { AuthService } from './auth.service';
+import { Router } from '@angular/router';
 
 @Component({
+  selector: 'app-login-form',
   imports: [
-    MatDialogModule, MatFormFieldModule, MatInputModule, MatButtonModule,
-    FormsModule,
+    MatFormFieldModule, MatInputModule, MatButtonModule, FormsModule,
   ],
   template: `
-    <h2 mat-dialog-title>Band Bereich</h2>
-    <mat-dialog-content>
+    <div class="login-form">
+      <h2>Band Bereich</h2>
       <p>Bitte melde Dich an, um fortzufahren:</p>
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Benutzername</mat-label>
@@ -23,21 +25,35 @@ import { AuthService } from './auth.service';
       <mat-form-field appearance="outline" class="w-full">
         <mat-label>Passwort</mat-label>
         <input matInput
-               type="password"
-               [(ngModel)]="password"
-               (keyup.enter)="submit()"
-               cdkFocusInitial
+              type="password"
+              [(ngModel)]="password"
+              (keyup.enter)="submit()"
+              cdkFocusInitial
         />
       </mat-form-field>
       @if (error) {
         <p class="error">{{ error }}</p>
       }
-    </mat-dialog-content>
-    <mat-dialog-actions align="end">
-      <button matButton="elevated" (click)="submit()" [disabled]="loading">Login</button>
-    </mat-dialog-actions>
+      <div align="end" class="login-actions">
+        <button matButton="elevated" (click)="submit()" [disabled]="loading">Login</button>
+      </div>
+    </div>
   `,
   styles: [`
+    :host {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: var(--mat-sys-surface-container);
+    }
+    .login-form {
+      border-radius: var(--mat-sys-corner-medium);
+      box-shadow: var(--mat-sys-level3);
+      background-color: var(--mat-sys-surface);
+      padding: 1rem 2rem;
+      width: 400px;
+    }
     .w-full {
       width: 100%;
     }
@@ -48,16 +64,17 @@ import { AuthService } from './auth.service';
       padding: .5rem 1rem;
       margin: 0;
     }
-  `]
+  `],
 })
-export class LoginDialog {
+export class LoginForm {
+  private router = inject(Router);
+
   username = 'band';
   password = '';
   loading = false;
   error = '';
 
   private auth = inject(AuthService);
-  private dialogRef = inject(MatDialogRef<LoginDialog>);
 
   submit() {
     this.error = '';
@@ -69,7 +86,7 @@ export class LoginDialog {
       }),
     ).subscribe({
       next: () => {
-        this.dialogRef.close(true);
+        this.router.navigate(['/']);
       },
       error: () => {
         this.error = 'Benutzername oder Passwort falsch!';

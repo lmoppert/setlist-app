@@ -29,6 +29,21 @@
         {{ titleService.title() }}
       </span>
       <span class="spacer"></span>
+      @if (auth.isAuthenticated()) {
+        <div class="user-actions">
+          <button matButton [matMenuTriggerFor]="userMenu" type="button">
+            <mat-icon>arrow_drop_down</mat-icon>
+            <mat-icon>account_circle</mat-icon>
+            <div class="user-label">{{ auth.currentUser()?.displayName || 'Anonymous' }}</div>
+          </button>
+          <mat-menu #userMenu="matMenu" xPosition="before">
+            <button mat-menu-item (click)="auth.logout()" type="button">
+              <mat-icon>logout</mat-icon>
+              Abmelden
+            </button>
+          </mat-menu>
+        </div>
+      }
       <button matIconButton type="button" aria-label="Switch Themes" (click)="toggleTheme()"
               [matTooltip]="isDarkTheme() ? 'Switch to Light' : 'Switch to Dark'">
         <mat-icon>@if (isDarkTheme()) {light_mode} @else {dark_mode}</mat-icon>

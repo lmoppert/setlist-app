@@ -6,15 +6,15 @@ export const RESOURCE_CATEGORIES = {
   ORIGINAL:  { label: 'Original',  icon: 'video_library' },
   OTHER:     { label: 'Sonstige',  icon: 'photo_library' },
 } as const;
-export type ResourceType = keyof typeof RESOURCE_CATEGORIES;
-export const RESOURCE_TYPES = Object.keys(RESOURCE_CATEGORIES) as ResourceType[];
+export type Category = keyof typeof RESOURCE_CATEGORIES;
+export const RESOURCE_TYPES = Object.keys(RESOURCE_CATEGORIES) as Category[];
 
 export const RESOURCE_FILE_TYPES = ['TXT', 'PDF', 'MD', 'MP3'];
 export type ResourceFileType = typeof RESOURCE_FILE_TYPES [number];
 
 export interface ISongResource {
   id: string;
-  type: ResourceType;
+  type: Category;
   filetype: ResourceFileType;
   path: string;
   content?: string;
