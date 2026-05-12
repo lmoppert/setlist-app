@@ -3,5 +3,6 @@
   "cSpell.words": [
     "setlist",
     "setlists"
-  ]
+  ],
+  "js/ts.tsdk.path": "node_modules\\typescript\\lib"
 }
